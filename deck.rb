@@ -80,13 +80,13 @@ class Deck < Erector::Widgets::Page
         text 'Style:'
       end
       select :id => 'style-themes' do
-        option :selected => 'selected', :value => '../themes/style/web-2.0.css' do
+        option :selected => 'selected', :value => 'deck/themes/style/web-2.0.css' do
           text 'Web 2.0'
         end
-        option :value => '../themes/style/swiss.css' do
+        option :value => 'deck/themes/style/swiss.css' do
           text 'Swiss'
         end
-        option :value => '../themes/style/neon.css' do
+        option :value => 'deck/themes/style/neon.css' do
           text 'Neon'
         end
         option :value => '' do
@@ -97,13 +97,13 @@ class Deck < Erector::Widgets::Page
         text 'Transition:'
       end
       select :id => 'transition-themes' do
-        option :selected => 'selected', :value => '../themes/transition/horizontal-slide.css' do
+        option :selected => 'selected', :value => 'deck/themes/transition/horizontal-slide.css' do
           text 'Horizontal Slide'
         end
-        option :value => '../themes/transition/vertical-slide.css' do
+        option :value => 'deck/themes/transition/vertical-slide.css' do
           text 'Vertical Slide'
         end
-        option :value => '../themes/transition/fade.css' do
+        option :value => 'deck/themes/transition/fade.css' do
           text 'Fade'
         end
         option :value => '' do

@@ -2,8 +2,8 @@
   display: none;
   position: fixed;
   z-index: 3;
-  bottom: 10px;
-  left: 10px;
+  top: 10px;
+  right: 10px;
   height: 20px;
   line-height: 20px;
   padding: 5px;
