@@ -9,6 +9,12 @@ class Deck < Erector::Widgets::Page
     @title
   end
   
+  # todo: promote into Text
+  # todo: support numbers as '&#1234;'
+  def entity entity_id
+    raw("&#{entity_id};")
+  end
+  
 # left over from deck.js' introduction/index.html
 
 # <!DOCTYPE html>
@@ -20,14 +26,14 @@ class Deck < Erector::Widgets::Page
 
   # todo: promote into Page
   def stylesheet src, attributes = {}
-    link {:rel => "stylesheet", :href => src}.merge({attributes})
+    link({:rel => "stylesheet", :href => src}.merge(attributes))
   end
 
   def head_content
     super
     meta 'charset' => 'utf-8'
     meta 'http-equiv'=>"X-UA-Compatible", 'content'=>"IE=edge,chrome=1"
-    meta :name=>"viewport", :content="width=1024, user-scalable=no"
+    meta :name=>"viewport", :content=>"width=1024, user-scalable=no"
     meta :name => "description", :content=> @description if @description
     meta :name => "author", :content=> @author if @author
 
@@ -39,13 +45,14 @@ class Deck < Erector::Widgets::Page
     stylesheet "deck/extensions/navigation/deck.navigation.css"
     stylesheet "deck/extensions/status/deck.status.css"
     stylesheet "deck/extensions/hash/deck.hash.css"
+    stylesheet "deck/extensions/scale/deck.scale.css"
   
     # <!-- Theme CSS files (menu swaps these out) -->
     stylesheet "deck/themes/style/web-2.0.css", :id=>"style-theme-link"
     stylesheet "deck/themes/transition/horizontal-slide.css", :id => "transition-theme-link"
   
     # <!-- Custom CSS just for this page -->
-    stylesheet "introduction.css"
+    stylesheet "deck/introduction/introduction.css"
   
     script :src=>"deck/modernizr.custom.js"
   end
@@ -60,6 +67,8 @@ class Deck < Erector::Widgets::Page
     slide_navigation
     deck_status
     goto_slide
+    permalink
+    scripts
   end
   
   def theme_menu
@@ -115,7 +124,7 @@ class Deck < Erector::Widgets::Page
             text 'Write Slides'
           end
           p do
-            text 'Slide content is simple&nbsp;HTML.'
+            text 'Slide content is simple', entity('nbsp'), 'HTML.'
           end
         end
         li do
@@ -123,7 +132,7 @@ class Deck < Erector::Widgets::Page
             text 'Choose Themes'
           end
           p do
-            text 'One for slide styles and one for deck&nbsp;transitions.'
+            text 'One for slide styles and one for deck', entity('nbsp'), 'transitions.'
           end
         end
         li do
@@ -131,7 +140,7 @@ class Deck < Erector::Widgets::Page
             text 'Include Extensions'
           end
           p do
-            text 'Add extra functionality to your deck, or leave it stripped&nbsp;down.'
+            text 'Add extra functionality to your deck, or leave it stripped', entity('nbsp'), 'down.'
           end
         end
       end
@@ -171,7 +180,7 @@ class Deck < Erector::Widgets::Page
         text 'Style Themes'
       end
       p do
-        text 'Customizes the colors, typography, and layout of slide&nbsp;content.'
+        text 'Customizes the colors, typography, and layout of slide', entity('nbsp'), 'content.'
       end
       pre do
         code do
@@ -182,15 +191,15 @@ class Deck < Erector::Widgets::Page
         text 'Transition Themes'
       end
       p do
-        text 'Defines transitions between slides using CSS3 transitions.  Less capable browsers fall back to cutaways. But'
+        text 'Defines transitions between slides using CSS3 transitions.  Less capable browsers fall back to cutaways. But '
         strong do
           text 'you'
         end
-        text 'aren&rsquo;t using'
+        text ' aren', entity('rsquo'), 't using '
         em do
           text 'those'
         end
-        text 'browsers to give your presentations, are&nbsp;you&hellip;'
+        text ' browsers to give your presentations, are', entity('nbsp'), 'you', entity('hellip'), '?'
       end
       pre do
         code do
@@ -203,32 +212,32 @@ class Deck < Erector::Widgets::Page
         text 'Extensions'
       end
       p do
-        text 'Core gives you basic slide functionality with left and right arrow navigation, but you may want more. Here are the ones included in this&nbsp;deck:'
+        text 'Core gives you basic slide functionality with left and right arrow navigation, but you may want more. Here are the ones included in this', entity('nbsp'), 'deck:'
       end
       ul do
         li :class => 'slide', :id => 'extensions-goto' do
           strong do
             text 'deck.goto'
           end
-          text ': Adds a shortcut key to jump to any slide number.  Hit g, type in the slide number, and hit&nbsp;enter.'
+          text ': Adds a shortcut key to jump to any slide number.  Hit g, type in the slide number, and hit', entity('nbsp'), 'enter.'
         end
         li :class => 'slide', :id => 'extensions-hash' do
           strong do
             text 'deck.hash'
           end
-          text ': Enables internal linking within slides, deep linking to individual slides, and updates the address bar & a permalink anchor with each slide&nbsp;change.'
+          text ': Enables internal linking within slides, deep linking to individual slides, and updates the address bar & a permalink anchor with each slide', entity('nbsp'), 'change.'
         end
         li :class => 'slide', :id => 'extensions-menu' do
           strong do
             text 'deck.menu'
           end
-          text ': Adds a menu view, letting you see all slides in a grid. Hit m to toggle to menu view, continue navigating your deck, and hit m to return to normal view. Touch devices can double-tap the deck to switch between&nbsp;views.'
+          text ': Adds a menu view, letting you see all slides in a grid. Hit m to toggle to menu view, continue navigating your deck, and hit m to return to normal view. Touch devices can double-tap the deck to switch between', entity('nbsp'), 'views.'
         end
         li :class => 'slide', :id => 'extensions-navigation' do
           strong do
             text 'deck.navigation'
           end
-          text ': Adds clickable left and right buttons for the less keyboard&nbsp;inclined.'
+          text ': Adds clickable left and right buttons for the less keyboard', entity('nbsp'), 'inclined.'
         end
         li :class => 'slide', :id => 'extensions-status' do
           strong do
@@ -238,7 +247,7 @@ class Deck < Erector::Widgets::Page
         end
       end
       p :class => 'slide', :id => 'extension-folders' do
-        text 'Each extension folder in the download package contains the necessary JavaScript, CSS, and HTML&nbsp;files. For a complete list of extension modules included in deck.js, check out the&nbsp;'
+        text 'Each extension folder in the download package contains the necessary JavaScript, CSS, and HTML', entity('nbsp'), 'files. For a complete list of extension modules included in deck.js, check out the', entity('nbsp'), ''
         a :href => 'http://imakewebthings.github.com/deck.js/docs' do
           text 'documentation'
         end
@@ -309,10 +318,9 @@ class Deck < Erector::Widgets::Page
         text 'Other Elements: Video Embeds'
       end
       p do
-        text 'Embed videos from your favorite online video service or with an HTML5 video&nbsp;element.'
+        text 'Embed videos from your favorite online video service or with an HTML5 video', entity('nbsp'), 'element.'
       end
-      iframe :src => 'http://player.vimeo.com/video/1063136?title=0&byline=0&portrait=0', :width => '400', :height => '225', :frameborder => '0' do
-      end
+      # iframe :src => 'http://player.vimeo.com/video/1063136?title=0&byline=0&portrait=0', :width => '400', :height => '225', :frameborder => '0'
       pre do
         code do
           text '<iframe src="http://player.vimeo.com/video/1063136?title=0&amp;byline=0&amp;portrait=0" width="400" height="225" frameborder="0"></iframe>'
@@ -324,7 +332,7 @@ class Deck < Erector::Widgets::Page
         text 'Digging Deeper'
       end
       p do
-        text 'If you want to learn about making your own themes, extending deck.js, and more, check out the&nbsp;'
+        text 'If you want to learn about making your own themes, extending deck.js, and more, check out the', entity('nbsp'), ''
         a :href => '../docs/' do
           text 'documentation'
         end
@@ -369,19 +377,21 @@ class Deck < Erector::Widgets::Page
   end
   
   def scripts
-    comment 'Grab CDN jQuery, with a protocol relative URL; fall back to local if offline'
-    script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js'
-    script "window.jQuery || document.write('<script src=\"../jquery-1.7.min.js\"><\/script>')"
+    # comment 'Grab CDN jQuery, with a protocol relative URL; fall back to local if offline'
+    # script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js'
+    script :src => './deck/jquery-1.7.min.js'
+    
+    comment 'Deck Core and extensions'
+    script :type => "text/javascript", :src => 'deck/core/deck.core.js'
 
-    comment 'Deck Core and extensions'    
-    script :src => 'deck/core/deck.core.js'
-    script :src => 'deck/extensions/hash/deck.hash.js'
-    script :src => 'deck/extensions/menu/deck.menu.js'
-    script :src => 'deck/extensions/goto/deck.goto.js'
-    script :src => 'deck/extensions/status/deck.status.js'
-    script :src => 'deck/extensions/navigation/deck.navigation.js'
+    script :type => "text/javascript", :src => 'deck/extensions/hash/deck.hash.js'
+    script :type => "text/javascript", :src => 'deck/extensions/menu/deck.menu.js'
+    script :type => "text/javascript", :src => 'deck/extensions/goto/deck.goto.js'
+    script :type => "text/javascript", :src => 'deck/extensions/status/deck.status.js'
+    script :type => "text/javascript", :src => 'deck/extensions/navigation/deck.navigation.js'
+    script :type => "text/javascript", :src => 'deck/extensions/scale/deck.scale.js'
 
     comment 'Specific to this page'
-    script :src => 'introduction.js'
+    script :src => 'deck/introduction/introduction.js'
   end
 end
