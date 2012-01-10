@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+here = File.expand_path(File.dirname(__FILE__))

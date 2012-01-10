@@ -1,9 +1,12 @@
 require 'erector'
+require 'redcarpet'
 
 class Deck < Erector::Widgets::Page
   needs :title => "deck.rb presentation",
     :description => nil,
     :author => nil
+    
+  needs :slides => nil
   
   def page_title
     @title
@@ -37,7 +40,6 @@ class Deck < Erector::Widgets::Page
     meta :name => "author", :content=> @author if @author
 
     #  <!-- Core and extension CSS files -->
-    stylesheet "deck/core/deck.core.css"
     stylesheet "deck/core/deck.core.css"
     
     stylesheet "deck/extensions/goto/deck.goto.css"
@@ -140,6 +142,16 @@ class Deck < Erector::Widgets::Page
   end
   
   def slides
+    if @slides
+      @slides.each do |slide|
+        widget slide
+      end
+    else
+      default_slide
+    end
+  end
+  
+  def default_slide
     slide 'readme' do
       h2 "deck.rb"
       ul {
