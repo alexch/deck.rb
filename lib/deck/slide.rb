@@ -1,7 +1,9 @@
 # based on work by Alex and others in Showoff
 require 'redcarpet'
 
-class Slide < Erector::Widget
+
+module Deck
+ class Slide < Erector::Widget
 
   # todo: test this method
   def self.from_file markdown_file
@@ -114,4 +116,5 @@ class Slide < Erector::Widget
       rawtext html
     end    
   end
+ end
 end

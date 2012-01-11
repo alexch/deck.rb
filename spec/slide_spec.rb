@@ -1,9 +1,10 @@
 # based on work by Alex and others in Showoff
 
 require File.expand_path "../spec_helper", __FILE__
-require "slide"
+require "deck/slide"
 
-describe Slide do
+module Deck
+ describe Slide do
   
   describe "classes" do
     it "by default" do
@@ -279,7 +280,6 @@ foo
       HTML
       assert { html == expected_html }
     end
-  end
-  
+  end 
+ end
 end
-

@@ -1,9 +1,10 @@
 here = File.expand_path File.dirname(__FILE__)
 require "#{here}/spec_helper"
 
-require "deck"
+require "deck/deck"
 
-describe Deck do
+module Deck
+ describe Deck do
   def temp_dir options = {:remove => true}
     @temp_dir ||= begin
       require 'tmpdir'
@@ -93,4 +94,5 @@ describe Deck do
     }
   end
   
+ end
 end

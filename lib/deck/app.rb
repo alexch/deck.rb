@@ -1,4 +1,5 @@
-class DeckApp
+module Deck
+ class App
   def initialize root, files
     @root, @files = root, files
   end
@@ -11,4 +12,5 @@ class DeckApp
     deck = Deck.new :slides => slides
     [200, {}, deck.to_pretty]
   end
+ end
 end
