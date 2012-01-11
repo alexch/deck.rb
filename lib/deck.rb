@@ -50,14 +50,12 @@ class Deck < Erector::Widgets::Page
     stylesheet "deck/extensions/status/deck.status.css"
     stylesheet "deck/extensions/hash/deck.hash.css"
     stylesheet "deck/extensions/scale/deck.scale.css"
+    
+    stylesheet "deck/extensions/theme-picker/deck.theme-picker.css"
   
     # <!-- Theme CSS files (menu swaps these out) -->
     stylesheet "deck/themes/style/web-2.0.css", :id=>"style-theme-link"
     stylesheet "deck/themes/transition/horizontal-slide.css", :id => "transition-theme-link"
-  
-    # <!-- Custom CSS just for this page -->
-    # (this is mostly just for the theme menu, so we'll leave it in the parent)
-    stylesheet "deck/introduction/introduction.css"
   
     script :src=>"deck/modernizr.custom.js"
   end
@@ -77,8 +75,12 @@ class Deck < Erector::Widgets::Page
     script :type => "text/javascript", :src => 'deck/extensions/navigation/deck.navigation.js'
     script :type => "text/javascript", :src => 'deck/extensions/scale/deck.scale.js'
 
-    # (this is really just for the theme menu, so we'll leave it in the parent)
-    script :src => 'deck/introduction/introduction.js'
+
+    # fire up deck.js
+    script "$(function(){$.deck('.slide');});"
+    
+    script :type => "text/javascript", :src => 'deck/extensions/theme-picker/deck.theme-picker.js'
+    
   end
 
   def body_attributes
@@ -86,7 +88,6 @@ class Deck < Erector::Widgets::Page
   end
 
   def body_content
-    theme_menu
     slides
     slide_navigation
     deck_status
@@ -94,49 +95,7 @@ class Deck < Erector::Widgets::Page
     permalink
     scripts
   end
-  
-  def theme_menu
-    div :class => 'theme-menu' do
-      h2 do
-        text 'Themes'
-      end
-      label :for => 'style-themes' do
-        text 'Style:'
-      end
-      select :id => 'style-themes' do
-        option :selected => 'selected', :value => 'deck/themes/style/web-2.0.css' do
-          text 'Web 2.0'
-        end
-        option :value => 'deck/themes/style/swiss.css' do
-          text 'Swiss'
-        end
-        option :value => 'deck/themes/style/neon.css' do
-          text 'Neon'
-        end
-        option :value => '' do
-          text 'None'
-        end
-      end
-      label :for => 'transition-themes' do
-        text 'Transition:'
-      end
-      select :id => 'transition-themes' do
-        option :selected => 'selected', :value => 'deck/themes/transition/horizontal-slide.css' do
-          text 'Horizontal Slide'
-        end
-        option :value => 'deck/themes/transition/vertical-slide.css' do
-          text 'Vertical Slide'
-        end
-        option :value => 'deck/themes/transition/fade.css' do
-          text 'Fade'
-        end
-        option :value => '' do
-          text 'None'
-        end
-      end
-    end
-  end
-  
+    
   def slide slide_id
     # todo: use Slide object, but without markdown
     # slide = Slide.new(:slide_id => slide_id)

@@ -1,8 +1,8 @@
-.deck-container .theme-menu {
+.deck-container .theme-picker {
   display: none;
   position: fixed;
   z-index: 3;
-  top: 10px;
+  bottom: -20px;
   right: 10px;
   height: 20px;
   line-height: 20px;
@@ -16,12 +16,12 @@
   font-family: sans-serif;
   color: #888;
 }
-.js .deck-container .theme-menu {
+.js .deck-container .theme-picker {
   display: block;
 }
-.deck-container .theme-menu h2 {
+.deck-container .theme-picker h2 {
   float: left;
-  font-size: 20px;
+  font-size: 12px;
   border: 0;
   padding: 5px 10px;
   margin: 0;
@@ -35,21 +35,21 @@
   font-family: sans-serif;
   font-weight: bold;
 }
-.deck-container .theme-menu label {
+.deck-container .theme-picker label {
   float: left;
   display: block;
   font-size: 12px;
   vertical-align: baseline;
   margin: 0 4px 0 15px;
 }
-.deck-container .theme-menu select {
+.deck-container .theme-picker select {
   float: left;
   display: block;
   font-size: 14px;
 }
 
 @media print {
-  .theme-menu {
+  .theme-picker {
     display: none !important;
   }
 }
