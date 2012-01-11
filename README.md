@@ -12,6 +12,33 @@
   * Markdown
 * presentations can comprise several source files
 
+## Command-Line API (proposed)
+
+`deck run foo.md`
+
+ * start a local Rack server (probably Sinatra) on port 4333
+ * http://localhost:4333/ serves the presentation in foo.md
+ * can also specify multiple source files in a row
+
+`deck build foo.md`
+
+ * create a static site
+ * default output dir = ./public (even if foo.md is elsewhere)
+ * copies deck.js source
+ * also copies "img" directory if it exists
+
+`deck deploy` ???
+
+ * some way to build/rebuild a project that is deployable to heroky
+
+
+### Options
+
+ * --output dir
+ * --config deck.json
+ * --port portnum
+ * --theme themename
+
 ## Credits
 
 * deck.js by Caleb at http://imakewebthings.com

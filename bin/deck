@@ -1,24 +1,58 @@
 #!/usr/bin/env ruby
 
 here = File.expand_path(File.dirname(__FILE__))
+root = File.join(here, '..')
 $: << File.join(here, '..', 'lib')
 require "deck"
+require "rack"
+require "app"
 
-slides = []
-output_path = nil
-output_dir = "."  # for now, since deck.js is relative to the project root
+command = ARGV.shift
 
-ARGV.each do |arg|
-  # output_dir ||= File.dirname(arg)
-  basename ||= File.basename(arg, ".md")
-  output_path ||= "#{output_dir}/#{basename}.html"
+case command
+when 'build'
+
+  slides = []
+  output_path = nil
+  output_dir = "."  # for now, since deck.js is relative to the project root
+
+  ARGV.each do |arg|
+    # output_dir ||= File.dirname(arg)
+    basename ||= File.basename(arg, ".md")
+    output_path ||= "#{output_dir}/#{basename}.html"
   
-  slides += Slide.from_file arg  
-end
+    slides += Slide.from_file arg  
+  end
 
-File.open(output_path, "w") do |file|
-  deck = Deck.new :slides => slides
-  # deck.to_pretty(:output => file)  # todo: figure out why this doesn't work
-  file.write deck.to_pretty
+  File.open(output_path, "w") do |file|
+    deck = Deck.new :slides => slides
+    # deck.to_pretty(:output => file)  # todo: figure out why this doesn't work
+    file.write deck.to_pretty
+  end
+
+when 'run'
+  
+  # Fix Rack bug https://github.com/rack/rack/issues/301
+  require 'rack_static_patch'
+  
+  port = 4333  # todo: option
+  app = Rack::Builder.app do
+    use Rack::ShowExceptions
+    use Rack::ShowStatus    
+    use Rack::Static, :urls => ["/deck"], :root => root
+    run DeckApp.new(root, ARGV)
+  end
+  Rack::Handler.default.run app, :Port => port
+  
+else
+  puts "Unknown command '#{command}'"
+  puts <<-USAGE
+Usage:
+  deck build src.md...
+  
+  deck run src.md...
+
+  USAGE
+  exit 1
 end
 
