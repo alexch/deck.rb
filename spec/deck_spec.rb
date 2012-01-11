@@ -42,6 +42,34 @@ describe Deck do
     end
     File.new path
   end
+
+  describe "#write" do
+    before do
+      @hello = write "hello.txt"
+      @goodbye = write "goodbye.txt", "farewell"
+    end
+  
+    it "uses temp_dir" do
+      File.dirname(@hello).should == temp_dir
+      File.dirname(@goodbye).should == temp_dir
+    end
+  
+    it "writes a default value" do
+      File.read(@hello).should == "contents of hello.txt"
+    end
+  
+    it "writes a given value" do
+      # since write returns a File instance, we can call read on it
+      @goodbye.read.should == "farewell"
+    end
+
+    it "writes a file" do
+      file = write("hello.md", "# hello")
+      assert { File.read(file) == "# hello" }
+    end
+  
+  end
+  
   
   it "renders a basic deck.js HTML page" do
     assert { doc }
@@ -51,14 +79,7 @@ describe Deck do
   it "contains a single dummy slide" do
     assert { doc.css('section.slide').size == 1 }
   end
-  
-  describe "write" do
-    it "writes a file" do
-      file = write("hello.md", "# hello")
-      assert { File.read(file) == "# hello" }
-    end
-  end
-  
+    
   it "renders a markdown file with one slide" do
     file = write("hello.md", "# hello")
     

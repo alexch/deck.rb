@@ -107,7 +107,30 @@ describe Slide do
         assert { slide.markdown_text == "# Two\n* dos\n" }
       end
 
-      it "mixed with SLIDE directives" do
+      it "with underline-style H1s" do
+        pending "parsing underline-style H1s"
+        slides = Slide.split <<-MARKDOWN
+One
+===
+* uno
+
+Two
+===
+* dos
+        MARKDOWN
+        assert { slides.size == 2 }
+
+        slide = slides.first
+        assert { slide.classes == ["slide"] }
+        assert { slides.first.markdown_text == "One\n===\n* uno\n\n" }
+
+        slide = slides[1]
+        assert { slide.classes == ["slide"] }
+        assert { slide.markdown_text == "Two\n===\n* dos\n" }
+      end
+
+
+      it "with mixed SLIDE directives" do
         varied = <<-MARKDOWN
 <!SLIDE>
 # One
@@ -167,8 +190,10 @@ describe Slide do
   end
   
   describe "renders deck.js-compatible HTML" do
-    it "with only a header" do
-      html = slide_from("# foo").to_pretty
+    it "with only a header, leaving a solo H1 as an H1" do
+      html = slide_from(<<-MARKDOWN).to_pretty
+# foo
+      MARKDOWN
       expected_html = <<-HTML
 <section class="slide" id="foo">
 <h1>foo</h1>
@@ -178,7 +203,11 @@ describe Slide do
     end
 
     it "with a header and bullets (converting a non-solo H1 into an H2 for deck.js style compatibility)" do
-      html = slide_from("# foo\n* bar\n* baz").to_pretty
+      html = slide_from(<<-MARKDOWN).to_pretty
+# foo
+* bar
+* baz
+      MARKDOWN
       expected_html = <<-HTML
 <section class="slide" id="foo">
 <h2>foo</h2>
@@ -192,6 +221,65 @@ describe Slide do
       assert { html == expected_html }
     end
 
+    it "with only a underline-style header, leaving a solo H1 as an H1" do
+      pending "parsing underline-style H1s"
+      html = slide_from(<<-MARKDOWN).to_pretty
+foo
+===
+      MARKDOWN
+      expected_html = <<-HTML
+<section class="slide" id="foo">
+<h1>foo</h1>
+</section>
+      HTML
+      assert { html == expected_html }
+    end
+
+    it "converts a non-solo underline-style H1 into an H2 for deck.js style compatibility)" do
+      pending "parsing underline-style H1s"
+      html = slide_from(<<-MARKDOWN).to_pretty
+foo
+===
+* bar
+* baz
+      MARKDOWN
+      expected_html = <<-HTML
+<section class="slide" id="foo">
+<h2>foo</h2>
+
+<ul>
+<li>bar</li>
+<li>baz</li>
+</ul>
+</section>
+      HTML
+      assert { html == expected_html }
+    end
+    
+    
   end
+  
+  describe "slide classes" do
+    it "are added to the section element" do
+      html = slide_from(<<-MARKDOWN).to_pretty
+<!SLIDE fancy pants>
+# foo
+* bar
+* baz
+      MARKDOWN
+      expected_html = <<-HTML
+<section class="slide fancy pants" id="foo">
+<h2>foo</h2>
+
+<ul>
+<li>bar</li>
+<li>baz</li>
+</ul>
+</section>
+      HTML
+      assert { html == expected_html }
+    end
+  end
+  
 end
 
