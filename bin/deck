@@ -41,7 +41,7 @@ when 'run'
     use Rack::ShowExceptions
     use Rack::ShowStatus    
     use Rack::Static, :urls => ["/deck"], :root => root
-    run Deck::App.new(root, ARGV)
+    run Deck::App.new(Dir.pwd, ARGV)
   end
   Rack::Handler.default.run app, :Port => port
   
