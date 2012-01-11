@@ -20,3 +20,5 @@ RSpec::Core::RakeTask.new do |task|
   task.verbose = false
 end
 
+# gem "bundler"
+require "bundler/gem_tasks"
