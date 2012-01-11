@@ -1,1 +1,6 @@
 Gemfile.lock
+.pkg
+*.gem
+.bundle
+pkg/*
+
