@@ -3,6 +3,11 @@ require 'redcarpet'
 
 class Slide < Erector::Widget
 
+  # todo: test this method
+  def self.from_file markdown_file
+    split File.read(markdown_file)
+  end
+
   # given a chunk of Markdown text, splits it into an array of Slide objects
   def self.split content
     unless content =~ /^\<?!SLIDE/m
@@ -36,7 +41,7 @@ class Slide < Erector::Widget
 
   attr_reader :classes, :markdown_text
 
-  needs :classes => nil, :markdown_text => nil
+  needs :classes => nil, :markdown_text => nil, :slide_id => nil
   
   
   def initialize options = {}
@@ -83,9 +88,11 @@ class Slide < Erector::Widget
   end
   
   def slide_id
-    lines = @markdown_text.split("\n")
-    raise "an empty slide has no id" if lines.empty?
-    lines.first.gsub(/^#*/, '').strip.downcase.gsub(/[^\w\s]/, '').gsub(/\s/, '_')
+    @slide_id ||= begin
+      lines = @markdown_text.split("\n")
+      raise "an empty slide has no id" if lines.empty?
+      lines.first.gsub(/^#*/, '').strip.downcase.gsub(/[^\w\s]/, '').gsub(/\s/, '_')
+    end
   end
   
   def header_only?

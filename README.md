@@ -31,4 +31,6 @@
 * slim
 * haml
 * specify Redcarpet Markdown extensions
+* syntax highlighting (using sh (js) or coderay (rack)?)
+* option to render all JS and CSS inline, for a self-contained HTML doc (and maybe images too)
 

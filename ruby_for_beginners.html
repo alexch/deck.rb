@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head><meta content="text/html;charset=UTF-8" http-equiv="content-type" />
+    <title>deck.rb presentation</title>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="width=1024, user-scalable=no" name="viewport" />
+    <link href="deck/core/deck.core.css" rel="stylesheet" />
+    <link href="deck/extensions/goto/deck.goto.css" rel="stylesheet" />
+    <link href="deck/extensions/menu/deck.menu.css" rel="stylesheet" />
+    <link href="deck/extensions/navigation/deck.navigation.css" rel="stylesheet" />
+    <link href="deck/extensions/status/deck.status.css" rel="stylesheet" />
+    <link href="deck/extensions/hash/deck.hash.css" rel="stylesheet" />
+    <link href="deck/extensions/scale/deck.scale.css" rel="stylesheet" />
+    <link href="deck/themes/style/web-2.0.css" id="style-theme-link" rel="stylesheet" />
+    <link href="deck/themes/transition/horizontal-slide.css" id="transition-theme-link" rel="stylesheet" />
+    <link href="deck/introduction/introduction.css" rel="stylesheet" />
+    <script src="deck/modernizr.custom.js"></script>
+  </head>
+  <body class="deck-container">
+    <div class="theme-menu">
+      <h2>Themes</h2>
+      <label for="style-themes">Style:</label>
+      <select id="style-themes">
+        <option selected="selected" value="deck/themes/style/web-2.0.css">Web 2.0</option>
+        <option value="deck/themes/style/swiss.css">Swiss</option>
+        <option value="deck/themes/style/neon.css">Neon</option>
+        <option value="">None</option>
+      </select>
+      <label for="transition-themes">Transition:</label>
+      <select id="transition-themes">
+        <option selected="selected" value="deck/themes/transition/horizontal-slide.css">Horizontal Slide</option>
+        <option value="deck/themes/transition/vertical-slide.css">Vertical Slide</option>
+        <option value="deck/themes/transition/fade.css">Fade</option>
+        <option value="">None</option>
+      </select></div>
+    <section class="slide subsection" id="">
+<h1>The Complete Beginner&#39;s Guide to Programming</h1>
+</section>
+    <section class="slide" id="">
+<h1>What is a program?</h1>
+</section>
+    <section class="slide" id="operating_systems">
+<h2>Operating Systems</h2>
+
+<p><img src="img/os_x_logo.jpg" alt=""></p>
+
+<p><img src="img/windows_logo.gif" alt=""></p>
+
+<p><img src="img/linux_logo.gif" alt=""></p>
+</section>
+    <section class="slide" id="applications">
+<h2>Applications</h2>
+
+<p><img src="img/acrobat.jpg" alt="">
+<img src="img/finder.png" alt="">
+<img src="img/firefox.png" alt="">
+<img src="img/itunes.png" alt="">
+<img src="img/quicktime.jpg" alt="">
+<img src="img/safari.png" alt="">
+<img src="img/ms_office.png" alt="">
+<img src="img/wordpress.jpg" alt=""></p>
+</section>
+    <section class="slide centereverything" id="">
+<h2>Web Application In Rails</h2>
+
+<p><img src="img/web_app_in_rails.jpg" alt=""></p>
+</section>
+    <section class="slide incremental smbullets" id="how_do_i_write_one">
+<h2>How do I write one?</h2>
+
+<ul>
+<li>Learn about customer&#39;s requirements</li>
+<li>Translate to &quot;stories&quot;</li>
+<li>Pick a story that seems doable</li>
+<li>Write code that does it</li>
+<li>Show your work to the customer, get feedback</li>
+<li>Based on feedback, adjust your stories</li>
+<li>When a story is done, go back to &quot;pick a story&quot;</li>
+<li>Repeat until app is finished!</li>
+</ul>
+</section>
+    <section class="slide subsection" id="">
+<h1>Let&#39;s start writing code!</h1>
+</section>
+    <section class="slide bullets" id="">
+<p>#* Windows: git bash <img src="img/git_bash.png" alt=""></p>
+
+<ul>
+<li>Mac OS X: Terminal <img src="img/mac_terminal_sm.png" alt=""></li>
+</ul>
+</section>
+    <section class="slide commandline" id="">
+<p>#$ irb</p>
+</section>
+    <section class="slide" id="">
+<h3>Variables</h3>
+
+<h3>words that hold information</h3>
+
+<pre><code>&gt; my_variable = 5
+=&gt; 5
+&gt; my_other_variable = &quot;hi&quot;
+=&gt; &quot;hi&quot;
+</code></pre>
+</section>
+    <section class="slide" id="types_of_information">
+<h3>Types of information</h3>
+</section>
+    <section class="slide" id="strings_text">
+<h3>Strings (text)</h3>
+</section>
+    <section class="slide" id="numbers">
+<h3>Numbers</h3>
+</section>
+    <section class="slide" id="collections">
+<h1>Collections</h1>
+</section>
+    <section class="slide" id="arrays">
+<h2>Arrays</h2>
+
+<p>An Array is a list of objects.</p>
+
+<pre><code>&gt;&gt; fruits = [&quot;kiwi&quot;, &quot;strawberry&quot;, &quot;plum&quot;]
+=&gt; [&quot;kiwi&quot;, &quot;strawberry&quot;, &quot;plum&quot;]
+</code></pre>
+</section>
+    <section class="slide" id="array_indexing">
+<h2>Array Indexing</h2>
+
+<p>Ruby starts counting at zero.</p>
+
+<pre><code>&gt;&gt; fruits[0]
+=&gt; &quot;kiwi&quot;
+&gt;&gt; fruits[2]
+=&gt; &quot;plum&quot;
+&gt;&gt; fruits[3]
+=&gt; nil
+</code></pre>
+</section>
+    <section class="slide" id="array_methods">
+<h2>Array methods</h2>
+
+<ul>
+<li>first, last</li>
+<li>push, pop</li>
+<li><p>shift, unshift</p>
+
+<pre><code>fruits.first #=&gt; &quot;kiwi&quot;
+</code></pre></li>
+</ul>
+</section>
+    <section class="slide" id="hashes">
+<h2>Hashes</h2>
+
+<ul>
+<li>aka Dictionary or Map</li>
+<li><p>collection of key/value pairs</p>
+
+<pre><code>&gt;&gt; states = {&quot;CA&quot; =&gt; &quot;California&quot;, 
+    &quot;DE&quot; =&gt; &quot;Delaware&quot;}
+=&gt; {&quot;CA&quot;=&gt;&quot;California&quot;, &quot;DE&quot;=&gt;&quot;Delaware&quot;}
+
+&gt;&gt; states[&quot;CA&quot;]
+=&gt; &quot;California&quot;
+</code></pre></li>
+</ul>
+</section>
+    <section class="slide" id="operators">
+<h3>Operators</h3>
+
+<h3>doing stuff with variables</h3>
+
+<pre><code>&gt; my_variable + 2
+=&gt; 7
+&gt; my_variable * 3
+=&gt; 15
+&gt; my_fruits = my_fruits + [&quot;lychee&quot;]
+=&gt; [&quot;kiwi&quot;, &quot;strawberry&quot;, &quot;plum&quot;, &quot;lychee&quot;]
+&gt; my_fruits = my_fruits - [&quot;lychee&quot;]
+=&gt; [&quot;kiwi&quot;, &quot;strawberry&quot;, &quot;plum&quot;]
+</code></pre>
+</section>
+    <section class="slide" id="loops">
+<h2>Loops</h2>
+
+<h3>doing the same thing a bunch of times</h3>
+
+<p>The hard way:</p>
+
+<pre><code>&gt;&gt; puts fruits[0]
+kiwi
+=&gt; nil
+&gt;&gt; puts fruits[1]
+strawberry
+=&gt; nil
+&gt;&gt; puts fruits[2]
+plum
+=&gt; nil
+</code></pre>
+</section>
+    <section class="slide" id="loops">
+<h2>Loops</h2>
+
+<h3>doing the same thing a bunch of times</h3>
+
+<p>The easy way:</p>
+
+<pre><code>&gt;&gt; fruits.each {|f| puts f}
+kiwi
+strawberry
+plum
+=&gt; [&quot;kiwi&quot;, &quot;strawberry&quot;, &quot;plum&quot;]
+</code></pre>
+</section>
+    <section class="slide" id="loops_multiline">
+<h2>Loops (multi-line)</h2>
+
+<p>The easy way, with &quot;do...end&quot; rather than &quot;{...}&quot;</p>
+
+<pre><code>&gt;&gt; fruits.each do |f|
+?&gt; puts f
+&gt;&gt; end
+kiwi
+strawberry
+plum
+=&gt; [&quot;kiwi&quot;, &quot;strawberry&quot;, &quot;plum&quot;]
+</code></pre>
+</section>
+    <section class="slide" id="conditionals">
+<h3>Conditionals</h3>
+
+<h3>doing something only if a condition is met</h3>
+
+<pre><code>&gt;&gt; fruits.each do |f|
+?&gt; puts f if f == &quot;plum&quot;
+&gt;&gt; end
+plum
+=&gt; [&quot;kiwi&quot;, &quot;strawberry&quot;, &quot;plum&quot;]
+</code></pre>
+</section>
+    <section class="slide subsection" id="commandline_programs">
+<h1>Command-Line Programs</h1>
+</section>
+    <section class="slide bullets" id="hello_world">
+<h2>Hello World</h2>
+
+<p>hello.rb
+    @@@ Ruby
+    puts &quot;Hello, World!&quot;</p>
+</section>
+    <section class="slide bullets" id="arguments_argv">
+<h2>Arguments (ARGV)</h2>
+
+<p>hello.rb
+    @@@ Ruby
+    puts &quot;Hello, #{ARGV.first}!&quot;</p>
+
+<pre><code>$ ruby hello.rb Alice
+Hello, Alice!
+</code></pre>
+</section>
+    <section class="slide bullets" id="conditionals">
+<h2>Conditionals</h2>
+
+<p>hello.rb
+    @@@ Ruby
+    if ARGV.empty?
+      puts &quot;Hello, World!&quot;
+    else
+      puts &quot;Hello, #{ARGV.first}!&quot;
+    end</p>
+
+<pre><code>$ ruby hello.rb
+Hello, World!
+$ ruby hello.rb Alice
+Hello, Alice!
+</code></pre>
+</section>
+    <section class="slide" id="sinatra">
+<h2>Sinatra</h2>
+
+<h2>hello_app.rb</h2>
+
+<pre><code>@@@ Ruby
+require &#39;rubygems&#39;
+require &#39;sinatra&#39;
+
+get &#39;/&#39; do
+  &quot;&lt;b&gt;Hello, &lt;i&gt;bang bang&lt;/i&gt;!&quot;
+end
+</code></pre>
+</section>
+    <section class="slide commandline" id="sinatra">
+<h2>Sinatra</h2>
+
+<pre><code>$ gem install sinatra
+$ ruby hello_app.rb
+== Sinatra/1.2.6 has taken the stage on 4567 for development with backup from Thin
+&gt;&gt; Thin web server (v1.2.7 codename No Hup)
+&gt;&gt; Maximum connections set to 1024
+&gt;&gt; Listening on 0.0.0.0:4567, CTRL+C to stop
+</code></pre>
+
+<p>then open a browser to <a href="http://localhost:4567/">http://localhost:4567/</a></p>
+</section>
+    <section class="slide bullets" id="sinatra_with_rerun">
+<h2>sinatra with rerun</h2>
+
+<pre><code>gem install rerun
+rerun hello_app.rb
+</code></pre>
+
+<p>...now it&#39;ll automatically reload when you edit a file.</p>
+</section>
+    <section class="slide" id="web_app_network_architecture">
+<h3>Web App Network Architecture</h3>
+
+<p><img src="img/web-application.png" alt=""></p>
+</section>
+    <section class="slide" id="web_app_mvc_architecture">
+<h3>Web App MVC Architecture</h3>
+
+<p><img src="img/mvc_simple.png" alt=""></p>
+</section>
+    <a class="deck-prev-link" href="#" title="Previous"></a><a class="deck-next-link" href="#" title="Next"></a>
+    <p class="deck-status"><span class="deck-status-current"></span>/<span class="deck-status-total"></span></p>
+    <form action="." class="goto-form" method="get">
+      <label for="goto-slide">Go to slide:</label>
+      <input id="goto-slide" list="goto-datalist" name="slidenum" type="text" />
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go" /></form>
+    <a class="deck-permalink" href="." title="Permalink to this slide">#</a>
+    <script src="./deck/jquery-1.7.min.js"></script>
+    <!--Deck Core and extensions-->
+
+    <script src="deck/core/deck.core.js" type="text/javascript"></script>
+    <script src="deck/extensions/hash/deck.hash.js" type="text/javascript"></script>
+    <script src="deck/extensions/menu/deck.menu.js" type="text/javascript"></script>
+    <script src="deck/extensions/goto/deck.goto.js" type="text/javascript"></script>
+    <script src="deck/extensions/status/deck.status.js" type="text/javascript"></script>
+    <script src="deck/extensions/navigation/deck.navigation.js" type="text/javascript"></script>
+    <script src="deck/extensions/scale/deck.scale.js" type="text/javascript"></script>
+    <script src="deck/introduction/introduction.js"></script>
+  </body>
+</html>

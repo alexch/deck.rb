@@ -160,7 +160,10 @@ describe Slide do
       assert { slide_from("# Foo's #1!").slide_id == "foos_1" }
     end
     
-    it "from a parameter if one is passed"
+    it "from a parameter if one is passed" do
+      slide = Slide.new(:markdown_text => "# foo", :slide_id => "bar")
+      assert { slide.slide_id == "bar" }
+    end
   end
   
   describe "renders deck.js-compatible HTML" do

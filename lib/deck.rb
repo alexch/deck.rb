@@ -1,6 +1,8 @@
 require 'erector'
 require 'redcarpet'
 
+require "slide"
+
 class Deck < Erector::Widgets::Page
   needs :title => "deck.rb presentation",
     :description => nil,
@@ -135,8 +137,10 @@ class Deck < Erector::Widgets::Page
     end
   end
   
-  def slide id
-    section.slide :id => id do
+  def slide slide_id
+    # todo: use Slide object, but without markdown
+    # slide = Slide.new(:slide_id => slide_id)
+    section.slide :id => slide_id do
       yield
     end
   end
