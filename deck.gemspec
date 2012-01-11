@@ -2,7 +2,7 @@
 require File.expand_path('../lib/deck/version.rb', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name      = "deck"
+  s.name      = "deckrb"
   s.version   = Deck::VERSION
   s.authors   = ["Alex Chaffee"]
   s.email     = "alex@stinky.com"
