@@ -2,8 +2,11 @@ module Deck
   class App
     def self.build app_root, slide_root, slide_files
       
-      require "thin/logging"
-      Thin::Logging.debug = true
+      if const_defined?(:Thin)
+        if require "thin/logging"
+          Thin::Logging.debug = true
+        end
+      end
 
       Rack::Builder.app do
         use Rack::ShowExceptions
