@@ -12,7 +12,7 @@ class Introduction < Deck
     super
     # <!-- Custom CSS just for this page -->
     # (this is really just for the theme menu, so we'll leave it in the parent)
-    # stylesheet "deck/introduction/introduction.css"
+    # stylesheet "deck.js/introduction/introduction.css"
   end
 
   def slides
@@ -246,6 +246,6 @@ class Introduction < Deck
   def scripts
     super
     comment 'Specific to this page'
-    script :src => 'deck/introduction/introduction.js'
+    script :src => 'deck.js/introduction/introduction.js'
   end
 end

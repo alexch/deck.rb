@@ -11,8 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
-  - deck/core/*.js
-  - deck/extensions/**/*.js
+  - deck.js/core/*.js
+  - deck.js/extensions/**/*.js
 
 # stylesheets
 #
@@ -50,7 +50,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-  - deck/test/*.js
+  - deck.js/test/*.js
 
 # src_dir
 #

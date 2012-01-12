@@ -1,10 +1,14 @@
 module Deck
   class App
     def self.build app_root, slide_root, slide_files
+      
+      require "thin/logging"
+      Thin::Logging.debug = true
+
       Rack::Builder.app do
         use Rack::ShowExceptions
-        use Rack::ShowStatus    
-        use Rack::Static, :urls => ["/deck"], :root => app_root
+        use Rack::ShowStatus
+        use Rack::Static, :urls => ["/deck.js"], :root => app_root
         slide_files.each do |slide_file|
           slide_dir = File.dirname slide_file
           use Rack::Static, :urls => ["/img"], :root => slide_dir
@@ -23,7 +27,7 @@ module Deck
         slides += Slide.from_file "#{@slide_root}/#{file}"  
       end
       deck = Deck.new :slides => slides
-      [200, {}, deck.to_pretty]
+      [200, {}, [deck.to_pretty]]
     end
   end
 end

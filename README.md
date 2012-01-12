@@ -61,3 +61,9 @@
 * syntax highlighting (using sh (js) or coderay (rack)?)
 * option to render all JS and CSS inline, for a self-contained HTML doc (and maybe images too)
 
+## TODO (community)
+
+* add to deck.js wiki https://github.com/imakewebthings/deck.js/wiki
+* announce on https://groups.google.com/forum/#!forum/webslideshow
+* mix with keydown https://github.com/infews/keydown
+
