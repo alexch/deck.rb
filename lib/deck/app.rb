@@ -1,36 +1,51 @@
+here = File.expand_path File.dirname(__FILE__)
+
 module Deck
   class App
-    def self.build app_root, slide_root, slide_files
+    def self.build slide_files
       
       if const_defined?(:Thin)
         if require "thin/logging"
           Thin::Logging.debug = true
         end
       end
-
+      
+      here = File.dirname(__FILE__)
+      app_root = File.expand_path "#{here}/../.."
+      
       Rack::Builder.app do
         use Rack::ShowExceptions
         use Rack::ShowStatus
         use Rack::Static, :urls => ["/deck.js"], :root => app_root
-        slide_files.each do |slide_file|
-          slide_dir = File.dirname slide_file
-          use Rack::Static, :urls => ["/img"], :root => slide_dir
-        end
-        run ::Deck::App.new(slide_root, slide_files)
+        run ::Deck::App.new(slide_files)
       end
     end
 
-    def initialize slide_root, slide_files
-      @slide_root, @slide_files = slide_root, slide_files
+    def initialize slide_files
+      @slide_files = [slide_files].flatten
+      
+      @file_servers = @slide_files.map do |slide_file|
+        Rack::File.new(File.dirname slide_file)
+      end
     end
 
     def call env
-      slides = []
-      @slide_files.each do |file|
-        slides += Slide.from_file "#{@slide_root}/#{file}"  
+      request = Rack::Request.new(env)
+      if request.path == "/"
+        slides = []
+        @slide_files.each do |file|
+          slides += Slide.from_file file
+        end
+        deck = Deck.new :slides => slides
+        [200, {}, [deck.to_pretty]]
+      else
+        result = [404, {}, []]
+        @file_servers.each do |file_server|
+          result = file_server.call(env)
+          break if result.first == 200
+        end
+        result
       end
-      deck = Deck.new :slides => slides
-      [200, {}, [deck.to_pretty]]
     end
   end
 end

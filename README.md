@@ -11,7 +11,10 @@
   * Erector
   * Markdown
 * presentations can comprise several source files
-
+* source files look good as source, built HTML, preview HTML, or as a deck.js doc
+  * slide directives are hidden (e.g. as &lt;!SLIDE&gt;) from built and preview HTML
+  * relative links (e.g. `img src`) are resolved relative to the source file [todo]
+  
 ## Command-Line API (proposed)
 
 `deck run foo.md`

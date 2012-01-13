@@ -10,4 +10,6 @@ end
 group :test do
   gem "wrong"
   gem "nokogiri"
+  gem "rack-test"
+  gem "files"
 end

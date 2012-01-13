@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 here = File.expand_path(File.dirname(__FILE__))
-root = File.join(here, '..')
 $: << File.join(here, '..', 'lib')
 
 require "rack"
@@ -39,7 +38,7 @@ when 'run'
   
   port = 4333  # todo: option
   slide_files = ARGV
-  Rack::Handler.default.run Deck::App.build(root, Dir.pwd, slide_files), :Port => port
+  Rack::Handler.default.run Deck::App.build(slide_files), :Port => port
   
 else
   puts "Unknown command '#{command}'"

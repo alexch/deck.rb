@@ -16,7 +16,7 @@ task :default => [:spec] #, :'jasmine:ci']
 desc "run ruby tests"
 RSpec::Core::RakeTask.new do |task|
   task.pattern = "spec/**/*_spec.rb"
-  task.rspec_opts = [ '-f documentation', '--color']
+  task.rspec_opts = [ '-f documentation', '--color', '--backtrace']
   task.verbose = false
 end
 
