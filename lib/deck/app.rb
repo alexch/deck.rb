@@ -45,7 +45,7 @@ module Deck
         result = [404, {}, []]
         @file_servers.each do |file_server|
           result = file_server.call(env)
-          break if result.first == 200
+          return result if result.first < 400
         end
         result
       end

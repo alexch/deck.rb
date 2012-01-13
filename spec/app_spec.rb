@@ -51,6 +51,7 @@ describe Deck::App do
       end
       @app = Deck::App.new ["#{dir}/foo.md"]
       get "/"
+      assert_ok
       assert { last_response.body.include? "contents of foo.md" }
       assert { last_response.body.include? "<script src=\"deck.js/core/deck.core.js\"" }
     end
@@ -67,10 +68,52 @@ describe Deck::App do
       end
       @app = Deck::App.build ["#{dir}/foo.md"]
       get "/foo.css"
-      assert { last_response.ok? }
+      assert_ok
       assert { last_response.body.include? "contents of foo.css" }
     end
-  
+    
+    def assert_ok
+      unless last_response.ok?
+        status, errors = last_response.status, last_response.errors
+        assert(last_response.inspect) { errors.empty? && status == 200 }
+      end
+    end
+    
+    it "serves multiple markdown files from multiple subdirs, and serves their sibling and child files too" do
+      dir = Files do
+        dir "foo" do
+          file "foo.md"
+          file "foo.css"
+        end
+        dir "bar" do
+          file "bar.md"
+          file "bar.css"
+          dir "img" do
+            file "bar.png"
+          end
+        end
+      end
+      
+      @app = Deck::App.build ["#{dir}/foo/foo.md", "#{dir}/bar/bar.md"]
+
+      get "/"
+      assert_ok
+      assert { last_response.body.include? "contents of foo.md" }
+      assert { last_response.body.include? "contents of bar.md" }
+
+      get "/foo.css"
+      assert_ok
+      assert { last_response.body.include? "contents of foo.css" }
+      
+      get "/bar.css"
+      assert_ok
+      assert { last_response.body.include? "contents of bar.css" }
+      
+      get "/img/bar.png"
+      assert_ok
+      assert { last_response.body.include? "contents of bar.png" }
+      
+    end
 
   end  
 end
