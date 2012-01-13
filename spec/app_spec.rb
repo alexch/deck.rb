@@ -35,7 +35,7 @@ describe Deck::App do
       deckjs_core_path = "deck.js/core/deck.core.js"
       get "/#{deckjs_core_path}"
       assert { last_response.body == 
-        File.read("#{here}/../#{deckjs_core_path}", :encoding => last_response.body.encoding)}
+        File.read("#{here}/../public/#{deckjs_core_path}", :encoding => last_response.body.encoding)}
     end
     
   end
