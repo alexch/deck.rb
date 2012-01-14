@@ -79,7 +79,7 @@ describe Deck::App do
       end
     end
     
-    it "serves multiple markdown files from multiple subdirs, and serves their sibling and child files too" do
+    it "serves multiple slide files from multiple subdirs, and serves their sibling and child files too" do
       dir = Files do
         dir "foo" do
           file "foo.md"

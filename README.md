@@ -13,15 +13,15 @@
 * presentations can comprise several source files
 * source files look good as source, built HTML, preview HTML, or as a deck.js doc
   * slide directives are hidden (e.g. as &lt;!SLIDE&gt;) from built and preview HTML
-  * relative links (e.g. `img src`) are resolved relative to the source file [todo]
-  
+  * links to auxiliary files (e.g. `img src`) are resolved relative to the source file
+
 ## Command-Line API (proposed)
 
 `deck run foo.md`
 
  * start a local Rack server (probably Sinatra) on port 4333
  * http://localhost:4333/ serves the presentation in foo.md
- * can also specify multiple source files in a row
+ * can specify multiple source files in a row
 
 `deck build foo.md`
 
@@ -34,35 +34,46 @@
 
  * some way to build/rebuild a project that is deployable to heroky
 
-
 ### Options
 
- * --output dir
- * --config deck.json
- * --port portnum
- * --theme themename
+* none yet :-)
 
 ## Credits
 
-* deck.js by Caleb at http://imakewebthings.com
-* deck.rb by Alex Chaffee http://alexchaffee.com, with help from
-  * Steven! Ragnarök @nuclearsandwich
+* deck.js by Caleb at <http://imakewebthings.com>
+* deck.rb by Alex Chaffee <http://alexchaffee.com>, with help from
+  * Steven! Ragnarök <http://nuclearsandwich.com>
+  
+### See Also
+
 * showoff by Scott Chacon
+* keydown by Davis Frank
+
+## Bugs and Limitations
+
+* auxiliary files are interleaved in URL path space, so overlapping file names might not resolve to the right file
 
 ## TODO
 
-* markdown
-* multiple files
-* rack app
+* config file
 * config: 
-  * show theme selector
-  * show page number/nav
+  * show/hide theme selector
+  * show/hide page number/nav
   * choose deck extensions
-* slim
-* haml
+* command-line options:
+  * --output dir
+  * --config deck.json
+  * --port portnum
+  * --theme themename
+* more slide file types
+  * html
+  * slim
+  * haml
+  * tilt
 * specify Redcarpet Markdown extensions
 * syntax highlighting (using sh (js) or coderay (rack)?)
-* option to render all JS and CSS inline, for a self-contained HTML doc (and maybe images too)
+* option to render all JS and CSS inline, for a self-contained HTML doc 
+  * and maybe images too, base64-encoded
 
 ## TODO (community)
 
