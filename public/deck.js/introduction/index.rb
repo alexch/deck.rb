@@ -66,8 +66,8 @@ class Index < Erector::Widget
                                               end
                                               input :type => 'submit', :value => 'Go' do
                                               end
-                                              
-                                              
+
+
                                               a :href => '.', :title => 'Permalink to this slide', :class => 'deck-permalink' do
                                                 text '#'
                                               end

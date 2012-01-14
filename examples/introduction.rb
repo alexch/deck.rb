@@ -3,7 +3,7 @@ here = File.expand_path(File.dirname(__FILE__))
 require "#{here}/deck"
 
 class Introduction < Deck
-  
+
   needs :title => "Getting Started with deck.js",
     :description => "A jQuery library for modern HTML presentations",
     :author => "Caleb Troughton"
@@ -167,13 +167,13 @@ class Introduction < Deck
         code do
           text '<section class="slide">
 <h2>Extensions</h2>
-<p>Core gives you basic slide functionality...</p>		
+<p>Core gives you basic slide functionality...</p>
 <ul>
 <li class="slide">
 <h3>deck.goto</h3>
 <p>Adds a shortcut key to jump to any slide number...</p>
 </li>
-<li class="slide">...</li>	
+<li class="slide">...</li>
 <li class="slide">...</li>
 <li class="slide">...</li>
 </ul>
@@ -242,7 +242,7 @@ class Introduction < Deck
       end
     end
   end
-  
+
   def scripts
     super
     comment 'Specific to this page'

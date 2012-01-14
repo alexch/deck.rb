@@ -5,21 +5,21 @@ require "deck/slide"
 
 module Deck
  describe Slide do
-  
+
   describe "classes" do
     it "by default" do
       assert {Slide.new.classes == ["slide"]}
     end
-    
+
     it "when passed a string" do
       assert {Slide.new(:classes => "foo bar").classes == ["slide", "foo", "bar"]}
     end
-    
+
     it "when passed an array" do
       assert {Slide.new(:classes => ["foo", "bar"]).classes == ["slide", "foo", "bar"]}
     end
   end
-  
+
   describe "splits Markdown into slides" do
     it "from an empty string" do
       slides = Slide.split ""
@@ -89,11 +89,11 @@ module Deck
       MARKDOWN
       assert { slides.size == 2 }
     end
-    
+
     def inner_html slide
       noko_doc(slide.to_html).css("section.slide").first.inner_html
     end
-    
+
     describe "every H1 defines a new slide" do
       it "if there are no !SLIDE markers at all" do
         slides = Slide.split <<-MARKDOWN
@@ -104,11 +104,11 @@ module Deck
 * dos
         MARKDOWN
         assert { slides.size == 2 }
-        
+
         slide = slides.first
         assert { slide.classes == ["slide"] }
         assert { slide.markdown_text == "# One\n* uno\n\n" }
-        
+
         slide = slides[1]
         assert { slide.classes == ["slide"] }
         assert { slide.markdown_text == "# Two\n* dos\n" }
@@ -175,26 +175,26 @@ Two
       end
     end
   end
-  
+
   def slide_from markdown_text
     Slide.split(markdown_text).first
   end
-  
+
   describe "sets the slide's id" do
     it "based on the first header" do
       assert { slide_from("# foo").slide_id == "foo" }
     end
-    
+
     it "lowercases and sanitizes" do
       assert { slide_from("# Foo's #1!").slide_id == "foos_1" }
     end
-    
+
     it "from a parameter if one is passed" do
       slide = Slide.new(:markdown_text => "# foo", :slide_id => "bar")
       assert { slide.slide_id == "bar" }
     end
   end
-  
+
   describe "renders deck.js-compatible HTML" do
     it "leaves a solo H1 as an H1" do
       html = slide_from(<<-MARKDOWN).to_pretty
@@ -259,10 +259,10 @@ foo
       HTML
       assert { html == expected_html }
     end
-    
-    
+
+
   end
-  
+
   describe "slide classes" do
     it "are added to the section element" do
       html = slide_from(<<-MARKDOWN).to_pretty
@@ -283,6 +283,6 @@ foo
       HTML
       assert { html == expected_html }
     end
-  end 
+  end
  end
 end

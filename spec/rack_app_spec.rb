@@ -7,12 +7,12 @@ require "rack/test"
 
 describe Deck::RackApp do
   include Rack::Test::Methods
-  
+
   describe "app with middleware" do
     def app
       @app ||= Deck::RackApp.build []
     end
-  
+
     def apps
       @apps ||= begin
         [app].tap do |apps|
@@ -26,18 +26,18 @@ describe Deck::RackApp do
     def raw_app
       apps.last
     end
-  
+
     it "middleware chain resolves to the real app" do
       assert { raw_app.is_a? Deck::RackApp }
     end
-    
+
     it "serves up deck.js source files" do
       deckjs_core_path = "deck.js/core/deck.core.js"
       get "/#{deckjs_core_path}"
-      assert { last_response.body == 
+      assert { last_response.body ==
         File.read("#{here}/../public/#{deckjs_core_path}", :encoding => last_response.body.encoding)}
     end
-    
+
   end
 
   describe "raw app" do
@@ -55,7 +55,7 @@ describe Deck::RackApp do
       assert { last_response.body.include? "contents of foo.md" }
       assert { last_response.body.include? "<script src=\"deck.js/core/deck.core.js\"" }
     end
-    
+
     it "404s anything but the root path" do
       get "/something"
       assert { last_response.status == 404 }
@@ -71,14 +71,14 @@ describe Deck::RackApp do
       assert_ok
       assert { last_response.body.include? "contents of foo.css" }
     end
-    
+
     def assert_ok
       unless last_response.ok?
         status, errors = last_response.status, last_response.errors
         assert(last_response.inspect) { errors.empty? && status == 200 }
       end
     end
-    
+
     it "serves multiple slide files from multiple subdirs, and serves their sibling and child files too" do
       dir = Files do
         dir "foo" do
@@ -93,7 +93,7 @@ describe Deck::RackApp do
           end
         end
       end
-      
+
       @app = Deck::RackApp.build ["#{dir}/foo/foo.md", "#{dir}/bar/bar.md"]
 
       get "/"
@@ -104,16 +104,16 @@ describe Deck::RackApp do
       get "/foo.css"
       assert_ok
       assert { last_response.body.include? "contents of foo.css" }
-      
+
       get "/bar.css"
       assert_ok
       assert { last_response.body.include? "contents of bar.css" }
-      
+
       get "/img/bar.png"
       assert_ok
       assert { last_response.body.include? "contents of bar.png" }
-      
+
     end
 
-  end  
+  end
 end

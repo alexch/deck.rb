@@ -4,9 +4,9 @@ require 'deck/noko'
 
 module Deck
  class Slide < Erector::Widget
-  
+
   include Deck::Noko
-   
+
   # todo: test this method
   def self.from_file markdown_file
     split File.read(markdown_file)
@@ -48,15 +48,15 @@ module Deck
   attr_reader :classes, :markdown_text
 
   needs :classes => nil, :markdown_text => nil, :slide_id => nil
-  
-  
+
+
   def initialize options = {}
     super options
-    
+
     @classes = process_classes
     @markdown_text = ""
   end
-  
+
   def process_classes
     ["slide"] + case @classes
     when NilClass
@@ -68,7 +68,7 @@ module Deck
     else
       raise "can't deal with :classes => #{@classes.inspect}"
     end
-  end  
+  end
 
   def markdown
     @@markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML,
@@ -83,16 +83,16 @@ module Deck
       :superscript => false
     )
   end
-  
+
   def <<(s)
     @markdown_text << s
     @markdown_text << "\n"
   end
-  
+
   def empty?
     @markdown_text.strip == ""
   end
-  
+
   def slide_id
     @slide_id ||= begin
       lines = @markdown_text.split("\n")
@@ -109,9 +109,9 @@ module Deck
       rawtext html
     end
   end
-  
-  private  
-  
+
+  private
+
     # if there is an H1, change it to an H2, unless it's the only thing there
     # TODO: or unless the slide class is whatever
     def mutate_h1? doc
@@ -127,7 +127,7 @@ module Deck
         end
       end
     end
-    
+
     def munge html
       doc = noko_doc(html)
       if mutate_h1? doc

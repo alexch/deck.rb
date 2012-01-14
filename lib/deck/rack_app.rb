@@ -6,15 +6,15 @@ module Deck
       here = File.dirname(__FILE__)
       app_root = File.expand_path "#{here}/../.."
     end
-    
+
     def self.build slide_files
-      
+
       if const_defined?(:Thin)
         if require "thin/logging"
           Thin::Logging.debug = true
         end
       end
-            
+
       Rack::Builder.app do
         use Rack::ShowExceptions
         use Rack::ShowStatus
@@ -24,9 +24,9 @@ module Deck
 
     def initialize slide_files
       @slide_files = [slide_files].flatten
-      
-      @file_servers = 
-        [Rack::File.new("#{::Deck::RackApp.app_root}/public")] + 
+
+      @file_servers =
+        [Rack::File.new("#{::Deck::RackApp.app_root}/public")] +
         @slide_files.map do |slide_file|
           Rack::File.new(File.dirname slide_file)
         end
