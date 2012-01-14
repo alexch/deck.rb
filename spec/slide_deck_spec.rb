@@ -1,10 +1,10 @@
 here = File.expand_path File.dirname(__FILE__)
 require "#{here}/spec_helper"
 
-require "deck/deck"
+require "deck/slide_deck"
 
 module Deck
- describe Deck do
+ describe SlideDeck do
     
   def doc
     @doc ||= begin
@@ -14,7 +14,7 @@ module Deck
   end
   
   def deck_widget options = {}
-    @deck_widget ||= Deck.new options
+    @deck_widget ||= SlideDeck.new options
   end
   
   it "renders a basic deck.js HTML page" do

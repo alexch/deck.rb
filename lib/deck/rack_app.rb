@@ -1,7 +1,7 @@
 here = File.expand_path File.dirname(__FILE__)
 
 module Deck
-  class App
+  class RackApp
     def self.app_root
       here = File.dirname(__FILE__)
       app_root = File.expand_path "#{here}/../.."
@@ -18,7 +18,7 @@ module Deck
       Rack::Builder.app do
         use Rack::ShowExceptions
         use Rack::ShowStatus
-        run ::Deck::App.new(slide_files)
+        run ::Deck::RackApp.new(slide_files)
       end
     end
 
@@ -26,7 +26,7 @@ module Deck
       @slide_files = [slide_files].flatten
       
       @file_servers = 
-        [Rack::File.new("#{::Deck::App.app_root}/public")] + 
+        [Rack::File.new("#{::Deck::RackApp.app_root}/public")] + 
         @slide_files.map do |slide_file|
           Rack::File.new(File.dirname slide_file)
         end
@@ -39,7 +39,7 @@ module Deck
         @slide_files.each do |file|
           slides += Slide.from_file file
         end
-        deck = Deck.new :slides => slides
+        deck = SlideDeck.new :slides => slides
         [200, {}, [deck.to_pretty]]
       else
         result = [404, {}, []]

@@ -1,16 +1,16 @@
 here = File.expand_path File.dirname(__FILE__)
 require "#{here}/spec_helper"
 
-require "deck/app"
+require "deck/rack_app"
 
 require "rack/test"
 
-describe Deck::App do
+describe Deck::RackApp do
   include Rack::Test::Methods
   
   describe "app with middleware" do
     def app
-      @app ||= Deck::App.build []
+      @app ||= Deck::RackApp.build []
     end
   
     def apps
@@ -28,7 +28,7 @@ describe Deck::App do
     end
   
     it "middleware chain resolves to the real app" do
-      assert { raw_app.is_a? Deck::App }
+      assert { raw_app.is_a? Deck::RackApp }
     end
     
     it "serves up deck.js source files" do
@@ -42,14 +42,14 @@ describe Deck::App do
 
   describe "raw app" do
     def app
-      @app ||= Deck::App.new []
+      @app ||= Deck::RackApp.new []
     end
 
     it "serves a .md file as a deck.js HTML file" do
       dir = Files do
         file "foo.md"
       end
-      @app = Deck::App.new ["#{dir}/foo.md"]
+      @app = Deck::RackApp.new ["#{dir}/foo.md"]
       get "/"
       assert_ok
       assert { last_response.body.include? "contents of foo.md" }
@@ -66,7 +66,7 @@ describe Deck::App do
         file "foo.md"
         file "foo.css"
       end
-      @app = Deck::App.build ["#{dir}/foo.md"]
+      @app = Deck::RackApp.build ["#{dir}/foo.md"]
       get "/foo.css"
       assert_ok
       assert { last_response.body.include? "contents of foo.css" }
@@ -94,7 +94,7 @@ describe Deck::App do
         end
       end
       
-      @app = Deck::App.build ["#{dir}/foo/foo.md", "#{dir}/bar/bar.md"]
+      @app = Deck::RackApp.build ["#{dir}/foo/foo.md", "#{dir}/bar/bar.md"]
 
       get "/"
       assert_ok

@@ -4,7 +4,7 @@ require 'redcarpet'
 require "deck/slide"
 
 module Deck
- class Deck < Erector::Widgets::Page
+ class SlideDeck < Erector::Widgets::Page
   needs :title => "deck.rb presentation",
     :description => nil,
     :author => nil

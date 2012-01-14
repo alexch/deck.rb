@@ -5,7 +5,7 @@ $: << File.join(here, '..', 'lib')
 
 require "rack"
 require "deck"
-require "deck/app"
+require "deck/rack_app"
 
 command = ARGV.shift
 
@@ -25,7 +25,7 @@ when 'build'
   end
 
   File.open(output_path, "w") do |file|
-    deck = Deck.new :slides => slides
+    deck = SlideDeck.new :slides => slides
     # deck.to_pretty(:output => file)  # todo: figure out why this doesn't work
     file.write deck.to_pretty
   end
@@ -38,7 +38,7 @@ when 'run'
   
   port = 4333  # todo: option
   slide_files = ARGV
-  Rack::Handler.default.run Deck::App.build(slide_files), :Port => port
+  Rack::Handler.default.run Deck::RackApp.build(slide_files), :Port => port
   
 else
   puts "Unknown command '#{command}'"

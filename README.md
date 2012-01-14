@@ -82,4 +82,4 @@
 * add to deck.js wiki https://github.com/imakewebthings/deck.js/wiki
 * announce on https://groups.google.com/forum/#!forum/webslideshow
 * mix with keydown https://github.com/infews/keydown
-
+* gh-pages documentation site
