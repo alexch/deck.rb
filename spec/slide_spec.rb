@@ -89,7 +89,11 @@ module Deck
       MARKDOWN
       assert { slides.size == 2 }
     end
-
+    
+    def inner_html slide
+      noko_doc(slide.to_html).css("section.slide").first.inner_html
+    end
+    
     describe "every H1 defines a new slide" do
       it "if there are no !SLIDE markers at all" do
         slides = Slide.split <<-MARKDOWN
@@ -100,16 +104,17 @@ module Deck
 * dos
         MARKDOWN
         assert { slides.size == 2 }
+        
         slide = slides.first
         assert { slide.classes == ["slide"] }
-        assert { slides.first.markdown_text == "# One\n* uno\n\n" }
+        assert { slide.markdown_text == "# One\n* uno\n\n" }
+        
         slide = slides[1]
         assert { slide.classes == ["slide"] }
         assert { slide.markdown_text == "# Two\n* dos\n" }
       end
 
       it "with underline-style H1s" do
-        pending "parsing underline-style H1s"
         slides = Slide.split <<-MARKDOWN
 One
 ===
@@ -121,9 +126,9 @@ Two
         MARKDOWN
         assert { slides.size == 2 }
 
-        slide = slides.first
+        slide = slides[0]
         assert { slide.classes == ["slide"] }
-        assert { slides.first.markdown_text == "One\n===\n* uno\n\n" }
+        assert { slide.markdown_text == "One\n===\n* uno\n\n" }
 
         slide = slides[1]
         assert { slide.classes == ["slide"] }
@@ -191,7 +196,7 @@ Two
   end
   
   describe "renders deck.js-compatible HTML" do
-    it "with only a header, leaving a solo H1 as an H1" do
+    it "leaves a solo H1 as an H1" do
       html = slide_from(<<-MARKDOWN).to_pretty
 # foo
       MARKDOWN
@@ -203,7 +208,7 @@ Two
       assert { html == expected_html }
     end
 
-    it "with a header and bullets (converting a non-solo H1 into an H2 for deck.js style compatibility)" do
+    it "converts a non-solo H1 into an H2 for deck.js style compatibility)" do
       html = slide_from(<<-MARKDOWN).to_pretty
 # foo
 * bar
@@ -223,7 +228,6 @@ Two
     end
 
     it "with only a underline-style header, leaving a solo H1 as an H1" do
-      pending "parsing underline-style H1s"
       html = slide_from(<<-MARKDOWN).to_pretty
 foo
 ===
@@ -237,7 +241,6 @@ foo
     end
 
     it "converts a non-solo underline-style H1 into an H2 for deck.js style compatibility)" do
-      pending "parsing underline-style H1s"
       html = slide_from(<<-MARKDOWN).to_pretty
 foo
 ===

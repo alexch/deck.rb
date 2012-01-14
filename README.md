@@ -52,6 +52,8 @@
 ## Bugs and Limitations
 
 * auxiliary files are interleaved in URL path space, so overlapping file names might not resolve to the right file
+* H1s are converted to H2s for compatibility with deck.js's CSS
+  * unless they're the only item on the slide, in which case they remain H1s
 
 ## TODO
 

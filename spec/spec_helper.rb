@@ -7,3 +7,6 @@ require "wrong/adapters/rspec"
 require "nokogiri"
 require "wrong"
 require "files"
+
+require "deck/noko"
+include Deck::Noko
