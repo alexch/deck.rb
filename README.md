@@ -11,9 +11,13 @@
   * Erector
   * Markdown
 * presentations can comprise several source files
-* source files look good as source, built HTML, preview HTML, or as a deck.js doc
-  * slide directives are hidden (e.g. as &lt;!SLIDE&gt;) from built and preview HTML
+* source files look good as source, built HTML, preview HTML, or as a deck doc
+  * slide directives look like comments when rendered into HTML (e.g. as &lt;!SLIDE&gt;)
   * links to auxiliary files (e.g. `img src`) are resolved relative to the source file
+  * generated HTML is pretty-printed
+* uses RedCarpet markdown extensions, including
+  * tables <http://michelf.com/projects/php-markdown/extra/#table>
+  * fenced code blocks <http://michelf.com/projects/php-markdown/extra/#fenced-code-blocks>
 
 ## Command-Line API (proposed)
 
@@ -62,6 +66,8 @@
   * show/hide theme selector
   * show/hide page number/nav
   * choose deck extensions
+* command-line tool can take a directory
+  * first pass: globs all *.md files in it
 * command-line options:
   * --output dir
   * --config deck.json
@@ -69,17 +75,25 @@
   * --theme themename
 * more slide file types
   * html
-  * slim
+  * slim http://slim-lang.com/index.html
   * haml
   * tilt
 * specify Redcarpet Markdown extensions
 * syntax highlighting (using sh (js) or coderay (rack)?)
 * option to render all JS and CSS inline, for a self-contained HTML doc 
   * and maybe images too, base64-encoded
+* image scaling
+* build and push into a gh-pages branch
+* build and push into a heroku app
+* find any lines that start with a <p>.(something) and turn them into <p class="something">
+  * see showoff.rb:189
+* fix title tag (base it off of presentation name or something)
 
 ## TODO (community)
 
+* submit theme-picker extension to deck.js
 * add to deck.js wiki https://github.com/imakewebthings/deck.js/wiki
 * announce on https://groups.google.com/forum/#!forum/webslideshow
 * mix with keydown https://github.com/infews/keydown
 * gh-pages documentation site
+* integrate with slideshow https://github.com/geraldb/slideshow-deck.js

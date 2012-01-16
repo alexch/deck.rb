@@ -2,9 +2,9 @@
   display: none;
   position: fixed;
   z-index: 3;
-  bottom: -20px;
+  top: 4px;
   right: 10px;
-  height: 20px;
+  height: 16px;
   line-height: 20px;
   padding: 5px;
   border: 1px solid #ddd;

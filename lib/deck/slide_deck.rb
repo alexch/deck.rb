@@ -34,53 +34,52 @@ module Deck
     link({:rel => "stylesheet", :href => src}.merge(attributes))
   end
 
+  def extensions
+    @extensions || [
+      'goto',
+      'menu',
+      'navigation',
+      'status',
+      'hash',
+      'scale',
+      # 'theme-picker',
+    ]
+  end
+
   def head_content
     super
     meta 'charset' => 'utf-8'
     meta 'http-equiv'=>"X-UA-Compatible", 'content'=>"IE=edge,chrome=1"
-    meta :name=>"viewport", :content=>"width=1024, user-scalable=no"
+    meta :name => "viewport", :content=> "width=1024, user-scalable=no"
     meta :name => "description", :content=> @description if @description
     meta :name => "author", :content=> @author if @author
 
     #  <!-- Core and extension CSS files -->
     stylesheet "deck.js/core/deck.core.css"
-
-    stylesheet "deck.js/extensions/goto/deck.goto.css"
-    stylesheet "deck.js/extensions/menu/deck.menu.css"
-    stylesheet "deck.js/extensions/navigation/deck.navigation.css"
-    stylesheet "deck.js/extensions/status/deck.status.css"
-    stylesheet "deck.js/extensions/hash/deck.hash.css"
-    stylesheet "deck.js/extensions/scale/deck.scale.css"
-
-    stylesheet "deck.js/extensions/theme-picker/deck.theme-picker.css"
+    extensions.each do |extension|
+      stylesheet "deck.js/extensions/#{extension}/deck.#{extension}.css"
+    end
 
     # <!-- Theme CSS files (menu swaps these out) -->
-    stylesheet "deck.js/themes/style/web-2.0.css", :id=>"style-theme-link"
-    stylesheet "deck.js/themes/transition/horizontal-slide.css", :id => "transition-theme-link"
-
-    script :src=>"deck.js/modernizr.custom.js"
+    stylesheet "deck.js/themes/style/swiss.css", :id=>"style-theme-link"
   end
 
   def scripts
+    script :src => "deck.js/modernizr.custom.js"
+
     # comment 'Grab CDN jQuery, with a protocol relative URL; fall back to local if offline'
     # script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js'
-    script :src => './deck.js/jquery-1.7.min.js'
+    script :src => 'deck.js/jquery-1.7.min.js'
 
     comment 'Deck Core and extensions'
     script :type => "text/javascript", :src => 'deck.js/core/deck.core.js'
 
-    script :type => "text/javascript", :src => 'deck.js/extensions/hash/deck.hash.js'
-    script :type => "text/javascript", :src => 'deck.js/extensions/menu/deck.menu.js'
-    script :type => "text/javascript", :src => 'deck.js/extensions/goto/deck.goto.js'
-    script :type => "text/javascript", :src => 'deck.js/extensions/status/deck.status.js'
-    script :type => "text/javascript", :src => 'deck.js/extensions/navigation/deck.navigation.js'
-    script :type => "text/javascript", :src => 'deck.js/extensions/scale/deck.scale.js'
-
+    extensions.each do |extension|
+      script :type => "text/javascript", :src => "deck.js/extensions/#{extension}/deck.#{extension}.js"
+    end
 
     # fire up deck.js
     script "$(function(){$.deck('.slide');});"
-
-    script :type => "text/javascript", :src => 'deck.js/extensions/theme-picker/deck.theme-picker.js'
 
   end
 

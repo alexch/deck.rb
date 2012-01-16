@@ -1,10 +1,10 @@
-.csstransforms .deck-container.deck-scale {
-  width: auto;
-  -webkit-transform-origin: 50% 0;
-  -moz-transform-origin: 50% 0;
-  -o-transform-origin: 50% 0;
-  -ms-transform-origin: 50% 0;
-  transform-origin: 50% 0;
+.csstransforms .deck-container.deck-scale section.slide {
+	width:auto;
+	-webkit-transform-origin: 50% 0;
+	-moz-transform-origin: 50% 0;
+	-o-transform-origin: 50% 0;
+	-ms-transform-origin: 50% 0;
+	transform-origin: 50% 0;
 }
 .csstransforms .deck-container.deck-scale.deck-menu {
   width: 70%;

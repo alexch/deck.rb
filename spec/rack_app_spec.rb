@@ -79,41 +79,58 @@ describe Deck::RackApp do
       end
     end
 
-    it "serves multiple slide files from multiple subdirs, and serves their sibling and child files too" do
-      dir = Files do
-        dir "foo" do
-          file "foo.md"
-          file "foo.css"
-        end
-        dir "bar" do
-          file "bar.md"
-          file "bar.css"
-          dir "img" do
-            file "bar.png"
+    describe "serving multiple slide files from multiple subdirs" do
+
+      before do
+        @dir = Files do
+          dir "foo" do
+            file "foo.md", "# foo"
+            file "foo.css"
+          end
+          dir "bar" do
+            file "bar.md", "# barista\n\n# barbie\n\n# bartles & james"
+            file "bar.css"
+            dir "img" do
+              file "bar.png"
+            end
           end
         end
+
+        @app = Deck::RackApp.build ["#{@dir}/foo/foo.md", "#{@dir}/bar/bar.md"]
       end
 
-      @app = Deck::RackApp.build ["#{dir}/foo/foo.md", "#{dir}/bar/bar.md"]
+      it "stuffs all the source files into a single slide deck served off /" do
+        get "/"
+        assert_ok
 
-      get "/"
-      assert_ok
-      assert { last_response.body.include? "contents of foo.md" }
-      assert { last_response.body.include? "contents of bar.md" }
+        doc = noko_doc(last_response.body)
 
-      get "/foo.css"
-      assert_ok
-      assert { last_response.body.include? "contents of foo.css" }
+        slides = doc.css('section.slide')
+        assert { slides.size == 4 }
+        assert { slides[0].inner_html.include?("<h1>foo</h1>") }
+        assert { slides[1].inner_html.include?("<h1>barista</h1>") }
+        assert { slides[2].inner_html.include?("<h1>barbie</h1>") }
+        assert { slides[3].inner_html.include?("<h1>bartles &amp; james</h1>") }
+      end
 
-      get "/bar.css"
-      assert_ok
-      assert { last_response.body.include? "contents of bar.css" }
+      it "serves sibling and child files too" do
 
-      get "/img/bar.png"
-      assert_ok
-      assert { last_response.body.include? "contents of bar.png" }
+        get "/foo.css"
+        assert_ok
+        assert { last_response.body.include? "contents of foo.css" }
 
+        get "/bar.css"
+        assert_ok
+        assert { last_response.body.include? "contents of bar.css" }
+
+        get "/img/bar.png"
+        assert_ok
+        assert { last_response.body.include? "contents of bar.png" }
+
+      end
     end
+
+    it ""
 
   end
 end
