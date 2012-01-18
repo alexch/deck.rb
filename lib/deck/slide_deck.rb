@@ -54,6 +54,8 @@ module Deck
     meta :name => "description", :content=> @description if @description
     meta :name => "author", :content=> @author if @author
 
+    stylesheet "coderay.css"
+
     #  <!-- Core and extension CSS files -->
     stylesheet "deck.js/core/deck.core.css"
     extensions.each do |extension|

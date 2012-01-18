@@ -130,7 +130,48 @@ describe Deck::RackApp do
       end
     end
 
-    it ""
+    describe "highlights code blocks" do
+      def build_app markdown
+        @dir = Files do
+          file "foo.md", markdown
+        end
+        @app = Deck::RackApp.build ["#{@dir}/foo.md"]
+      end
+
+      def assert_code_is_highlighted
+        get "/"
+        assert_ok
+        doc = noko_doc(last_response.body)
+
+        slides = doc.css('section.slide')
+        assert { slides.size == 1 }
+        slide = slides.first
+        code_block = slide.css('pre').first
+        assert { code_block.inner_html == "sum = <span class=\"integer\">2</span> + <span class=\"integer\">2</span>\n"     }
+      end
+
+      it "with :::" do
+        build_app <<-MARKDOWN
+# some code
+
+    :::ruby
+    sum = 2 + 2
+        MARKDOWN
+
+        assert_code_is_highlighted
+      end
+
+      it "with @@@" do
+        build_app <<-MARKDOWN
+# some code
+
+    @@@ruby
+    sum = 2 + 2
+        MARKDOWN
+
+        assert_code_is_highlighted
+      end
+    end
 
   end
 end

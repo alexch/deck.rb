@@ -1,5 +1,8 @@
 here = File.expand_path File.dirname(__FILE__)
 
+require 'coderay'
+require 'rack/codehighlighter'
+
 module Deck
   class RackApp
     def self.app_root
@@ -18,6 +21,10 @@ module Deck
       Rack::Builder.app do
         use Rack::ShowExceptions
         use Rack::ShowStatus
+        use Rack::Codehighlighter, :coderay,
+          :element => "pre>code",
+          :markdown => true,
+          :pattern => /\A[:@]{3}\s?(\w+)\s*(\n|&#x000A;)/i
         run ::Deck::RackApp.new(slide_files)
       end
     end
@@ -40,7 +47,7 @@ module Deck
           slides += Slide.from_file file
         end
         deck = SlideDeck.new :slides => slides
-        [200, {}, [deck.to_pretty]]
+        [200, {'Content-Type' => 'text/html'}, [deck.to_pretty]]
       else
         result = [404, {}, []]
         @file_servers.each do |file_server|
