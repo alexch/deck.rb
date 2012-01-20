@@ -1,5 +1,6 @@
 here = File.expand_path File.dirname(__FILE__)
 
+require 'json'
 require 'coderay'
 require 'rack/codehighlighter'
 
@@ -30,23 +31,38 @@ module Deck
     end
 
     def initialize slide_files
-      @slide_files = [slide_files].flatten
+      @slide_files = [slide_files].flatten.map do |slide_file|
+        case slide_file
+        when /\/?showoff.json$/
+          puts "matched"
+          json_file_dir = File.expand_path(File.dirname(slide_file))
+          json_file = slide_file
+          config = JSON.parse(File.read(json_file))
+          config['sections'].map do |markdown_file|
+            if markdown_file =~ /^# /   # you can use literal markdown instead of a file name
+              s = Slide.split(markdown_file)
+              s
+            else
+              File.new(json_file_dir + '/' + markdown_file)
+            end
+          end
+        else
+          File.new(slide_file)
+        end
+      end.flatten
 
       @file_servers =
         [Rack::File.new("#{::Deck::RackApp.app_root}/public")] +
         @slide_files.map do |slide_file|
-          Rack::File.new(File.dirname slide_file)
+          File.expand_path File.dirname(slide_file) if slide_file.is_a? File
+        end.compact.uniq.map do |slide_file_dir|
+          Rack::File.new(slide_file_dir)
         end
     end
 
     def call env
       request = Rack::Request.new(env)
       if request.path == "/"
-        slides = []
-        @slide_files.each do |file|
-          slides += Slide.from_file file
-        end
-        deck = SlideDeck.new :slides => slides
         [200, {'Content-Type' => 'text/html'}, [deck.to_pretty]]
       else
         result = [404, {}, []]
@@ -56,6 +72,22 @@ module Deck
         end
         result
       end
+    end
+
+    def deck
+      SlideDeck.new :slides => slides
+    end
+
+    def slides
+      out = []
+      @slide_files.each do |file|
+        out += if file.is_a? Slide
+          [file]
+        else
+          Slide.from_file file
+        end
+      end
+      out
     end
   end
 end

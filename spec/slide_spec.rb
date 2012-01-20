@@ -284,5 +284,24 @@ foo
       assert { html == expected_html }
     end
   end
+
+  describe "==" do
+    it "a slide is equal to itself" do
+      s = slide_from("# hello")
+      assert { s == s }
+    end
+
+    it "a slide is equal to a clone of itself" do
+      s1 = slide_from("# hello")
+      s2 = slide_from("# hello")
+      assert { s1 == s2 }
+    end
+
+    it "a slide is not equal to a different slide" do
+      s1 = slide_from("# hello")
+      s2 = slide_from("# goodbye")
+      deny { s1 == s2 }
+    end
+  end
  end
 end

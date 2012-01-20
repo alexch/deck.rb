@@ -13,6 +13,7 @@ module Deck
   end
 
   # given a chunk of Markdown text, splits it into an array of Slide objects
+  # todo: move into SlideDeck?
   def self.split content
     unless content =~ /^\<?!SLIDE/m     # this only applies to files with no !SLIDEs at all, which is odd
       content = content.
@@ -47,14 +48,20 @@ module Deck
 
   attr_reader :classes, :markdown_text
 
-  needs :classes => nil, :markdown_text => nil, :slide_id => nil
-
+  needs :classes => nil, :slide_id => nil
+  needs :markdown_text => nil
 
   def initialize options = {}
     super options
 
     @classes = process_classes
     @markdown_text = ""
+  end
+
+  def ==(other)
+    Slide === other and
+    @classes == other.classes and
+    @markdown_text == other.markdown_text
   end
 
   def process_classes

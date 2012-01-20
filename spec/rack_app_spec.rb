@@ -5,8 +5,13 @@ require "deck/rack_app"
 
 require "rack/test"
 
-describe Deck::RackApp do
+module Deck
+ describe RackApp do
   include Rack::Test::Methods
+
+  def here
+    File.expand_path File.dirname(__FILE__)
+  end
 
   describe "app with middleware" do
     def app
@@ -173,5 +178,78 @@ describe Deck::RackApp do
       end
     end
 
+    describe '#slides' do
+      it "builds a bunch of slide objects from the slide_files property" do
+        slide_file = nil
+        @dir = Files do
+          slide_file = file "foo.md", "# hello"
+        end
+        app = RackApp.new [slide_file]
+        assert { app.slides == Slide.from_file(slide_file) }
+      end
+
+      it "reads a showoff.json file" do
+        foo_file, bar_file, showoff_file = nil,nil,nil
+        @dir = Files do
+          foo_file = file "foo.md", "# hello"
+          bar_file = file "bar.md", "# hello"
+          showoff_file = file "showoff.json", <<-JSON
+          {
+            "name": "Ruby For Programmers",
+            "description": "an introduction to the Ruby programming language",
+            "sections": [
+              "foo.md",
+              "bar.md"
+            ]
+          }
+          JSON
+        end
+        app = RackApp.new [showoff_file]
+        assert { app.slides == Slide.from_file(foo_file) + Slide.from_file(bar_file) }
+      end
+
+      it "reads a showoff.json file including literal markdown as a section" do
+        foo_file, bar_file, showoff_file = nil,nil,nil
+        @dir = Files do
+          foo_file = file "foo.md", "# hello"
+          bar_file = file "bar.md", "# goodbye"
+          showoff_file = file "showoff.json", <<-JSON
+          {
+            "name": "Ruby For Programmers",
+            "description": "an introduction to the Ruby programming language",
+            "sections": [
+              "foo.md",
+              "# literal markdown",
+              "bar.md"
+            ]
+          }
+          JSON
+        end
+        app = RackApp.new [showoff_file]
+        assert {
+          app.slides.size == 3
+        }
+        assert {
+          app.slides[1].markdown_text == "# literal markdown\n"
+        }
+        assert { app.slides[0].slide_id == "hello" }
+        assert { app.slides[1].slide_id == "literal_markdown" }
+        assert { app.slides[2].slide_id == "goodbye" }
+        # assert {
+        #   app.slides ==
+        #   Slide.from_file(foo_file) +
+        #   [Slide.new(:markdown_text => "# literal markdown")] +
+        #   Slide.from_file(bar_file)
+        # }
+        assert {
+          app.deck.to_html.include?("<h1>literal markdown</h1>")
+        }
+      end
+
+      it "if no slides are specified, it globs all markdown files under ."
+
+    end
+
   end
+ end
 end
