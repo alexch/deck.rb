@@ -20,7 +20,7 @@ when 'build'
     # output_dir ||= File.dirname(arg)
     basename ||= File.basename(arg, ".md")
     output_path ||= "#{output_dir}/#{basename}.html"
-  
+
     slides += Slide.from_file arg  
   end
 
@@ -43,11 +43,11 @@ else
   puts "Unknown command '#{command}'"
   puts <<-USAGE
 Usage:
+  deck run src.md...
   deck build src.md...
   
-  deck run src.md...
+see http://github.com/alexch/deck.rb README for more help.
 
   USAGE
   exit 1
 end
-
