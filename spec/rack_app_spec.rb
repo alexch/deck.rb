@@ -8,6 +8,7 @@ require "rack/test"
 module Deck
  describe RackApp do
   include Rack::Test::Methods
+  include Files
 
   def here
     File.expand_path File.dirname(__FILE__)
@@ -51,10 +52,8 @@ module Deck
     end
 
     it "serves a .md file as a deck.js HTML file" do
-      dir = Files do
-        file "foo.md"
-      end
-      @app = Deck::RackApp.new ["#{dir}/foo.md"]
+      foo_path = file "foo.md"
+      @app = Deck::RackApp.new [foo_path]
       get "/"
       assert_ok
       assert { last_response.body.include? "contents of foo.md" }
@@ -67,11 +66,9 @@ module Deck
     end
 
     it "serves up non-markdown files in the top directory" do
-      dir = Files do
-        file "foo.md"
-        file "foo.css"
-      end
-      @app = Deck::RackApp.build ["#{dir}/foo.md"]
+      file "foo.md"
+      file "foo.css"
+      @app = Deck::RackApp.build ["#{files.root}/foo.md"]
       get "/foo.css"
       assert_ok
       assert { last_response.body.include? "contents of foo.css" }
@@ -87,21 +84,19 @@ module Deck
     describe "serving multiple slide files from multiple subdirs" do
 
       before do
-        @dir = Files do
-          dir "foo" do
-            file "foo.md", "# foo"
-            file "foo.css"
-          end
-          dir "bar" do
-            file "bar.md", "# barista\n\n# barbie\n\n# bartles & james"
-            file "bar.css"
-            dir "img" do
-              file "bar.png"
-            end
+        dir "foo" do
+          file "foo.md", "# foo"
+          file "foo.css"
+        end
+        dir "bar" do
+          file "bar.md", "# barista\n\n# barbie\n\n# bartles & james"
+          file "bar.css"
+          dir "img" do
+            file "bar.png"
           end
         end
 
-        @app = Deck::RackApp.build ["#{@dir}/foo/foo.md", "#{@dir}/bar/bar.md"]
+        @app = Deck::RackApp.build ["#{files.root}/foo/foo.md", "#{files.root}/bar/bar.md"]
       end
 
       it "stuffs all the source files into a single slide deck served off /" do
@@ -137,10 +132,8 @@ module Deck
 
     describe "highlights code blocks" do
       def build_app markdown
-        @dir = Files do
-          file "foo.md", markdown
-        end
-        @app = Deck::RackApp.build ["#{@dir}/foo.md"]
+        file "foo.md", markdown
+        @app = Deck::RackApp.build ["#{files.root}/foo.md"]
       end
 
       def assert_code_is_highlighted
@@ -180,51 +173,44 @@ module Deck
 
     describe '#slides' do
       it "builds a bunch of slide objects from the slide_files property" do
-        slide_file = nil
-        @dir = Files do
-          slide_file = file "foo.md", "# hello"
-        end
+        slide_file = file "foo.md", "# hello"
         app = RackApp.new [slide_file]
         assert { app.slides == Slide.from_file(slide_file) }
       end
 
       it "reads a showoff.json file" do
-        foo_file, bar_file, showoff_file = nil,nil,nil
-        @dir = Files do
-          foo_file = file "foo.md", "# hello"
-          bar_file = file "bar.md", "# hello"
-          showoff_file = file "showoff.json", <<-JSON
-          {
-            "name": "Ruby For Programmers",
-            "description": "an introduction to the Ruby programming language",
-            "sections": [
-              "foo.md",
-              "bar.md"
-            ]
-          }
-          JSON
-        end
+        foo_file = file "foo.md", "# hello"
+        bar_file = file "bar.md", "# hello"
+        showoff_file = file "showoff.json", <<-JSON
+        {
+          "name": "Ruby For Programmers",
+          "description": "an introduction to the Ruby programming language",
+          "sections": [
+            "foo.md",
+            "bar.md"
+          ]
+        }
+        JSON
+
         app = RackApp.new [showoff_file]
         assert { app.slides == Slide.from_file(foo_file) + Slide.from_file(bar_file) }
       end
 
       it "reads a showoff.json file including literal markdown as a section" do
-        foo_file, bar_file, showoff_file = nil,nil,nil
-        @dir = Files do
-          foo_file = file "foo.md", "# hello"
-          bar_file = file "bar.md", "# goodbye"
-          showoff_file = file "showoff.json", <<-JSON
-          {
-            "name": "Ruby For Programmers",
-            "description": "an introduction to the Ruby programming language",
-            "sections": [
-              "foo.md",
-              "# literal markdown",
-              "bar.md"
-            ]
-          }
-          JSON
-        end
+
+        foo_file = file "foo.md", "# hello"
+        bar_file = file "bar.md", "# goodbye"
+        showoff_file = file "showoff.json", <<-JSON
+        {
+          "name": "Ruby For Programmers",
+          "description": "an introduction to the Ruby programming language",
+          "sections": [
+            "foo.md",
+            "# literal markdown",
+            "bar.md"
+          ]
+        }
+        JSON
         app = RackApp.new [showoff_file]
         assert {
           app.slides.size == 3

@@ -11,5 +11,5 @@ group :test do
   gem "wrong"
   gem "nokogiri"
   gem "rack-test"
-  gem "files", ">=0.0.4"
+  gem "files", ">=0.2.1"
 end
