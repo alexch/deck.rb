@@ -3,6 +3,7 @@ here = File.expand_path File.dirname(__FILE__)
 require 'json'
 require 'coderay'
 require 'rack/codehighlighter'
+require 'deck'
 
 module Deck
   class RackApp
@@ -34,7 +35,6 @@ module Deck
       @slide_files = [slide_files].flatten.map do |slide_file|
         case slide_file
         when /\/?showoff.json$/
-          puts "matched"
           json_file_dir = File.expand_path(File.dirname(slide_file))
           json_file = slide_file
           config = JSON.parse(File.read(json_file))

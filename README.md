@@ -1,8 +1,43 @@
 # deck.rb
 
-*curing deck.js of angle bracket addiction*
+*slides in markdown, using deck.js*
 
-## Summary
+
+## Installation
+
+    gem install deckrb
+
+## Usage
+
+Put this in a file named `meals.md`:
+
+    # Breakfast
+    * scrambled eggs
+    * coffee
+    * bacon
+
+    # Lunch
+    ## Ham Sandwich
+    ## Caesar Salad
+
+    <!SLIDE>
+    ![a picture of my lunch](ham-sandwich.jpg)
+
+    # Dinner
+    > "To eat is to live." -Anon.
+
+then run this:
+
+    deck meals.md
+
+and you'll get a web server running on `http://localhost:4333` serving up a slide presentation with four slides:
+
+* One titled "Breakfast" with three bullet points
+* One titled "Lunch" with three H2 headers ("Lunch", "Ham Sandwich", and "Caesar Salad")
+* One with no headers, just a picture (stored in the same directory as `meals.md`)
+* One titled "Dinner" with a blockquote
+
+## Details
 
 [deck.js](http://imakewebthings.github.com/deck.js) is a JavaScript library for building slide presentations using HTML 5. [deck.rb](http://github.com/alexch/deck.rb) builds on top of deck.js, adding some features:
 
@@ -107,6 +142,7 @@
 * find any lines that start with a <p>.(something) and turn them into <p class="something">
   * see showoff.rb:189
 * some way to build/rebuild a project that is deployable to heroku
+* PDF
 
 
 ## TODO (community)

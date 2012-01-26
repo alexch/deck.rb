@@ -10,6 +10,12 @@ module Deck
   include Rack::Test::Methods
   include Files
 
+  def assert_ok
+    unless last_response.ok?
+      status, errors = last_response.status, last_response.errors
+      assert(last_response.inspect) { errors.empty? && status == 200 }
+    end
+  end
   def here
     File.expand_path File.dirname(__FILE__)
   end
@@ -44,6 +50,11 @@ module Deck
         File.read("#{here}/../public/#{deckjs_core_path}", :encoding => last_response.body.encoding)}
     end
 
+    it "finds coderay.css" do
+      get "/coderay.css"
+      assert_ok
+    end
+
   end
 
   describe "raw app" do
@@ -72,13 +83,6 @@ module Deck
       get "/foo.css"
       assert_ok
       assert { last_response.body.include? "contents of foo.css" }
-    end
-
-    def assert_ok
-      unless last_response.ok?
-        status, errors = last_response.status, last_response.errors
-        assert(last_response.inspect) { errors.empty? && status == 200 }
-      end
     end
 
     describe "serving multiple slide files from multiple subdirs" do

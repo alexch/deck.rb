@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 deck.js (http://imakewebthings.github.com/deck.js) is a JavaScript library for building slide presentations using HTML 5. deck.rb (http://github.com/alexch/deck.rb) builds on top of deck.js, adding some features and letting you focus on your slides, not the HTML infrastructure.
   EOS
 
-  s.files      = Dir['lib/**/*'] + Dir['deck.js/**/*']
+  s.files      = Dir['lib/**/*'] + Dir['public/**/*']
   s.test_files = Dir['spec/**/*.rb']
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
