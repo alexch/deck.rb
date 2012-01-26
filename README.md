@@ -76,6 +76,10 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
  * creates a static page `foo.html` in the current directory
  * unfortunately the `deck.js` source code will not be around so this won't really work yet
 
+### Options
+
+* none yet :-)
+
 ## Command-Line API (proposed)
 
 `deck build foo.md`
@@ -84,11 +88,6 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
  * default output dir = ./public (even if foo.md is elsewhere)
  * copies (or inlines) deck.js source
  * also copies (or inlines) "img" directory if it exists
-
-
-### Options
-
-* none yet :-)
 
 ## Credits
 
@@ -104,6 +103,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 ## Bugs and Limitations
 
 * auxiliary files (e.g. images) are interleaved in URL path space, so overlapping file names might not resolve to the right file
+  * todo: rewrite internal links to files and serve them relative to current dir, not slide dir
 * H1s (which split slides) are converted to H2s for compatibility with deck.js's CSS themes
   * unless they're the only item on the slide, in which case they remain H1s
 * we use RedCarpet to process markdown, which doesn't work exactly the same as RDiscount... for example:
@@ -113,6 +113,8 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 ## TODO
 
 * fix title tag (base it off of presentation name or something)
+* scale images to fit on the page
+
 * if no files are specified, use either './showoff.json' or all `.md` files under current directory
 * deck.json config file
 * config options:
@@ -136,14 +138,13 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
   * tilt
 * option to render all JS and CSS inline, for a self-contained HTML doc
   * and maybe images too, base64-encoded
-* image scaling
 * build and push into a gh-pages branch
 * build and push into a heroku app
 * find any lines that start with a <p>.(something) and turn them into <p class="something">
   * see showoff.rb:189
 * some way to build/rebuild a project that is deployable to heroku
 * PDF
-
+* rewrite internal links to files and serve them relative to current dir, not slide dir
 
 ## TODO (community)
 
