@@ -8,8 +8,17 @@ module Deck
   needs :title => "deck.rb presentation",
     :description => nil,
     :author => nil
-
+  needs :extensions => [
+      'goto',
+      'menu',
+      'navigation',
+      'status',
+      'hash',
+      'scale',
+      # 'theme-picker',
+    ]
   needs :slides => nil
+  attr_reader :extensions
 
   def page_title
     @title
@@ -32,18 +41,6 @@ module Deck
   # todo: promote into Page
   def stylesheet src, attributes = {}
     link({:rel => "stylesheet", :href => src}.merge(attributes))
-  end
-
-  def extensions
-    @extensions || [
-      'goto',
-      'menu',
-      'navigation',
-      'status',
-      'hash',
-      'scale',
-      # 'theme-picker',
-    ]
   end
 
   def head_content

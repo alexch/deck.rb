@@ -52,6 +52,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
   * generated HTML is pretty-printed for easier "view source"
   * links to auxiliary files (e.g. `img src`) are resolved relative to the source file -- no more broken images in markdown previews!
   * add CSS classes to slides inside the slide directive -- e.g. `<!SLIDE center>` gives `<section class="slide center">`
+* uses deck.js` "swiss" theme and several extensions, including `goto`, `menu`, `navigation`, `status`, `hash`,  and `scale`
 * uses RedCarpet markdown extensions, including
   * tables <http://michelf.com/projects/php-markdown/extra/#table>
   * fenced code blocks <http://michelf.com/projects/php-markdown/extra/#fenced-code-blocks>

@@ -6,6 +6,8 @@ require "deck/slide_deck"
 module Deck
  describe SlideDeck do
 
+  include Files
+
   def doc
     @doc ||= begin
       @html = deck_widget.to_html
@@ -27,14 +29,11 @@ module Deck
   end
 
   it "renders a markdown file with one slide" do
-    file = nil
-    dir = Files do
-      file = file("hello.md", "# hello")
-    end
-
+    file = file("hello.md", "# hello")
     deck_widget :slides => Slide.split(File.read file)
-    assert { doc.css('section.slide').size == 1 }
-    slide = doc.css('section.slide').first
+    slides = doc.css('section.slide')
+    assert { slides.size == 1 }
+    slide = slides.first
     assert { slide["id"] == "hello" }
     assert { noko_html(slide) == "<section class=\"slide\" id=\"hello\">" +
       "<h1>hello</h1>\n" +
