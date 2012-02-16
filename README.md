@@ -46,20 +46,18 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * multiple slide source formats, including
   * [Markdown](http://daringfireball.net/projects/markdown/)
   * should be easy to add other formats
-* presentations can span several source files
+* presentations can span several source files, and can be assembled piecemeal
 * source files look good as source, built HTML, preview HTML, or as a deck doc
-  * each H1 designates the beginning of a new slide
-  * explicit `!SLIDE` or `<!SLIDE>` directives can split slides too
-  * slide directives look like comments when rendered into HTML (e.g. as &lt;!SLIDE&gt;)
-  * generated HTML is pretty-printed for easier "view source"
-  * links to auxiliary files (e.g. `img src`) are resolved relative to the source file -- no more broken images in markdown previews!
+  * each H1 (single hash) designates the beginning of a new slide
+  * explicit `!SLIDE` or `<!SLIDE>` directives can split slides too -- use `<!SLIDE>` so they look like comments when rendered into normal HTML
+  * links to image files are resolved relative to the source file -- no more broken images in markdown previews, and no need to put all your images in a separate directory!
   * add CSS classes to slides inside the slide directive - - e.g. `<!SLIDE center>` gives `<section class="slide center">`
+  * generated HTML is pretty-printed for easier "view source"
 * uses deck.js' "swiss" theme and several extensions, including `goto`, `menu`, `navigation`, `status`, `hash`,  and `scale`
 * uses RedCarpet markdown extensions, including
   * tables <http://michelf.com/projects/php-markdown/extra/#table>
   * fenced code blocks <http://michelf.com/projects/php-markdown/extra/#fenced-code-blocks>
-* mostly backwards-compatible with Showoff
-  * specifying 'showoff.json' on the command line loads all slides in its 'sections' section
+* mostly backwards-compatible with Showoff, i.e. you can specify a `showoff.json` file on the command line
 * if the parameter (or 'sections' entry) starts with '# ' then it's parsed as literal markdown, not a file
 * code syntax highlighting using Coderay
   * specify language at the top of the block using either ::: or @@@
@@ -100,8 +98,9 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 
 ### See Also
 
-* showoff by Scott Chacon
-* keydown by Davis Frank
+* [Web Slide Show GGroup](https://groups.google.com/group/webslideshow)
+* [Showoff](https://github.com/schacon/showoff) by Scott Chacon
+* [Keydown](https://github.com/infews/keydown) by Davis Frank
 
 ## Bugs and Limitations
 
