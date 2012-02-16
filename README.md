@@ -2,6 +2,7 @@
 
 *slides in markdown, using deck.js*
 
+Home: <http://github.com/alexch/deck.rb>
 
 ## Installation
 
@@ -28,7 +29,7 @@ Put this in a file named `meals.md`:
 
 then run this:
 
-    deck meals.md
+    deck run meals.md
 
 and you'll get a web server running on `http://localhost:4333` serving up a slide presentation with four slides:
 
@@ -43,22 +44,23 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 
 * clean(ish) page skeleton allows you to focus on your slides, not the HTML/CSS infrastructure
 * multiple slide source formats, including
-  * Markdown
-* presentations can comprise several source files
+  * [Markdown](http://daringfireball.net/projects/markdown/)
+  * should be easy to add other formats
+* presentations can span several source files
 * source files look good as source, built HTML, preview HTML, or as a deck doc
   * each H1 designates the beginning of a new slide
   * explicit `!SLIDE` or `<!SLIDE>` directives can split slides too
   * slide directives look like comments when rendered into HTML (e.g. as &lt;!SLIDE&gt;)
   * generated HTML is pretty-printed for easier "view source"
   * links to auxiliary files (e.g. `img src`) are resolved relative to the source file -- no more broken images in markdown previews!
-  * add CSS classes to slides inside the slide directive -- e.g. `<!SLIDE center>` gives `<section class="slide center">`
-* uses deck.js` "swiss" theme and several extensions, including `goto`, `menu`, `navigation`, `status`, `hash`,  and `scale`
+  * add CSS classes to slides inside the slide directive - - e.g. `<!SLIDE center>` gives `<section class="slide center">`
+* uses deck.js' "swiss" theme and several extensions, including `goto`, `menu`, `navigation`, `status`, `hash`,  and `scale`
 * uses RedCarpet markdown extensions, including
   * tables <http://michelf.com/projects/php-markdown/extra/#table>
   * fenced code blocks <http://michelf.com/projects/php-markdown/extra/#fenced-code-blocks>
-* mostly compatible with Showoff
+* mostly backwards-compatible with Showoff
   * specifying 'showoff.json' on the command line loads all slides in its 'sections' section
-* if the parameter starts with '# ' then it's parsed as literal markdown, not a file
+* if the parameter (or 'sections' entry) starts with '# ' then it's parsed as literal markdown, not a file
 * code syntax highlighting using Coderay
   * specify language at the top of the block using either ::: or @@@
   * e.g. `@@@ ruby`
@@ -110,12 +112,12 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * we use RedCarpet to process markdown, which doesn't work exactly the same as RDiscount... for example:
   * indented code blocks under a bullet point may need to be indented more
   * code blocks must be separated from the previous text by a newline
+* slide scaling isn't perfect; sometimes either resizing or reloading will improve the layout
 
 ## TODO
 
 * fix title tag (base it off of presentation name or something)
 * scale images to fit on the page
-
 * if no files are specified, use either './showoff.json' or all `.md` files under current directory
 * deck.json config file
 * config options:
@@ -150,7 +152,6 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 ## TODO (community)
 
 * submit theme-picker extension to deck.js
-* add to deck.js wiki https://github.com/imakewebthings/deck.js/wiki
 * announce on https://groups.google.com/forum/#!forum/webslideshow
 * mix with keydown https://github.com/infews/keydown
 * gh-pages documentation site
