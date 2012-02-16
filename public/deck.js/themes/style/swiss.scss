@@ -2,10 +2,10 @@
 	font-family: "Helvetica Neue", sans-serif;
 	font-size:1.25em;
 	background:#fff;
-	
+
 	.slide {
 		background:#fff;
-		
+
 		h1 {
 			color:#000;
 		}
@@ -60,30 +60,36 @@
 			}
 		}
 	}
-	
+
+	> .slide {
+		.deck-before, .deck-previous {
+			opacity:0.4;
+		}
+	}
+
 	.deck-prev-link, .deck-next-link {
 		background:#ccc;
 		font-family:serif; // sans-serif arrows x-browser fail
-		
+
 		&, &:hover, &:focus, &:active, &:visited {
 			color:#fff;
 		}
-		
+
 		&:hover, &:focus {
 			background:#c00;
 			text-decoration:none;
 		}
 	}
-	
+
 	.deck-status {
 		font-size:0.6666em;
 	}
-	
+
 	&.deck-menu {
 		.slide {
 			background:#eee;
 		}
-		
+
 		.deck-current, .no-touch & .slide:hover {
 			background:#ddf;
 		}

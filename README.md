@@ -147,11 +147,11 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * some way to build/rebuild a project that is deployable to heroku
 * PDF
 * rewrite internal links to files and serve them relative to current dir, not slide dir
+* custom `.css`, `.scss`, and `.js` files, which will get imported into all slides
 
 ## TODO (community)
 
 * submit theme-picker extension to deck.js
-* announce on https://groups.google.com/forum/#!forum/webslideshow
 * mix with keydown https://github.com/infews/keydown
 * gh-pages documentation site
 * integrate with slideshow https://github.com/geraldb/slideshow-deck.js

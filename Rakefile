@@ -22,3 +22,10 @@ end
 
 # gem "bundler"
 require "bundler/gem_tasks"
+
+desc "update deck.js source from ~/dev/deck.js"
+task :update_deck do
+  Dir.chdir(File.dirname(__FILE__)) do
+    sh "rm -rf public/deck.js/; cp -r ~/dev/deck.js public/; rm -rf public/deck.js/.git"
+  end
+end

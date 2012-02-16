@@ -3,10 +3,10 @@
 	font-size:1.25em;
 	color:#aaa;
 	background:#000;
-	
+
 	.slide {
 		background:#000;
-		
+
 		h1 {
 			color:#0af;
 			font-weight:normal;
@@ -76,18 +76,18 @@
 			}
 		}
 	}
-	
+
 	.deck-prev-link, .deck-next-link {
 		background:#f0a;
 		text-shadow:0 0 3px #fff;
-		
+
 		&, &:hover, &:focus, &:active, &:visited {
 			color:#fff;
 		}
-		
+
 		&:hover, &:focus {
 			text-decoration:none;
-			
+
 			.boxshadow & {
 				-webkit-box-shadow:0 0 20px #f0a, 0 0 5px #fff;
 				-moz-box-shadow:0 0 20px #f0a, 0 0 5px #fff;
@@ -95,28 +95,34 @@
 			}
 		}
 	}
-	
+
+	> .slide {
+		.deck-before, .deck-previous {
+			opacity:0.4;
+		}
+	}
+
 	.deck-status {
 		font-size:0.6666em;
 	}
-	
+
 	.goto-form {
 		background:#000;
 		border:1px solid #f0a;
-		
+
 		label {
 			color:#fff;
 		}
 	}
-	
+
 	&.deck-menu {
 		.slide {
 			background:#333;
 		}
-		
+
 		.deck-current {
 			background:#444;
-			
+
 			.boxshadow & {
 				background:#000;
 				-webkit-box-shadow:0 0 20px #f0a, 0 0 5px #fff;
@@ -124,11 +130,11 @@
 				box-shadow:0 0 20px #f0a, 0 0 5px #fff;
 			}
 		}
-		
+
 		.no-touch & .slide:hover {
 			background:#444;
 		}
-		
+
 		.no-touch.boxshadow & .slide:hover {
 			background:#000;
 			-webkit-box-shadow:0 0 20px #f0a, 0 0 5px #fff;

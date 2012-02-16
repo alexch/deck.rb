@@ -1,20 +1,19 @@
 /*!
 Deck JS - deck.scale
-Copyright (c) 2011 Caleb Troughton
+Copyright (c) 2011-2012 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/deck.js/blob/master/MIT-license.txt
 https://github.com/imakewebthings/deck.js/blob/master/GPL-license.txt
 */
 
 /*
-This module adds automatic scaling to the deck.  It should only be used on
-standalone decks where the body is the deck container. Slides are scaled down
-using CSS transforms to fit within the browser window. If the browser window
-is big enough to hold the slides without scaling, no scaling occurs. The user
+This module adds automatic scaling to the deck.  Slides are scaled down
+using CSS transforms to fit within the deck container. If the container is
+big enough to hold the slides without scaling, no scaling occurs. The user
 can disable and enable scaling with a keyboard shortcut.
 
-Note: CSS transforms make Flash videos render incorrectly.  Presenters that
-need to use video will want to disable scaling to play them.  HTML5 video
+Note: CSS transforms may make Flash videos render incorrectly.  Presenters
+that need to use video may want to disable scaling to play them.  HTML5 video
 works fine.
 */
 (function($, deck, window, undefined) {
@@ -22,44 +21,35 @@ works fine.
 	$w = $(window),
 	baseHeight, // Value to scale against
 	timer, // Timeout id for debouncing
+	rootSlides,
 
 	/*
-	Internal function to do all the dirty work of scaling the deck container.
+	Internal function to do all the dirty work of scaling the slides.
 	*/
 	scaleDeck = function() {
-		var obh = $[deck]('getOptions').baseHeight,
+		var opts = $[deck]('getOptions'),
+		obh = opts.baseHeight,
 		$container = $[deck]('getContainer'),
-		height = $w.height(),
-		slides = $[deck]('getSlides'),
-		scale,
-		transform;
-
-		// Don't scale if scaling disabled
-		if (!$container.hasClass($[deck]('getOptions').classes.scale)) {
-			scale = 1;
-		}
-		else {
-			// Use window height as base height if not set manually
-			baseHeight = obh ? obh : (function() {
-				var slop = 40; /* for padding */
-			  var windowHeight = $(window).height();
-				return windowHeight - slop;
-			})();
-		}
+		baseHeight = obh ? obh : $container.height();
 
 		// Scale each slide down if necessary (but don't scale up)
-		$.each(slides, function(i, $slide) {
-		  var slideHeight = $slide.innerHeight();
-		  var scale = baseHeight / slideHeight;
+		$.each(rootSlides, function(i, $slide) {
+			var slideHeight = $slide.innerHeight(),
+			$scaler = $slide.find('.' + opts.classes.scaleSlideWrapper),
+			scale = $container.hasClass(opts.classes.scale) ?
+				baseHeight / slideHeight :
+				1;
 
-		  if (scale < 1) {
-		    transform = 'scale(' + scale + ')';
-  		  $.each('Webkit Moz O ms Khtml'.split(' '), function(i, prefix) {
-  			  $slide.css(prefix + 'Transform', transform);
-  		  });
-		  }
-	  });
-  }
+			$.each('Webkit Moz O ms Khtml'.split(' '), function(i, prefix) {
+				if (scale === 1) {
+					$scaler.css(prefix + 'Transform', '');
+				}
+				else {
+					$scaler.css(prefix + 'Transform', 'scale(' + scale + ')');
+				}
+			});
+		});
+	}
 
 	/*
 	Extends defaults/options.
@@ -68,14 +58,18 @@ works fine.
 		This class is added to the deck container when scaling is enabled.
 		It is enabled by default when the module is included.
 
+	options.classes.scaleSlideWrapper
+		Scaling is done using a wrapper around the contents of each slide. This
+		class is applied to that wrapper.
+
 	options.keys.scale
 		The numeric keycode used to toggle enabling and disabling scaling.
 
 	options.baseHeight
-		When baseheight is falsy, as it is by default, the deck is scaled
-		in proportion to the height of the slides.  You may instead specify
-		a height, and the deck will be scaled against this height regardless
-		of the actual content height.
+		When baseHeight is falsy, as it is by default, the deck is scaled in
+		proportion to the height of the deck container. You may instead specify
+		a height as a number of px, and slides will be scaled against this
+		height regardless of the container size.
 
 	options.scaleDebounce
 		Scaling on the browser resize event is debounced. This number is the
@@ -85,7 +79,8 @@ works fine.
 	*/
 	$.extend(true, $[deck].defaults, {
 		classes: {
-			scale: 'deck-scale'
+			scale: 'deck-scale',
+			scaleSlideWrapper: 'deck-slide-scaler'
 		},
 
 		keys: {
@@ -128,10 +123,29 @@ works fine.
 	});
 
 	$d.bind('deck.init', function() {
-		var opts = $[deck]('getOptions');
+		var opts = $[deck]('getOptions'),
+		slideTest = $.map([
+			opts.classes.before,
+			opts.classes.previous,
+			opts.classes.current,
+			opts.classes.next,
+			opts.classes.after
+		], function(el, i) {
+			return '.' + el;
+		}).join(', ');
 
-		// Scaling enabled at start
-		$[deck]('getContainer').addClass(opts.classes.scale);
+		// Build top level slides array
+		rootSlides = [];
+		$.each($[deck]('getSlides'), function(i, $el) {
+			if (!$el.parentsUntil(opts.selectors.container, slideTest).length) {
+				rootSlides.push($el);
+			}
+		});
+
+		// Use a wrapper on each slide to handle content scaling
+		$.each(rootSlides, function(i, $slide) {
+			$slide.children().wrapAll('<div class="' + opts.classes.scaleSlideWrapper + '"/>');
+		});
 
 		// Debounce the resize scaling
 		$w.unbind('resize.deckscale').bind('resize.deckscale', function() {
@@ -149,8 +163,8 @@ works fine.
 			}
 		});
 
-		// Scale once on init
-		scaleDeck();
+		// Enable scale on init
+		$[deck]('enableScale');
 	});
 })(jQuery, 'deck', this);
 
