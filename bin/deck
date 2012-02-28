@@ -8,13 +8,11 @@ require "rack"
 require "deck"
 require "deck/rack_app"
 
-puts ARGV
 
 options = Trollop.options do
   opt :port, "Specify alternate port", :default => 4333
 end
 
-puts ARGV
 command = ARGV.shift
 
 case command
