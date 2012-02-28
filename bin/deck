@@ -3,9 +3,15 @@
 here = File.expand_path(File.dirname(__FILE__))
 $: << File.join(here, '..', 'lib')
 
+require "trollop"
 require "rack"
 require "deck"
 require "deck/rack_app"
+
+
+options = Trollop.options do
+  opt :port, "Specify alternate port", :default => 4333
+end
 
 command = ARGV.shift
 
@@ -35,7 +41,7 @@ when 'run'
   # Fix Rack bug https://github.com/rack/rack/issues/301
   require 'deck/rack_static_patch'
   
-  port = 4333  # todo: option
+  port = options[:port]
   slide_files = ARGV
   Rack::Handler.default.run Deck::RackApp.build(slide_files), :Port => port
   
