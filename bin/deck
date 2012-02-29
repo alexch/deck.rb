@@ -7,9 +7,12 @@ require "trollop"
 require "rack"
 require "deck"
 require "deck/rack_app"
-
+require "deck/version"
 
 options = Trollop.options do
+  version "deck v#{Deck::VERSION}"
+  banner version
+  banner "Usage: deck [options] run [slides]"
   opt :port, "Specify alternate port", :default => 4333
 end
 
