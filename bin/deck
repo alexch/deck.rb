@@ -27,7 +27,7 @@ when 'build'
     basename ||= File.basename(arg, ".md")
     output_path ||= "#{output_dir}/#{basename}.html"
 
-    slides += Slide.from_file arg  
+    slides += Slide.from_file arg
   end
 
   File.open(output_path, "w") do |file|

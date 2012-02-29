@@ -7,8 +7,9 @@ module Deck
 
   include Deck::Noko
 
-  # todo: test this method
+  # todo: test this method on its own
   def self.from_file markdown_file
+    markdown_file = markdown_file.path if markdown_file.is_a? File   # fix for Ruby 1.8.7
     split File.read(markdown_file)
   end
 

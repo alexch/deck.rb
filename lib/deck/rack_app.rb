@@ -54,7 +54,7 @@ module Deck
       @file_servers =
         [Rack::File.new("#{::Deck::RackApp.app_root}/public")] +
         @slide_files.map do |slide_file|
-          File.expand_path File.dirname(slide_file) if slide_file.is_a? File
+          File.expand_path File.dirname(slide_file.path) if slide_file.is_a? File
         end.compact.uniq.map do |slide_file_dir|
           Rack::File.new(slide_file_dir)
         end

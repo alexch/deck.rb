@@ -46,8 +46,13 @@ module Deck
     it "serves up deck.js source files" do
       deckjs_core_path = "deck.js/core/deck.core.js"
       get "/#{deckjs_core_path}"
-      assert { last_response.body ==
-        File.read("#{here}/../public/#{deckjs_core_path}", :encoding => last_response.body.encoding)}
+      path = "#{here}/../public/#{deckjs_core_path}"
+      expected_body = begin
+        File.read(path, :encoding => last_response.body.encoding)
+      rescue NoMethodError  # fix for Ruby 1.8.7
+        File.read(path)
+      end
+      assert { last_response.body == expected_body }
     end
 
     it "finds coderay.css" do
