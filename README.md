@@ -148,6 +148,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * PDF
 * rewrite internal links to files and serve them relative to current dir, not slide dir
 * custom `.css`, `.scss`, and `.js` files, which will get imported into all slides
+* support some more extensions https://github.com/imakewebthings/deck.js/wiki
 
 ## TODO (community)
 
