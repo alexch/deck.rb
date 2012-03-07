@@ -12,15 +12,13 @@ require "deck/version"
 options = Trollop.options do
   version "deck v#{Deck::VERSION}"
   banner version
-  banner "Usage: deck [options] run [slides]"
+  banner "Usage: deck [options] [slides]"
+  banner "(see http://github.com/alexch/deck.rb README for more help)"
   opt :port, "Specify alternate port", :default => 4333
+  opt :build, "Build an HTML file instead of launching a server (WARNING: not very useful yet)"
 end
 
-command = ARGV.shift
-
-case command
-when 'build'
-
+if options[:build]
   slides = []
   output_path = nil
   output_dir = "."  # for now, since deck.js is relative to the project root
@@ -29,7 +27,6 @@ when 'build'
     # output_dir ||= File.dirname(arg)
     basename ||= File.basename(arg, ".md")
     output_path ||= "#{output_dir}/#{basename}.html"
-
     slides += Slide.from_file arg
   end
 
@@ -39,24 +36,11 @@ when 'build'
     file.write deck.to_pretty
   end
 
-when 'run'
-  
+else
+
   # Fix Rack bug https://github.com/rack/rack/issues/301
   require 'deck/rack_static_patch'
-  
   port = options[:port]
   slide_files = ARGV
   Rack::Handler.default.run Deck::RackApp.build(slide_files), :Port => port
-  
-else
-  puts "Unknown command '#{command}'"
-  puts <<-USAGE
-Usage:
-  deck run src.md...
-  deck build src.md...
-  
-see http://github.com/alexch/deck.rb README for more help.
-
-  USAGE
-  exit 1
 end

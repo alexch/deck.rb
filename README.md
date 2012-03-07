@@ -29,7 +29,7 @@ Put this in a file named `meals.md`:
 
 then run this:
 
-    deck run meals.md
+    deck meals.md
 
 and you'll get a web server running on `http://localhost:4333` serving up a slide presentation with four slides:
 
@@ -65,30 +65,19 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 
 ## Command-Line API
 
-`deck run foo.md`
+`deck foo.md`
 
  * start a local Rack server (probably Sinatra) on port 4333
  * http://localhost:4333/ serves the presentation built from `foo.md`
  * can specify multiple source files in a row
  * can also specify a showoff.json file to load multiple markdown files
 
-`deck build foo.md`
-
- * creates a static page `foo.html` in the current directory
- * unfortunately the `deck.js` source code will not be around so this won't really work yet
-
 ### Options
 
-* none yet :-)
-
-## Command-Line API (proposed)
-
-`deck build foo.md`
-
- * create a static site
- * default output dir = ./public (even if foo.md is elsewhere)
- * copies (or inlines) deck.js source
- * also copies (or inlines) "img" directory if it exists
+    --port, -p <i>:   Specify alternate port (default: 4333)
+       --build, -b:   Build an HTML file instead of launching a server (WARNING: not very useful yet)
+     --version, -v:   Print version and exit
+        --help, -h:   Show this message
 
 ## Credits
 
@@ -130,7 +119,6 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * command-line options (overriding or complementing config file options)
   * --output dir
   * --config deck.json
-  * --port portnum
   * --theme themename
 * more slide file types
   * Erector - `foo/bar_bar.rb` would expect `class BarBar < Deck::Slide` in there
@@ -139,7 +127,10 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
   * haml
   * tilt
 * option to render all JS and CSS inline, for a self-contained HTML doc
-  * and maybe images too, base64-encoded
+* `deck --build dir foo.md`
+  * create a self-contained static site inside dir
+  * copies (or inlines) deck.js source, generated html, and axiliary files e.g. images
+  * hell, maybe it should inline everything *including* images (using those base64 urls or whatever) into a single HTML file
 * build and push into a gh-pages branch
 * build and push into a heroku app
 * find any lines that start with a <p>.(something) and turn them into <p class="something">
