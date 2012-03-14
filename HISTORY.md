@@ -1,6 +1,7 @@
 # v0.3.0
 * remove "build" command
-* just say "deck foo.md" now, not "deck run foo.md")
+* just say "deck foo.md" now, not "deck run foo.md"
+* can name showoff.json file with a suffix e.g. showoff-intro.json
 
 # v0.2.2 2012-02-29
 * binary now takes a -p $PORT or --port $PORT option which is passed to the Rack server

@@ -34,7 +34,7 @@ module Deck
     def initialize slide_files
       @slide_files = [slide_files].flatten.map do |slide_file|
         case slide_file
-        when /\/?showoff.json$/
+        when /\/?showoff(.*)\.json$/
           json_file_dir = File.expand_path(File.dirname(slide_file))
           json_file = slide_file
           config = JSON.parse(File.read(json_file))

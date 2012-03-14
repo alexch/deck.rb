@@ -187,6 +187,8 @@ module Deck
         assert { app.slides == Slide.from_file(slide_file) }
       end
 
+      # todo: unify these tests
+
       it "reads a showoff.json file" do
         foo_file = file "foo.md", "# hello"
         bar_file = file "bar.md", "# hello"
@@ -240,6 +242,25 @@ module Deck
           app.deck.to_html.include?("<h1>literal markdown</h1>")
         }
       end
+
+      it "reads a showoff-foo.json file" do
+        foo_file = file "foo.md", "# hello"
+        bar_file = file "bar.md", "# hello"
+        showoff_file = file "showoff-foo.json", <<-JSON
+        {
+          "name": "Ruby For Programmers",
+          "description": "an introduction to the Ruby programming language",
+          "sections": [
+            "foo.md",
+            "bar.md"
+          ]
+        }
+        JSON
+
+        app = RackApp.new [showoff_file]
+        assert { app.slides == Slide.from_file(foo_file) + Slide.from_file(bar_file) }
+      end
+
 
       it "if no slides are specified, it globs all markdown files under ."
 
