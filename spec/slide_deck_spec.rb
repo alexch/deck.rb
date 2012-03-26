@@ -21,7 +21,7 @@ module Deck
 
   it "renders a basic deck.js HTML page" do
     assert { doc }
-    assert { @html.include? '<link href="deck.js/core/deck.core.css" rel="stylesheet" />' }
+    assert { @html.include? '<link href="/deck.js/core/deck.core.css" rel="stylesheet" />' }
   end
 
   it "contains a single dummy slide" do

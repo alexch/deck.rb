@@ -8,7 +8,7 @@ group :test, :development do
 end
 
 group :test do
-  gem "wrong"
+  gem "wrong", ">=0.6.2"
   gem "nokogiri"
   gem "rack-test"
   gem "files", ">=0.2.1"

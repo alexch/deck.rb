@@ -43,6 +43,10 @@ module Deck
     link({:rel => "stylesheet", :href => src}.merge(attributes))
   end
 
+  def public_asset path
+    "/#{path}"
+  end
+
   def head_content
     super
     meta 'charset' => 'utf-8'
@@ -51,30 +55,30 @@ module Deck
     meta :name => "description", :content=> @description if @description
     meta :name => "author", :content=> @author if @author
 
-    stylesheet "coderay.css"
+    stylesheet public_asset("coderay.css")
 
     #  <!-- Core and extension CSS files -->
-    stylesheet "deck.js/core/deck.core.css"
+    stylesheet public_asset("deck.js/core/deck.core.css")
     extensions.each do |extension|
-      stylesheet "deck.js/extensions/#{extension}/deck.#{extension}.css"
+      stylesheet public_asset("deck.js/extensions/#{extension}/deck.#{extension}.css")
     end
 
     # <!-- Theme CSS files (menu swaps these out) -->
-    stylesheet "deck.js/themes/style/swiss.css", :id=>"style-theme-link"
+    stylesheet public_asset("deck.js/themes/style/swiss.css"), :id=>"style-theme-link"
   end
 
   def scripts
-    script :src => "deck.js/modernizr.custom.js"
+    script :src => public_asset("deck.js/modernizr.custom.js")
 
     # comment 'Grab CDN jQuery, with a protocol relative URL; fall back to local if offline'
     # script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js'
-    script :src => 'deck.js/jquery-1.7.min.js'
+    script :src => public_asset('deck.js/jquery-1.7.min.js')
 
     comment 'Deck Core and extensions'
-    script :type => "text/javascript", :src => 'deck.js/core/deck.core.js'
+    script :type => "text/javascript", :src => public_asset('deck.js/core/deck.core.js')
 
     extensions.each do |extension|
-      script :type => "text/javascript", :src => "deck.js/extensions/#{extension}/deck.#{extension}.js"
+      script :type => "text/javascript", :src => public_asset("deck.js/extensions/#{extension}/deck.#{extension}.js")
     end
 
     # fire up deck.js

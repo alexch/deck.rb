@@ -73,7 +73,7 @@ module Deck
       get "/"
       assert_ok
       assert { last_response.body.include? "contents of foo.md" }
-      assert { last_response.body.include? "<script src=\"deck.js/core/deck.core.js\"" }
+      assert { last_response.body.include? "<script src=\"/deck.js/core/deck.core.js\"" }
     end
 
     it "404s anything but the root path" do

@@ -1,4 +1,4 @@
-# v0.3.0
+# v0.3.0 2012-03-26
 * remove "build" command
 * just say "deck foo.md" now, not "deck run foo.md"
 * can name showoff.json file with a suffix e.g. showoff-intro.json

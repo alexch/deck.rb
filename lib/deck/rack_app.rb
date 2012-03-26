@@ -12,8 +12,11 @@ module Deck
       app_root = File.expand_path "#{here}/../.."
     end
 
-    def self.build slide_files
+    def self.public_file_server
+      Rack::File.new("#{app_root}/public")
+    end
 
+    def self.build slide_files
       if const_defined?(:Thin)
         if require "thin/logging"
           Thin::Logging.debug = true
@@ -52,7 +55,7 @@ module Deck
       end.flatten
 
       @file_servers =
-        [Rack::File.new("#{::Deck::RackApp.app_root}/public")] +
+        [::Deck::RackApp.public_file_server] +
         @slide_files.map do |slide_file|
           File.expand_path File.dirname(slide_file.path) if slide_file.is_a? File
         end.compact.uniq.map do |slide_file_dir|
