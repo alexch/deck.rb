@@ -27,11 +27,11 @@ if options[:build]
     # output_dir ||= File.dirname(arg)
     basename ||= File.basename(arg, ".md")
     output_path ||= "#{output_dir}/#{basename}.html"
-    slides += Slide.from_file arg
+    slides += Deck::Slide.from_file arg
   end
 
   File.open(output_path, "w") do |file|
-    deck = SlideDeck.new :slides => slides
+    deck = Deck::SlideDeck.new :slides => slides
     # deck.to_pretty(:output => file)  # todo: figure out why this doesn't work
     file.write deck.to_pretty
   end
