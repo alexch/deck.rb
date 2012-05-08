@@ -1,0 +1,29 @@
+.slide table {
+	display: table;
+	border-collapse: collapse;
+	border-spacing: 2px;
+	border-color: gray;
+	margin: 15px 0;
+}
+
+.slide table tr {
+	border-top: 1px solid #CCC;
+	background-color: white;
+	margin: 0;
+	padding: 0;
+}
+
+.slide table tr th, .slide table tr td {
+	border: 1px solid #CCC;
+	text-align: left;
+	margin: 0;
+	padding: 6px 13px;
+}
+
+.slide table thead tr {
+	background-color: #F2F2F8;
+}
+
+.slide table tr:nth-child(2n) {
+	background-color: #F8F8F8;
+}

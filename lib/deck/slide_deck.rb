@@ -55,8 +55,6 @@ module Deck
     meta :name => "description", :content=> @description if @description
     meta :name => "author", :content=> @author if @author
 
-    stylesheet public_asset("coderay.css")
-
     #  <!-- Core and extension CSS files -->
     stylesheet public_asset("deck.js/core/deck.core.css")
     extensions.each do |extension|
@@ -65,6 +63,9 @@ module Deck
 
     # <!-- Theme CSS files (menu swaps these out) -->
     stylesheet public_asset("deck.js/themes/style/swiss.css"), :id=>"style-theme-link"
+
+    stylesheet public_asset("coderay.css")
+    stylesheet public_asset("tables.css")
   end
 
   def scripts

@@ -1,3 +1,6 @@
+#
+* better table styling (overriding deck.js which strips most style from tables)
+
 # v0.3.0 2012-03-26
 * remove "build" command
 * just say "deck foo.md" now, not "deck run foo.md"

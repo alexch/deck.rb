@@ -147,6 +147,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * mix with keydown https://github.com/infews/keydown
 * gh-pages documentation site
 * integrate with slideshow https://github.com/geraldb/slideshow-deck.js
+* make it a proper Rack middleware thingy and add to https://github.com/rack/rack/wiki/List-of-Middleware
 
 # License
 
