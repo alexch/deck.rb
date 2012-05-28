@@ -1,5 +1,6 @@
 #
 * better table styling (overriding deck.js which strips most style from tables)
+* simple table of contents ([toc] link on lower left)
 
 # v0.3.0 2012-03-26
 * remove "build" command

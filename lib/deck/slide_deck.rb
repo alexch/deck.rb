@@ -66,6 +66,7 @@ module Deck
 
     stylesheet public_asset("coderay.css")
     stylesheet public_asset("tables.css")
+    stylesheet public_asset("toc.css")
   end
 
   def scripts
@@ -74,6 +75,12 @@ module Deck
     # comment 'Grab CDN jQuery, with a protocol relative URL; fall back to local if offline'
     # script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js'
     script :src => public_asset('deck.js/jquery-1.7.min.js')
+
+    jquery <<-JAVASCRIPT
+    $('.slide_toc .toggle').click(function(){
+      $('.slide_toc ul').toggle();
+    });
+    JAVASCRIPT
 
     comment 'Deck Core and extensions'
     script :type => "text/javascript", :src => public_asset('deck.js/core/deck.core.js')
@@ -94,6 +101,7 @@ module Deck
   def body_content
     slides
     slide_navigation
+    toc
     deck_status
     goto_slide
     permalink
@@ -136,6 +144,21 @@ module Deck
     end
     a :href => '#', :class => 'deck-next-link', :title => 'Next' do
       character 8594
+    end
+  end
+
+  def toc
+    div.slide_toc do
+      div.toggle "[toc]"
+      ul do
+        if @slides
+          @slides.each do |slide|
+            li do
+              a slide.title, :href => "##{slide.slide_id}"
+            end
+          end
+        end
+      end
     end
   end
 

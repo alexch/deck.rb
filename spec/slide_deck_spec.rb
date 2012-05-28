@@ -41,5 +41,18 @@ module Deck
     }
   end
 
+  it "includes a table of contents" do
+    deck_widget :slides => Slide.split("# Foo\n\n# Bar\n")
+    toc = doc.css('.slide_toc')
+    assert { toc.size == 1 }
+    assert { noko_html(toc.first) == "<div class=\"slide_toc\">" +
+      "<ul>" +
+      "<li><a href=\"#foo\">Foo</a></li>" +
+      "<li><a href=\"#bar\">Bar</a></li>" +
+      "</ul>" +
+      "</div>"
+    }
+  end
+
  end
 end

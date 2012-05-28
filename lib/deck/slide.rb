@@ -101,6 +101,12 @@ module Deck
     @markdown_text.strip == ""
   end
 
+  def title
+    lines = @markdown_text.split("\n")
+    raise "an empty slide has no id" if lines.empty?
+    lines.first.gsub(/^[#=]*/, '').strip
+  end
+
   def slide_id
     @slide_id ||= begin
       lines = @markdown_text.split("\n")

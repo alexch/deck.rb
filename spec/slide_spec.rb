@@ -180,7 +180,7 @@ Two
     Slide.split(markdown_text).first
   end
 
-  describe "sets the slide's id" do
+  describe "has an id" do
     it "based on the first header" do
       assert { slide_from("# foo").slide_id == "foo" }
     end
@@ -192,6 +192,20 @@ Two
     it "from a parameter if one is passed" do
       slide = Slide.new(:markdown_text => "# foo", :slide_id => "bar")
       assert { slide.slide_id == "bar" }
+    end
+  end
+
+  describe "has a title" do
+    it "based on the first header" do
+      assert { slide_from("# Foo").title == "Foo" }
+    end
+
+    it "preserves punctuation" do
+      assert { slide_from("# Don't tread on me!").title == "Don't tread on me!" }
+    end
+
+    it "strips whitespace" do
+      assert { slide_from("#    hi there    ").title == "hi there" }
     end
   end
 
