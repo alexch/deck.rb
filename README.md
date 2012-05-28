@@ -79,6 +79,13 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
      --version, -v:   Print version and exit
         --help, -h:   Show this message
 
+## Known Issues
+
+* If you're running Webrick, you may not be able to kill the server with Ctrl-C. This is a bug in recent versions of Webrick.
+  * Workaround: `gem install thin` -- if thin is installed, deck will use it instead of webrick
+
+Report bugs on <http://github.com/alexch/deck.rb/issues>
+
 ## Credits
 
 * deck.js by Caleb at <http://imakewebthings.com>
