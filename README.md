@@ -81,10 +81,18 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
      --version, -v:   Print version and exit
         --help, -h:   Show this message
 
-## Known Issues
+## Known Issues (Bugs and Limitations)
 
-* If you're running Webrick, you may not be able to kill the server with Ctrl-C. This is a bug in recent versions of Webrick.
+* If you're running Webrick, you may not be able to kill the server with Ctrl-C. This is apparently due to a bug in recent versions of Webrick.
   * Workaround: `gem install thin` -- if thin is installed, deck will use it instead of webrick
+* auxiliary files (e.g. images) are interleaved in URL path space, so overlapping file names might not resolve to the right file
+  * todo: rewrite internal links to files and serve them relative to current dir, not slide dir
+* H1s (which split slides) are converted to H2s for compatibility with deck.js's CSS themes
+  * unless they're the only item on the slide, in which case they remain H1s
+* we use RedCarpet to process markdown, which doesn't work exactly the same as RDiscount... for example:
+  * indented code blocks under a bullet point may need to be indented more
+  * code blocks must be separated from the previous text by a newline
+* slide scaling isn't perfect; sometimes either resizing or reloading will improve the layout
 
 Report bugs on <http://github.com/alexch/deck.rb/issues>
 
@@ -99,17 +107,6 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
 * [Web Slide Show GGroup](https://groups.google.com/group/webslideshow)
 * [Showoff](https://github.com/schacon/showoff) by Scott Chacon
 * [Keydown](https://github.com/infews/keydown) by Davis Frank
-
-## Bugs and Limitations
-
-* auxiliary files (e.g. images) are interleaved in URL path space, so overlapping file names might not resolve to the right file
-  * todo: rewrite internal links to files and serve them relative to current dir, not slide dir
-* H1s (which split slides) are converted to H2s for compatibility with deck.js's CSS themes
-  * unless they're the only item on the slide, in which case they remain H1s
-* we use RedCarpet to process markdown, which doesn't work exactly the same as RDiscount... for example:
-  * indented code blocks under a bullet point may need to be indented more
-  * code blocks must be separated from the previous text by a newline
-* slide scaling isn't perfect; sometimes either resizing or reloading will improve the layout
 
 ## TODO
 
