@@ -62,6 +62,8 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * code syntax highlighting using Coderay
   * specify language at the top of the block using either ::: or @@@
   * e.g. `@@@ ruby`
+* there's a simple table of contents (click the [toc] link on lower left to toggle)
+  * this is currently very primitive and should be redone and/or integrated into deck.js
 
 ## Command-Line API
 
@@ -147,6 +149,10 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
 * rewrite internal links to files and serve them relative to current dir, not slide dir
 * custom `.css`, `.scss`, and `.js` files, which will get imported into all slides
 * support some more extensions https://github.com/imakewebthings/deck.js/wiki
+* improve table of contents
+  * nested sections
+  * disappear when clicked outside of, esc pressed, etc.
+  * close box
 
 ## TODO (community)
 
