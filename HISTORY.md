@@ -1,7 +1,7 @@
-# 0.4.0
+# 0.4.0 2012-07-24
 * !VIDEO directive to embed youtube videos
 
-# 0.3.1
+# 0.3.1 2012-06-06
 * better table styling (overriding deck.js which strips most style from tables)
 * simple table of contents ([toc] link on lower left)
 
