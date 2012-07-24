@@ -4,3 +4,4 @@ Gemfile.lock
 .bundle
 pkg/*
 
+.idea

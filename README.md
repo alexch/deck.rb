@@ -26,6 +26,7 @@ Put this in a file named `meals.md`:
 
     # Dinner
     > "To eat is to live." -Anon.
+    <!VIDEO u1zgFlCw8Aw>
 
 then run this:
 
@@ -36,7 +37,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * One titled "Breakfast" with three bullet points
 * One titled "Lunch" with three H2 headers ("Lunch", "Ham Sandwich", and "Caesar Salad")
 * One with no headers, just a picture (stored in the same directory as `meals.md`)
-* One titled "Dinner" with a blockquote
+* One titled "Dinner" with a blockquote and an embedded youtube video player
 
 ## Details
 
@@ -150,6 +151,13 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
   * nested sections
   * disappear when clicked outside of, esc pressed, etc.
   * close box
+* requests from Christopher Gandrud <http://christophergandrud.blogspot.com/2012/05/aspirational-useful-deckrb-with.html>
+  * There really aren’t title slides.
+  * The slideshow opens as a locally hosted webserver, and the command to build a stand alone HTML presentation doesn’t seem to work that well (hence no example included with this post).
+  * It only allows you to use the Swiss template.
+  * I couldn’t figure out how to easily get MathJax support to display equations.
+
+
 
 ## TODO (community)
 

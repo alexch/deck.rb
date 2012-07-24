@@ -299,6 +299,28 @@ foo
     end
   end
 
+  describe "!VIDEO" do
+    it "embeds a YouTube video" do
+      html = slide_from(<<-MARKDOWN).to_pretty
+# foo
+<!VIDEO xyzzy>
+* bar
+      MARKDOWN
+      expected_html = <<-HTML
+<section class="slide" id="foo">
+<h2>foo</h2>
+
+<iframe class="video youtube" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/xyzzy" frameborder="0"></iframe>
+
+<ul>
+<li>bar</li>
+</ul>
+</section>
+      HTML
+      assert { html == expected_html }
+    end
+  end
+
   describe "==" do
     it "a slide is equal to itself" do
       s = slide_from("# hello")

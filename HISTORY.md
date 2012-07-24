@@ -1,4 +1,7 @@
-#
+# 0.4.0
+* !VIDEO directive to embed youtube videos
+
+# 0.3.1
 * better table styling (overriding deck.js which strips most style from tables)
 * simple table of contents ([toc] link on lower left)
 
