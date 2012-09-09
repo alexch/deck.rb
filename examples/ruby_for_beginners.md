@@ -6,7 +6,7 @@
 
 # What is a program?
 
-!SLIDE  
+!SLIDE
 # Operating Systems
 
 ![](img/os_x_logo.jpg)
@@ -108,14 +108,14 @@ Ruby starts counting at zero.
 * shift, unshift
 
         fruits.first #=> "kiwi"
-        
-!SLIDE 
+
+!SLIDE
 # Hashes
 
 * aka Dictionary or Map
 * collection of key/value pairs
 
-        >> states = {"CA" => "California", 
+        >> states = {"CA" => "California",
             "DE" => "Delaware"}
         => {"CA"=>"California", "DE"=>"Delaware"}
 
@@ -197,6 +197,7 @@ The easy way, with "do...end" rather than "{...}"
 # Hello World
 
 hello.rb
+
     @@@ Ruby
     puts "Hello, World!"
 
@@ -204,6 +205,7 @@ hello.rb
 # Arguments (ARGV)
 
 hello.rb
+
     @@@ Ruby
     puts "Hello, #{ARGV.first}!"
 
@@ -214,6 +216,7 @@ hello.rb
 # Conditionals
 
 hello.rb
+
     @@@ Ruby
     if ARGV.empty?
       puts "Hello, World!"
@@ -227,7 +230,7 @@ hello.rb
     Hello, Alice!
 
 !SLIDE
-# Sinatra 
+# Sinatra
 
 ## hello_app.rb
 
@@ -256,7 +259,7 @@ then open a browser to <http://localhost:4567/>
 
     gem install rerun
     rerun hello_app.rb
-    
+
 ...now it'll automatically reload when you edit a file.
 
 !SLIDE
