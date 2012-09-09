@@ -20,7 +20,7 @@ deck.js (http://imakewebthings.github.com/deck.js) is a JavaScript library for b
 
   s.add_dependency "erector", ">= 0.9.0.pre1"
   s.add_dependency "redcarpet", "~> 2"
-  s.add_dependency "rack"
+  s.add_dependency "rack", ">= 1.4.1"
   s.add_dependency "trollop"
   s.add_dependency "nokogiri"
   s.add_dependency "coderay"
