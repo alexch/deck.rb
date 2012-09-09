@@ -82,6 +82,27 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
      --version, -v:   Print version and exit
         --help, -h:   Show this message
 
+## Deploying to Heroku
+
+To deploy your slides as a Heroku app, put them into a Git repo, and add a file
+called `config.ru` with contents like this:
+
+    require "rubygems"
+    require "bundler"
+    Bundler.setup
+    Bundler.require
+
+    require 'deck/rack_app'
+    run Deck::RackApp.build('slides.md')
+
+and a `Gemfile` like this:
+
+    gem "deckrb"
+
+Then deploy to Heroku as usual (e.g. `heroku apps:create`).
+
+(Note that Deck::RackApp can accept either a filename or an array of filenames.)
+
 ## Known Issues (Bugs and Limitations)
 
 * If you're running Webrick, you may not be able to kill the server with Ctrl-C. This is apparently due to a bug in recent versions of Webrick.
