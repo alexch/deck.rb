@@ -35,6 +35,9 @@ module Deck
         slides << (slide = Slide.new)
         slide << line
 
+      elsif line =~ /^\.notes/
+        # don't include notes
+
       else
         slide << line
       end
