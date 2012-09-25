@@ -38,8 +38,6 @@ if options[:build]
 
 else
 
-  # Fix Rack bug https://github.com/rack/rack/issues/301
-  require 'deck/rack_static_patch'
   port = options[:port]
   slide_files = ARGV
   Rack::Handler.default.run Deck::RackApp.build(slide_files), :Port => port
