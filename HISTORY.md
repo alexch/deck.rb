@@ -1,3 +1,7 @@
+# 0.4.2 2012-09-26
+* require rack >= 1.4.1
+* require erector >= 0.9.0
+
 # 0.4.0 2012-07-24
 * !VIDEO directive to embed youtube videos
 
