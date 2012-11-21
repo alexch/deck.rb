@@ -8,6 +8,7 @@ require "rack"
 require "deck"
 require "deck/rack_app"
 require "deck/version"
+require "thin" # i hate webrick
 
 options = Trollop.options do
   version "deck v#{Deck::VERSION}"

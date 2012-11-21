@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
 	<link rel="stylesheet" href="../extensions/status/deck.status.css">
 	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
 	
 	<!-- Style theme. More available in /themes/style/ or create your own. -->
 	<link rel="stylesheet" href="../themes/style/web-2.0.css">
@@ -107,6 +108,10 @@
 		<li class="slide" id="extensions-status">
 			<strong>deck.status</strong>: Adds a page number indicator. (current/total)
 		</li>
+
+		<li class="slide" id="extensions-scale">
+			<strong>deck.scale</strong>: Scales each slide to fit within the deck container using CSS Transforms for those browsers that support them.
+		</li>
 	</ul>
 	
 	<p class="slide" id="extension-folders">Each extension folder in the download package contains the necessary JavaScript, CSS, and HTML&nbsp;files. For a complete list of extension modules included in deck.js, check out the&nbsp;<a href="http://imakewebthings.github.com/deck.js/docs">documentation</a>.</p>
@@ -187,8 +192,8 @@
 
 
 <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
-<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../jquery-1.7.min.js"><\/script>')</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
 
 <!-- Deck Core and extensions -->
 <script src="../core/deck.core.js"></script>
@@ -197,6 +202,7 @@
 <script src="../extensions/goto/deck.goto.js"></script>
 <script src="../extensions/status/deck.status.js"></script>
 <script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
 
 <!-- Initialize the deck -->
 <script>

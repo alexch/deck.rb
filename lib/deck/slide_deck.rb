@@ -73,8 +73,8 @@ module Deck
     script :src => public_asset("deck.js/modernizr.custom.js")
 
     # comment 'Grab CDN jQuery, with a protocol relative URL; fall back to local if offline'
-    # script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js'
-    script :src => public_asset('deck.js/jquery-1.7.min.js')
+    # script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js'
+    script :src => public_asset('deck.js/jquery-1.7.2.min.js')
 
     jquery <<-JAVASCRIPT
     $('.slide_toc .toggle').click(function(){

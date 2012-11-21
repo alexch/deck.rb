@@ -1,6 +1,6 @@
 .deck-container {
 	font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-	font-size:1.25em;
+	font-size:1.75em;
 	color:#aaa;
 	background:#000;
 
@@ -99,6 +99,16 @@
 	> .slide {
 		.deck-before, .deck-previous {
 			opacity:0.4;
+
+			&:not(.deck-child-current) {
+				.deck-before, .deck-previous {
+					opacity:1;
+				}
+			}
+		}
+
+		.deck-child-current {
+			opacity:1;
 		}
 	}
 
