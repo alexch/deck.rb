@@ -78,12 +78,30 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 
 ### Options
 
-                  --port, -p <i>:   Specify alternate port (default: 4333)
-                     --build, -b:   Build an HTML file instead of launching a server (WARNING: not very useful yet)
-           --style-theme, -s <s>:   Specify the style theme from deck.js/themes/style/ (default: swiss)
-      --transition-theme, -t <s>:   Specify the transition theme from deck.js/themes/transition/ (default: horizontal-slide)
-                   --version, -v:   Print version and exit
-                      --help, -h:   Show this message
+            --port, -p <i>:   Specify alternate port (default: 4333)
+               --build, -b:   Build an HTML file instead of launching a server (WARNING: not very useful yet)
+           --style, -s <s>:   Specify the style theme from deck.js/themes/style/ (default: swiss)
+      --transition, -t <s>:   Specify the transition theme from deck.js/themes/transition/ (default: horizontal-slide)
+             --version, -v:   Print version and exit
+                --help, -h:   Show this message
+
+## Themes
+
+`deck.js` has several themes for styling and animating your presentation.
+You can select these from the command line or from a `showoff.json` file with the `style` and `transition` options.
+Currently the following themes are available:
+
+### Style Themes
+
+* neon
+* swiss
+* web-2.0
+
+### Transition Themes
+
+* fade
+* horizontal-slide
+* vertical-slide
 
 ## Deploying to Heroku
 
@@ -107,7 +125,7 @@ Then deploy to Heroku as usual (e.g. `heroku apps:create`).
 Note that `Deck::RackApp.build` can accept either a filename or an array of filenames.
 It also accepts options, e.g.
 
-    run Deck::RackApp.build('slides.md', transition_theme: 'fade')
+    run Deck::RackApp.build('slides.md', transition: 'fade')
 
 
 ## Known Issues (Bugs and Limitations)

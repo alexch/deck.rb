@@ -18,8 +18,8 @@ module Deck
     ]
   needs :slides => nil
 
-  needs :style_theme => "swiss"
-  needs :transition_theme => "horizontal-slide"
+  needs :style => "swiss"
+  needs :transition => "horizontal-slide"
 
   attr_reader :extensions
 
@@ -65,8 +65,8 @@ module Deck
     end
 
     # <!-- Theme CSS files -->
-    stylesheet public_asset("deck.js/themes/style/#{@style_theme}.css"), :id=>"style-theme-link"
-    stylesheet public_asset("deck.js/themes/transition/#{@transition_theme}.css"), :id=>"transition-theme-link"
+    stylesheet public_asset("deck.js/themes/style/#{@style}.css"), :id=>"style-theme-link"
+    stylesheet public_asset("deck.js/themes/transition/#{@transition}.css"), :id=>"transition-theme-link"
 
     stylesheet public_asset("coderay.css")
     stylesheet public_asset("tables.css")

@@ -62,7 +62,7 @@ module Deck
 
     it "passes options" do
       slide_files = []
-      options = {:style_theme => "foo"}
+      options = {:style => "foo"}
       Deck::RackApp.should_receive(:new).with(slide_files, options).and_call_original
       Deck::RackApp.build slide_files, options
     end
@@ -99,10 +99,10 @@ module Deck
 
     it "passes options" do
       slide_files = []
-      options = {:style_theme => "foo"}
+      options = {:style => "foo"}
       app = Deck::RackApp.new slide_files, options
       slide_deck = app.deck
-      assert {slide_deck.instance_variable_get(:@style_theme) == "foo"}
+      assert {slide_deck.instance_variable_get(:@style) == "foo"}
     end
 
     describe "serving multiple slide files from multiple subdirs" do
@@ -276,8 +276,37 @@ module Deck
         assert { app.slides == Slide.from_file(foo_file) + Slide.from_file(bar_file) }
       end
 
+      it "reads options from a showoff.json file" do
+        showoff_file = file "showoff.json", <<-JSON
+        {
+          "style": "fancy",
+          "transition": "flippy",
+          "sections": [
+          ]
+        }
+        JSON
 
-      it "if no slides are specified, it globs all markdown files under ."
+        app = RackApp.new [showoff_file]
+        options = app.instance_variable_get(:@options)
+        assert { options[:style] == "fancy" }
+        assert { options[:transition] == "flippy" }
+      end
+
+      specify "options from a showoff.json file don't override command-line options" do
+        showoff_file = file "showoff.json", <<-JSON
+        {
+          "style": "fancy",
+          "transition": "flippy",
+          "sections": [
+          ]
+        }
+        JSON
+
+        app = RackApp.new [showoff_file], style: "homey"
+        options = app.instance_variable_get(:@options)
+        assert { options[:style] == "homey" }
+        assert { options[:transition] == "flippy" }
+      end
 
     end
 

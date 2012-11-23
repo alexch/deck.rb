@@ -17,8 +17,8 @@ options = Trollop.options do
   banner "(see http://github.com/alexch/deck.rb README for more help)"
   opt :port, "Specify alternate port", :default => 4333
   opt :build, "Build an HTML file instead of launching a server (WARNING: not very useful yet)"
-  opt :style_theme, "Specify the style theme from deck.js/themes/style/", default: "swiss"
-  opt :transition_theme, "Specify the transition theme from deck.js/themes/transition/", default: "horizontal-slide"
+  opt :style, "Specify the style theme from deck.js/themes/style/", default: "swiss"
+  opt :transition, "Specify the transition theme from deck.js/themes/transition/", default: "horizontal-slide"
 end
 
 if options.delete(:build)
@@ -44,8 +44,8 @@ else
   port = options.delete(:port)
   slide_files = ARGV
   options = {
-      style_theme: options[:style_theme],
-      transition_theme: options[:transition_theme],
+      style: options[:style],
+      transition: options[:transition],
   }
   Rack::Handler.default.run Deck::RackApp.build(slide_files, options), :Port => port
 end

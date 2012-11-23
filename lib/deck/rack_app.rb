@@ -43,17 +43,7 @@ module Deck
       @slide_files = [slide_files].flatten.map do |slide_file|
         case slide_file
         when /\/?showoff(.*)\.json$/
-          json_file_dir = File.expand_path(File.dirname(slide_file))
-          json_file = slide_file
-          config = JSON.parse(File.read(json_file))
-          config['sections'].map do |markdown_file|
-            if markdown_file =~ /^# /   # you can use literal markdown instead of a file name
-              s = Slide.split(markdown_file)
-              s
-            else
-              File.new(json_file_dir + '/' + markdown_file)
-            end
-          end
+          parse_showoff_json(slide_file)
         else
           File.new(slide_file)
         end
@@ -66,6 +56,33 @@ module Deck
         end.compact.uniq.map do |slide_file_dir|
           Rack::File.new(slide_file_dir)
         end
+    end
+
+    def parse_showoff_json(slide_file)
+      json_file_dir = File.expand_path(File.dirname(slide_file))
+      json_file = slide_file
+      config = JSON.parse(File.read(json_file))
+      extract_options(config)
+      extract_slides(config, json_file_dir)
+    end
+
+    def extract_slides(config, json_file_dir)
+      config['sections'].map do |markdown_file|
+        if markdown_file =~ /^# / # you can use literal markdown instead of a file name
+          s = Slide.split(markdown_file)
+          s
+        else
+          File.new(json_file_dir + '/' + markdown_file)
+        end
+      end
+    end
+
+    def extract_options(config)
+      ["style", "transition"].each do |key|
+        if config[key] and !@options[key.to_sym]
+          @options[key.to_sym] = config[key]
+        end
+      end
     end
 
     def call env

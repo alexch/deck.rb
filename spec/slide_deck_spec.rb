@@ -78,7 +78,7 @@ module Deck
       end
 
       it "accepts theme names params" do
-        deck_widget :slides => Slide.split("# Foo\n"), :style_theme => "foo", :transition_theme => "bar"
+        deck_widget :slides => Slide.split("# Foo\n"), :style => "foo", :transition => "bar"
 
         assert { style_theme_node['href'] == "/deck.js/themes/style/foo.css" }
         assert { transition_theme_node['href'] == "/deck.js/themes/transition/bar.css" }
