@@ -17,9 +17,11 @@ options = Trollop.options do
   banner "(see http://github.com/alexch/deck.rb README for more help)"
   opt :port, "Specify alternate port", :default => 4333
   opt :build, "Build an HTML file instead of launching a server (WARNING: not very useful yet)"
+  opt :style_theme, "Specify the style theme from deck.js/themes/style/", default: "swiss"
+  opt :transition_theme, "Specify the transition theme from deck.js/themes/transition/", default: "horizontal-slide"
 end
 
-if options[:build]
+if options.delete(:build)
   slides = []
   output_path = nil
   output_dir = "."  # for now, since deck.js is relative to the project root
@@ -32,14 +34,18 @@ if options[:build]
   end
 
   File.open(output_path, "w") do |file|
-    deck = Deck::SlideDeck.new :slides => slides
+    deck = Deck::SlideDeck.new :slides => slides  #todo: pass theme options
     # deck.to_pretty(:output => file)  # todo: figure out why this doesn't work
     file.write deck.to_pretty
   end
 
 else
 
-  port = options[:port]
+  port = options.delete(:port)
   slide_files = ARGV
-  Rack::Handler.default.run Deck::RackApp.build(slide_files), :Port => port
+  options = {
+      style_theme: options[:style_theme],
+      transition_theme: options[:transition_theme],
+  }
+  Rack::Handler.default.run Deck::RackApp.build(slide_files, options), :Port => port
 end

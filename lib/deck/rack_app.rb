@@ -16,12 +16,8 @@ module Deck
       Rack::File.new("#{app_root}/public")
     end
 
-    def self.build slide_files
-      if const_defined?(:Thin)
-        if require "thin/logging"
-          Thin::Logging.debug = true
-        end
-      end
+    def self.build slide_files, options = {}
+      enable_thin_logging()
 
       Rack::Builder.app do
         use Rack::ShowExceptions
@@ -30,11 +26,20 @@ module Deck
           :element => "pre>code",
           :markdown => true,
           :pattern => /\A[:@]{3}\s?(\w+)\s*(\n|&#x000A;)/i
-        run ::Deck::RackApp.new(slide_files)
+        run ::Deck::RackApp.new(slide_files, options)
       end
     end
 
-    def initialize slide_files
+    def self.enable_thin_logging
+      if const_defined?(:Thin)
+        if require "thin/logging"
+          Thin::Logging.debug = true
+        end
+      end
+    end
+
+    def initialize slide_files, options = {}
+      @options = options
       @slide_files = [slide_files].flatten.map do |slide_file|
         case slide_file
         when /\/?showoff(.*)\.json$/
@@ -78,7 +83,7 @@ module Deck
     end
 
     def deck
-      SlideDeck.new :slides => slides
+      SlideDeck.new({:slides => slides}.merge(@options))
     end
 
     def slides

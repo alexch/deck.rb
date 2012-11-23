@@ -60,6 +60,13 @@ module Deck
       assert_ok
     end
 
+    it "passes options" do
+      slide_files = []
+      options = {:style_theme => "foo"}
+      Deck::RackApp.should_receive(:new).with(slide_files, options).and_call_original
+      Deck::RackApp.build slide_files, options
+    end
+
   end
 
   describe "raw app" do
@@ -88,6 +95,14 @@ module Deck
       get "/foo.css"
       assert_ok
       assert { last_response.body.include? "contents of foo.css" }
+    end
+
+    it "passes options" do
+      slide_files = []
+      options = {:style_theme => "foo"}
+      app = Deck::RackApp.new slide_files, options
+      slide_deck = app.deck
+      assert {slide_deck.instance_variable_get(:@style_theme) == "foo"}
     end
 
     describe "serving multiple slide files from multiple subdirs" do

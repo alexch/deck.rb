@@ -54,7 +54,8 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
   * links to image files are resolved relative to the source file -- no more broken images in markdown previews, and no need to put all your images in a separate directory!
   * add CSS classes to slides inside the slide directive - - e.g. `<!SLIDE center>` gives `<section class="slide center">`
   * generated HTML is pretty-printed for easier "view source"
-* uses deck.js' "swiss" theme and several extensions, including `goto`, `menu`, `navigation`, `status`, `hash`,  and `scale`
+* uses deck.js' "swiss" and "horizontal-slide" themes (configurable)
+* uses several deck.js extensions, including `goto`, `menu`, `navigation`, `status`, `hash`,  and `scale`
 * uses RedCarpet markdown extensions, including
   * tables <http://michelf.com/projects/php-markdown/extra/#table>
   * fenced code blocks <http://michelf.com/projects/php-markdown/extra/#fenced-code-blocks>
@@ -77,10 +78,12 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 
 ### Options
 
-    --port, -p <i>:   Specify alternate port (default: 4333)
-       --build, -b:   Build an HTML file instead of launching a server (WARNING: not very useful yet)
-     --version, -v:   Print version and exit
-        --help, -h:   Show this message
+                  --port, -p <i>:   Specify alternate port (default: 4333)
+                     --build, -b:   Build an HTML file instead of launching a server (WARNING: not very useful yet)
+           --style-theme, -s <s>:   Specify the style theme from deck.js/themes/style/ (default: swiss)
+      --transition-theme, -t <s>:   Specify the transition theme from deck.js/themes/transition/ (default: horizontal-slide)
+                   --version, -v:   Print version and exit
+                      --help, -h:   Show this message
 
 ## Deploying to Heroku
 
@@ -101,20 +104,24 @@ and a `Gemfile` like this:
 
 Then deploy to Heroku as usual (e.g. `heroku apps:create`).
 
-(Note that Deck::RackApp can accept either a filename or an array of filenames.)
+Note that `Deck::RackApp.build` can accept either a filename or an array of filenames.
+It also accepts options, e.g.
+
+    run Deck::RackApp.build('slides.md', transition_theme: 'fade')
+
 
 ## Known Issues (Bugs and Limitations)
 
 * If you're running Webrick, you may not be able to kill the server with Ctrl-C. This is apparently due to a bug in recent versions of Webrick.
   * Workaround: `gem install thin` -- if thin is installed, deck will use it instead of webrick
-* auxiliary files (e.g. images) are interleaved in URL path space, so overlapping file names might not resolve to the right file
+* Auxiliary files (e.g. images) are interleaved in URL path space, so overlapping file names might not resolve to the right file.
   * todo: rewrite internal links to files and serve them relative to current dir, not slide dir
 * H1s (which split slides) are converted to H2s for compatibility with deck.js's CSS themes
   * unless they're the only item on the slide, in which case they remain H1s
-* we use RedCarpet to process markdown, which doesn't work exactly the same as RDiscount... for example:
+* We use RedCarpet to process markdown, which doesn't work exactly the same as RDiscount... for example:
   * indented code blocks under a bullet point may need to be indented more
   * code blocks must be separated from the previous text by a newline
-* slide scaling isn't perfect; sometimes either resizing or reloading will improve the layout
+* Slide scaling isn't perfect; sometimes either resizing or reloading will improve the layout.
 
 Report bugs on <http://github.com/alexch/deck.rb/issues>
 
@@ -123,6 +130,7 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
 * deck.js by Caleb at <http://imakewebthings.com>
 * deck.rb by Alex Chaffee <http://alexchaffee.com>, with help from
   * Steven! Ragnarök <http://nuclearsandwich.com>
+  * David Doolin <http://dool.in>
 
 ### See Also
 

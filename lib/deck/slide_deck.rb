@@ -15,9 +15,12 @@ module Deck
       'status',
       'hash',
       'scale',
-      # 'theme-picker',
     ]
   needs :slides => nil
+
+  needs :style_theme => "swiss"
+  needs :transition_theme => "horizontal-slide"
+
   attr_reader :extensions
 
   def page_title
@@ -61,8 +64,9 @@ module Deck
       stylesheet public_asset("deck.js/extensions/#{extension}/deck.#{extension}.css")
     end
 
-    # <!-- Theme CSS files (menu swaps these out) -->
-    stylesheet public_asset("deck.js/themes/style/swiss.css"), :id=>"style-theme-link"
+    # <!-- Theme CSS files -->
+    stylesheet public_asset("deck.js/themes/style/#{@style_theme}.css"), :id=>"style-theme-link"
+    stylesheet public_asset("deck.js/themes/transition/#{@transition_theme}.css"), :id=>"transition-theme-link"
 
     stylesheet public_asset("coderay.css")
     stylesheet public_asset("tables.css")

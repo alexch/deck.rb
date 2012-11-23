@@ -1,6 +1,6 @@
 source :rubygems
 
-gemspec 
+gemspec
 
 group :test, :development do
   gem "rake"
@@ -8,6 +8,7 @@ group :test, :development do
 end
 
 group :test do
+  gem "rspec", ">=2.12.0"
   gem "wrong", ">=0.6.2"
   gem "nokogiri"
   gem "rack-test"

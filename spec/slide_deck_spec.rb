@@ -55,5 +55,36 @@ module Deck
       }
     end
 
+    describe "themes" do
+
+      def style_theme_node
+        doc.css("head link[rel='stylesheet'][id='style-theme-link']").first
+      end
+
+      def transition_theme_node
+        doc.css("head link[rel='stylesheet'][id='transition-theme-link']").first
+      end
+
+      it "defaults to 'swiss' style theme" do
+        deck_widget :slides => Slide.split("# Foo\n")
+        link_node = style_theme_node()
+        assert { link_node['href'] == "/deck.js/themes/style/swiss.css" }
+      end
+
+      it "defaults to 'horizontal-slide' transition theme" do
+        deck_widget :slides => Slide.split("# Foo\n")
+        link_node = transition_theme_node()
+        assert { link_node['href'] == "/deck.js/themes/transition/horizontal-slide.css" }
+      end
+
+      it "accepts theme names params" do
+        deck_widget :slides => Slide.split("# Foo\n"), :style_theme => "foo", :transition_theme => "bar"
+
+        assert { style_theme_node['href'] == "/deck.js/themes/style/foo.css" }
+        assert { transition_theme_node['href'] == "/deck.js/themes/transition/bar.css" }
+      end
+
+    end
+
   end
 end
