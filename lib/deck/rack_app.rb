@@ -1,5 +1,3 @@
-here = File.expand_path File.dirname(__FILE__)
-
 require 'json'
 require 'coderay'
 require 'rack/codehighlighter'
