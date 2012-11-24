@@ -1,37 +1,70 @@
 .deck-container .slide_toc {
-		position:fixed;
-		bottom:4px;
-		left:4px;
-		height: 80%;
-		color:#888;
-		z-index:3;
-		margin:0;
-	}
-
-.deck-container .slide_toc .toggle {
-	position: absolute;
-	bottom: 0px;
-	cursor: pointer;
+    position: fixed;
+    bottom: 4px;
+    left: 4px;
+    height: 80%;
+    color: #888;
+    z-index: 3;
+    margin: 0;
 }
 
-.deck-container .slide_toc ul {
-		display: none;
-		position: absolute;
-		width: 20em;
-		bottom: 1em;
+.deck-container .slide_toc .toggle {
+    position: absolute;
+    bottom: 0px;
+    cursor: pointer;
+    font-size: 80%;
+}
 
-		border: 1px solid black;
-		padding: 4px;
-		margin: 4px 0 2em;
-		background: white;
-		overflow-y: auto;
-		color: black;
+.deck-container .slide_toc .table {
+    font-size: 60%;
+    display: none;
+    position: absolute;
+    width: 20em;
+    bottom: 1em;
 
-		height: 100%;
-	}
+    border: 1px solid black;
+    padding: 4px;
+    margin: 4px 0 2em;
+    background: white;
+    overflow-y: auto;
+    color: black;
+
+    height: 100%;
+}
+
+.deck-container .slide_toc .table > h2 {
+    font-weight: bold;
+}
+
+.deck-container .slide_toc .table ul {
+    padding: 4px 4px 4px 8px;
+    margin: 4px 0 2em;
+    overflow-y: auto;
+}
+.deck-container .slide_toc .table ul > li {
+    margin-bottom: .25em;
+}
+
+.deck-container .slide_toc .table {
+    margin: 4px 0 2em;
+}
+
+.deck-container a {
+    display: block; /* fill the entire containing li */
+    padding: .25em;
+}
+
+.deck-container a, .deck-container a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.deck-container a:hover {
+    background: #efe0ef;
+}
 
 @media print {
-	.slide_toc {
-		display:none;
-	}
+    .slide_toc {
+        display: none;
+    }
 }

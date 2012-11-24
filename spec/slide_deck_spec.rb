@@ -46,11 +46,14 @@ module Deck
       toc = doc.css('.slide_toc')
       assert { toc.size == 1 }
       assert { noko_html(toc.first) == "<div class=\"slide_toc\">" +
-          "<div class=\"toggle\">[toc]</div>" +
+          "<div class=\"toggle\">[contents]</div>" +
+          "<div class=\"table\">" +
+          "<h2>deck.rb presentation</h2>" +
           "<ul>" +
           "<li><a href=\"#foo\">Foo</a></li>" +
           "<li><a href=\"#bar\">Bar</a></li>" +
           "</ul>" +
+          "</div>"
           "</div>"
       }
     end

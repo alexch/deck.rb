@@ -64,7 +64,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * code syntax highlighting using Coderay
   * specify language at the top of the block using either ::: or @@@
   * e.g. `@@@ ruby`
-* there's a simple table of contents (click the [toc] link on lower left to toggle)
+* there's a simple table of contents (click the [contents] link on lower left to toggle)
   * this is currently very primitive and should be redone and/or integrated into deck.js
 
 ## Command-Line API

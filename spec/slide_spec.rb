@@ -193,6 +193,10 @@ Two
       slide = Slide.new(:markdown_text => "# foo", :slide_id => "bar")
       assert { slide.slide_id == "bar" }
     end
+
+    it "skips empty lines" do
+      assert { slide_from("\n# hi").slide_id == "hi" }
+    end
   end
 
   describe "has a title" do
@@ -206,6 +210,10 @@ Two
 
     it "strips whitespace" do
       assert { slide_from("#    hi there    ").title == "hi there" }
+    end
+
+    it "skips empty lines" do
+      assert { slide_from("\n# hi").title == "hi" }
     end
   end
 

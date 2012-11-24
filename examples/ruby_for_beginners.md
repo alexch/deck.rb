@@ -1,12 +1,7 @@
-!SLIDE subsection
-
 # The Complete Beginner's Guide to Programming
-
-!SLIDE
 
 # What is a program?
 
-!SLIDE
 # Operating Systems
 
 ![](img/os_x_logo.jpg)
@@ -15,7 +10,6 @@
 
 ![](img/linux_logo.gif)
 
-!SLIDE
 # Applications
 
 ![](img/acrobat.jpg)

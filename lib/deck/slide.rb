@@ -107,16 +107,14 @@ module Deck
   end
 
   def title
-    lines = @markdown_text.split("\n")
+    lines = @markdown_text.strip.split("\n")
     raise "an empty slide has no id" if lines.empty?
     lines.first.gsub(/^[#=]*/, '').strip
   end
 
   def slide_id
     @slide_id ||= begin
-      lines = @markdown_text.split("\n")
-      raise "an empty slide has no id" if lines.empty?
-      lines.first.downcase.gsub(/[^\w\s]/, '').strip.gsub(/\s/, '_')
+      title.downcase.gsub(/[^\w\s]/, '').strip.gsub(/\s/, '_')
     end
   end
 
