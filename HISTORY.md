@@ -1,8 +1,9 @@
-#
+# 0.5.0
 * bring deck.js up to date (https://github.com/imakewebthings/deck.js/commit/069f63294abe8c2bfd0e3c9b34d26090802c4f46)
 * add --style and --transition options
 * improve table of contents style
 * rename [toc] link to [contents]
+* lines beginning with `.notes ` are skipped
 
 # 0.4.2 2012-09-26
 * require rack >= 1.4.1

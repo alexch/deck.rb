@@ -282,6 +282,17 @@ foo
       assert { html == expected_html }
     end
 
+    it "skips notes" do
+      source = "foo\n.notes bar\nbaz"
+      expected = <<-HTML
+<section class="slide" id="foo">
+<p>foo
+baz</p>
+</section>
+        HTML
+
+      assert { slide_from(source).to_pretty == expected }
+    end
 
   end
 

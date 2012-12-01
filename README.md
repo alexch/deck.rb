@@ -66,6 +66,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
   * e.g. `@@@ ruby`
 * there's a simple table of contents (click the [contents] link on lower left to toggle)
   * this is currently very primitive and should be redone and/or integrated into deck.js
+* lines beginning with `.notes ` are skipped
 
 ## Command-Line API
 
@@ -149,6 +150,7 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
 * deck.rb by Alex Chaffee <http://alexchaffee.com>, with help from
   * Steven! Ragnarök <http://nuclearsandwich.com>
   * David Doolin <http://dool.in>
+  * and other awesome patchers
 
 ### See Also
 
