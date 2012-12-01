@@ -1,6 +1,7 @@
 # based on work by Alex and others in Showoff
 require 'redcarpet'
 require 'deck/noko'
+require 'deck/renderer'
 
 module Deck
  class Slide < Erector::Widget
@@ -79,16 +80,15 @@ module Deck
   end
 
   def markdown
-    @@markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      :no_intra_emphasis => true,
-      :tables => true,
-      :fenced_code_blocks => true,
-      :no_intra_emphasis => true,
-      :autolink => true,
-      :strikethrough => true,
-      :lax_html_blocks => false,
+    @@markdown ||= Redcarpet::Markdown.new(Deck::Renderer,
+      :autolink            => true,
+      :fenced_code_blocks  => true,
+      :lax_html_blocks     => false,
+      :no_intra_emphasis   => true,
       :space_after_headers => true,
-      :superscript => false
+      :strikethrough       => true,
+      :superscript         => false,
+      :tables              => true
     )
   end
 

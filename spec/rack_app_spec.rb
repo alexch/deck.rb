@@ -55,11 +55,6 @@ module Deck
       assert { last_response.body == expected_body }
     end
 
-    it "finds coderay.css" do
-      get "/coderay.css"
-      assert_ok
-    end
-
     it "passes options" do
       slide_files = []
       options = {:style => "foo"}
@@ -169,30 +164,21 @@ module Deck
         assert { slides.size == 1 }
         slide = slides.first
         code_block = slide.css('pre').first
-        assert { code_block.inner_html == "sum = <span class=\"integer\">2</span> + <span class=\"integer\">2</span>\n"     }
+        assert { code_block.inner_html == "<span class=\"n\">sum</span> <span class=\"o\">=</span> <span class=\"mi\">2</span> <span class=\"o\">+</span> <span class=\"mi\">2</span>\n" }
       end
 
-      it "with :::" do
+      it "with pygments" do
         build_app <<-MARKDOWN
 # some code
 
-    :::ruby
-    sum = 2 + 2
+``` ruby
+sum = 2 + 2
+```
         MARKDOWN
 
         assert_code_is_highlighted
       end
 
-      it "with @@@" do
-        build_app <<-MARKDOWN
-# some code
-
-    @@@ruby
-    sum = 2 + 2
-        MARKDOWN
-
-        assert_code_is_highlighted
-      end
     end
 
     describe '#slides' do
