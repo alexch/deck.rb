@@ -57,6 +57,7 @@
 ## Variables
 ### words that hold information
 
+    ::: ruby
     > my_variable = 5
     => 5
     > my_other_variable = "hi"
@@ -79,6 +80,7 @@
 
 An Array is a list of objects.
 
+    ::: ruby
     >> fruits = ["kiwi", "strawberry", "plum"]
     => ["kiwi", "strawberry", "plum"]
 
@@ -87,6 +89,7 @@ An Array is a list of objects.
 
 Ruby starts counting at zero.
 
+    ::: ruby
     >> fruits[0]
     => "kiwi"
     >> fruits[2]
@@ -101,6 +104,7 @@ Ruby starts counting at zero.
 * push, pop
 * shift, unshift
 
+        ::: ruby
         fruits.first #=> "kiwi"
 
 !SLIDE
@@ -109,6 +113,7 @@ Ruby starts counting at zero.
 * aka Dictionary or Map
 * collection of key/value pairs
 
+        ::: ruby
         >> states = {"CA" => "California",
             "DE" => "Delaware"}
         => {"CA"=>"California", "DE"=>"Delaware"}
@@ -121,6 +126,7 @@ Ruby starts counting at zero.
 
 ### doing stuff with variables
 
+    ::: ruby
     > my_variable + 2
     => 7
     > my_variable * 3
@@ -137,6 +143,7 @@ Ruby starts counting at zero.
 
 The hard way:
 
+    ::: ruby
     >> puts fruits[0]
     kiwi
     => nil
