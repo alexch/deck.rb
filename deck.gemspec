@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version   = Deck::VERSION
   s.authors   = ["Alex Chaffee"]
   s.email     = "alex@stinky.com"
-  s.homepage  = "http://github.com/alexch/deck"
+  s.homepage  = "http://github.com/alexch/deck.rb"
   s.summary   = "Make HTML slide shows; wraps deck.js"
   s.description  = <<-EOS.strip
 deck.js (http://imakewebthings.github.com/deck.js) is a JavaScript library for building slide presentations using HTML 5. deck.rb (http://github.com/alexch/deck.rb) builds on top of deck.js, adding some features and letting you focus on your slides, not the HTML infrastructure.
