@@ -8,20 +8,25 @@ module Deck
 
     include Files
 
-    def doc
-      @doc ||= begin
-        @html = deck_widget.to_html
-        noko_doc @html
-      end
-    end
+    let(:html) { deck_widget.to_html }
+    let(:doc) { noko_doc html }
 
     def deck_widget options = {}
       @deck_widget ||= SlideDeck.new options
     end
 
+    def assert_html_like actual, expected
+      actual = actual.strip.gsub("\n\n", "\n")
+      expected = expected.strip.gsub("\n\n", "\n")
+      assert { actual == expected }
+    end
+
     it "renders a basic deck.js HTML page" do
-      assert { doc }
-      assert { @html.include? '<link href="/deck.js/core/deck.core.css" rel="stylesheet" />' }
+      assert { html.include? '<link href="/deck.js/core/deck.core.css" rel="stylesheet" />' }
+    end
+
+    it "starts the deck script running" do
+      assert { html.include? "$.deck('.slide');" }
     end
 
     it "contains a single dummy slide" do
@@ -35,17 +40,17 @@ module Deck
       assert { slides.size == 1 }
       slide = slides.first
       assert { slide["id"] == "hello" }
-      assert { noko_html(slide) == "<section class=\"slide\" id=\"hello\">" +
-          "<h1>hello</h1>\n" +
-          "</section>"
-      }
+
+      slide_html = noko_html(slide)
+      slide_html.gsub!("\n", "") # WTF Nokogiri inconsistently outputs newlines between Ruby 1.9 and 2.0
+      assert { slide_html == "<section class=\"slide\" id=\"hello\">" + "<h1>hello</h1>" + "</section>" }
     end
 
     it "includes a table of contents" do
       deck_widget :slides => Slide.split("# Foo\n\n# Bar\n")
       toc = doc.css('.slide_toc')
       assert { toc.size == 1 }
-      assert { noko_html(toc.first) == "<div class=\"slide_toc\">" +
+      assert_html_like noko_html(toc.first), "<div class=\"slide_toc\">" +
           "<div class=\"toggle\">[contents]</div>" +
           "<div class=\"table\">" +
           "<h2>deck.rb presentation</h2>" +
@@ -53,9 +58,8 @@ module Deck
           "<li><a href=\"#foo\">Foo</a></li>" +
           "<li><a href=\"#bar\">Bar</a></li>" +
           "</ul>" +
+          "</div>" +
           "</div>"
-          "</div>"
-      }
     end
 
     describe "themes" do

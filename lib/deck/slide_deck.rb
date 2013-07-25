@@ -94,7 +94,7 @@ module Deck
       end
 
       # fire up deck.js
-      script "$(function(){$.deck('.slide');});"
+      script raw("$(function(){$.deck('.slide');});")
 
     end
 

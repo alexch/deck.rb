@@ -1,3 +1,6 @@
+# 0.5.1
+* bugfix for Ruby 2.0
+
 # 0.5.0
 * bring deck.js up to date (https://github.com/imakewebthings/deck.js/commit/069f63294abe8c2bfd0e3c9b34d26090802c4f46)
 * add --style and --transition options

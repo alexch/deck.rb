@@ -6,6 +6,13 @@ require "deck/slide"
 module Deck
  describe Slide do
 
+   def assert_html_like actual, expected
+     actual = actual.strip.gsub("\n\n", "\n")
+     expected = expected.strip.gsub("\n\n", "\n")
+     assert { actual == expected }
+   end
+
+
   describe "classes" do
     it "by default" do
       assert {Slide.new.classes == ["slide"]}
@@ -246,7 +253,7 @@ Two
 </ul>
 </section>
       HTML
-      assert { html == expected_html }
+      assert_html_like html, expected_html
     end
 
     it "with only a underline-style header, leaving a solo H1 as an H1" do
@@ -259,7 +266,7 @@ foo
 <h1>foo</h1>
 </section>
       HTML
-      assert { html == expected_html }
+      assert_html_like html, expected_html
     end
 
     it "converts a non-solo underline-style H1 into an H2 for deck.js style compatibility)" do
@@ -279,7 +286,7 @@ foo
 </ul>
 </section>
       HTML
-      assert { html == expected_html }
+      assert_html_like html, expected_html
     end
 
     it "skips notes" do
@@ -291,7 +298,7 @@ baz</p>
 </section>
         HTML
 
-      assert { slide_from(source).to_pretty == expected }
+      assert_html_like slide_from(source).to_pretty, expected
     end
 
   end
@@ -314,7 +321,7 @@ baz</p>
 </ul>
 </section>
       HTML
-      assert { html == expected_html }
+      assert_html_like html, expected_html
     end
   end
 
@@ -336,7 +343,7 @@ baz</p>
 </ul>
 </section>
       HTML
-      assert { html == expected_html }
+      assert_html_like html, expected_html
     end
   end
 
