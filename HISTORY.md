@@ -1,3 +1,6 @@
+# 0.5.2
+* fix link CSS
+
 # 0.5.1
 * bugfix for Ruby 2.0
 

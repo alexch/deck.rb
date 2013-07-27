@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.description  = <<-EOS.strip
 deck.js (http://imakewebthings.github.com/deck.js) is a JavaScript library for building slide presentations using HTML 5. deck.rb (http://github.com/alexch/deck.rb) builds on top of deck.js, adding some features and letting you focus on your slides, not the HTML infrastructure.
   EOS
+  s.license = 'MIT'
 
   s.files      = Dir['lib/**/*'] + Dir['public/**/*']
   s.test_files = Dir['spec/**/*.rb']
