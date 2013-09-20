@@ -1,6 +1,4 @@
 require 'json'
-require 'coderay'
-require 'rack/codehighlighter'
 require 'deck'
 
 module Deck
@@ -20,10 +18,6 @@ module Deck
       Rack::Builder.app do
         use Rack::ShowExceptions
         use Rack::ShowStatus
-        use Rack::Codehighlighter, :coderay,
-          :element => "pre>code",
-          :markdown => true,
-          :pattern => /\A[:@]{3}\s?(\w+)\s*(\n|&#x000A;)/i
         run ::Deck::RackApp.new(slide_files, options)
       end
     end

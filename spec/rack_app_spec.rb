@@ -55,11 +55,6 @@ module Deck
       assert { last_response.body == expected_body }
     end
 
-    it "finds coderay.css" do
-      get "/coderay.css"
-      assert_ok
-    end
-
     it "passes options" do
       slide_files = []
       options = {:style => "foo"}
@@ -160,7 +155,7 @@ module Deck
         @app = Deck::RackApp.build ["#{files.root}/foo.md"]
       end
 
-      def assert_code_is_highlighted
+      def assert_code_is_highlighted coads
         get "/"
         assert_ok
         doc = noko_doc(last_response.body)
@@ -168,31 +163,35 @@ module Deck
         slides = doc.css('section.slide')
         assert { slides.size == 1 }
         slide = slides.first
+        puts slide.inner_html
         code_block = slide.css('pre').first
-        assert { code_block.inner_html == "sum = <span class=\"integer\">2</span> + <span class=\"integer\">2</span>\n"     }
+        assert { code_block.inner_html == coads }
       end
 
-      it "with :::" do
+      it "with pygments" do
         build_app <<-MARKDOWN
 # some code
 
-    :::ruby
-    sum = 2 + 2
+``` ruby
+sum = 2 + 2
+```
         MARKDOWN
 
-        assert_code_is_highlighted
+        assert_code_is_highlighted "<span class=\"n\">sum</span> <span class=\"o\">=</span> <span class=\"mi\">2</span> <span class=\"o\">+</span> <span class=\"mi\">2</span>\n"
       end
 
-      it "with @@@" do
+      it "with no language" do
         build_app <<-MARKDOWN
 # some code
 
-    @@@ruby
-    sum = 2 + 2
+```
+WAT
+```
         MARKDOWN
 
-        assert_code_is_highlighted
+        assert_code_is_highlighted "WAT\n"
       end
+
     end
 
     describe '#slides' do

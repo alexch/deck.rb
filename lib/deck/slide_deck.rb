@@ -68,7 +68,7 @@ module Deck
       stylesheet public_asset("deck.js/themes/style/#{@style}.css"), :id => "style-theme-link"
       stylesheet public_asset("deck.js/themes/transition/#{@transition}.css"), :id => "transition-theme-link"
 
-      stylesheet public_asset("coderay.css")
+      stylesheet public_asset("fruidle.css")
       stylesheet public_asset("tables.css")
       stylesheet public_asset("toc.css")
     end
