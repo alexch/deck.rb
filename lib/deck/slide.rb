@@ -83,7 +83,6 @@ module Deck
 
   def markdown
     @@markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      :no_intra_emphasis => true,
       :tables => true,
       :fenced_code_blocks => true,
       :no_intra_emphasis => true,
@@ -122,6 +121,7 @@ module Deck
   end
 
   def content
+    a class: 'slide-anchor', name: "anchor/#{slide_id}"
     section :class => @classes, :id => slide_id do
       text "\n" # markdown HTML should be left-aligned, in case of PRE blocks and other quirks
       html = markdown.render(markdown_text)
