@@ -86,7 +86,6 @@ module Deck
       :no_intra_emphasis => true,
       :tables => true,
       :fenced_code_blocks => true,
-      :no_intra_emphasis => true,
       :autolink => true,
       :strikethrough => true,
       :lax_html_blocks => false,
