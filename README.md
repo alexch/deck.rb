@@ -54,7 +54,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
   * links to image files are resolved relative to the source file -- no more broken images in markdown previews, and no need to put all your images in a separate directory!
   * add CSS classes to slides inside the slide directive - - e.g. `<!SLIDE center>` gives `<section class="slide center">`
   * generated HTML is pretty-printed for easier "view source"
-* uses deck.js' "swiss" and "horizontal-slide" themes (configurable)
+* uses deck.js' "swiss" and "horizontal-slide" themes (configurable; see below)
 * uses several deck.js extensions, including `goto`, `menu`, `navigation`, `status`, `hash`,  and `scale`
 * uses RedCarpet markdown extensions, including
   * tables <http://michelf.com/projects/php-markdown/extra/#table>
@@ -90,6 +90,9 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 
 `deck.js` has several themes for styling and animating your presentation.
 You can select these from the command line or from a `showoff.json` file with the `style` and `transition` options.
+
+To skip the deck theme and use your own CSS file, pass its URL (full or partial) as the `style` param. (TODO: allow this for transition as well)
+
 Currently the following themes are available:
 
 ### Style Themes
@@ -167,8 +170,8 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
 * config options:
   * show/hide theme selector
   * show/hide page number/nav
+  * better contents popup behavior
   * choose deck extensions
-  * theme
   * specify which Redcarpet Markdown extensions to use
 * command-line tool can take a directory
   * first pass: globs all *.md files in it
