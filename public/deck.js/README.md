@@ -4,11 +4,11 @@ A JavaScript library for building modern HTML presentations. deck.js is flexible
 
 ## Quick Start
 
-This repository includes a `boilerplate.html` as a starting point, with all the extensions included. Just [download it](https://github.com/imakewebthings/deck.js/zipball/stable), open `boilerplate.html`, and start editing your slides.
+This repository includes a `boilerplate.html` as a starting point, with all the extensions included. Just [download it](https://github.com/imakewebthings/deck.js/archive/latest.zip), open `boilerplate.html`, and start editing your slides.
 
 ## Documentation
 
-Check out the [documentation page](http://imakewebthings.github.com/deck.js/docs) for more information on the methods, events, and options available in core and all the included extensions.  A sample standard slide deck is included in the package under the `introduction` folder.  You can also [view that sample deck](http://imakewebthings.github.com/deck.js/introduction) online to play with the available style and transition themes.
+Check out the [documentation page](http://imakewebthings.com/deck.js/docs) for more information on the methods, events, and options available in core and all the included extensions.  A sample standard slide deck is included in the package under the `introduction` folder.  You can also [view that sample deck](http://imakewebthings.com/deck.js/introduction) online to play with the available style and transition themes.
 
 ## Extensions, Themes, and Related Projects
 
@@ -21,21 +21,11 @@ Take a look at [the wiki](https://github.com/imakewebthings/deck.js/wiki) for li
 
 ## Tests & Support
 
-Unit tests are written with [Jasmine](http://pivotal.github.com/jasmine/) and [jasmine-jquery](https://github.com/velesin/jasmine-jquery). You can [run them here](http://imakewebthings.github.com/deck.js/test).
+Unit tests are written with [Jasmine](http://jasmine.github.io/) and [jasmine-jquery](https://github.com/velesin/jasmine-jquery). You can [run them here](http://imakewebthings.com/deck.js/test).
 
 deck.js has been tested with jQuery 1.6+ and works in IE7+, Chrome, FF, Safari, and Opera. The more capable browsers receive greater enhancements, but a basic cutaway slideshow will work for all browsers listed above. Please don't give your presentations in IE6.
 
 For any questions or general discussion about deck.js please direct your attention to the [mailing list](http://groups.google.com/group/deckjs) (uses Google groups.)  If you would like to report a bug, please see the [issues page](https://github.com/imakewebthings/deck.js/issues).
-
-## Known Bug(s)
-
-There is an issue with certain builds of Chrome that result in a solid blue background and generally broken decks.  This is a bug in Chrome ([Issue 91518](http://code.google.com/p/chromium/issues/detail?id=91518)) that stems from hardware acceleration of 3d transforms.  Current workarounds:
-
-- Use a different browser. This problem doesn't exist in Safari, FF, Opera.
-- Disable hardware compositing by setting `--disable-accelerated-compositing` in the Chrome loading options
-- Replace instances of `translate3d` with `translate` in the CSS of your decks (though this will slow down performance on iOS devices and Safari.)
-
-Firefox contains a bug that allows users to scroll horizontally using the trackpad despite `overflow-x:hidden`. ([Bug 664275](https://bugzilla.mozilla.org/show_bug.cgi?id=664275) and [Bug 325942](https://bugzilla.mozilla.org/show_bug.cgi?id=325942).) If anyone knows of any workarounds to this issue please contact me.
 
 ## Printing
 
@@ -49,6 +39,7 @@ Core includes stripped down black and white print styles for the standard slide 
 - [awirick](https://github.com/awirick)
 - Daniel Knittl-Frank
 - [alexch](https://github.com/alexch)
+- [twitwi](https://github.com/twitwi)
 
 If you would like to contribute a patch to deck.js please do as much as you can of the following:
 
@@ -59,6 +50,11 @@ If you would like to contribute a patch to deck.js please do as much as you can 
 
 ## License
 
-Copyright (c) 2011-2012 Caleb Troughton
+Copyright (c) 2011-2014 Caleb Troughton
 
-Dual licensed under the [MIT license](https://github.com/imakewebthings/deck.js/blob/master/MIT-license.txt) and [GPL license](https://github.com/imakewebthings/deck.js/blob/master/GPL-license.txt).
+Licensed under the [MIT license](https://github.com/imakewebthings/deck.js/blob/master/MIT-license.txt)
+
+## Donations
+
+[![Gittip donate
+button](http://img.shields.io/gittip/imakewebthings.png)](https://www.gittip.com/imakewebthings/ "Donate weekly to this project using Gittip")
