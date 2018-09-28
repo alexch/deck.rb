@@ -10,6 +10,7 @@ require "deck/rack_app"
 require "deck/version"
 require "thin" # i hate webrick
 
+# todo: use the newer version of Trollop with the less offensive name
 options = Trollop.options do
   version "deck v#{Deck::VERSION}"
   banner version
@@ -17,7 +18,7 @@ options = Trollop.options do
   banner "(see http://github.com/alexch/deck.rb README for more help)"
   opt :port, "Specify alternate port", :default => 4333
   opt :build, "Build an HTML file instead of launching a server (WARNING: not very useful yet)"
-  opt :style, "Specify the style theme from deck.js/themes/style/", default: "swiss"
+  opt :theme, "Specify the style theme from deck.js/themes/style/", short: "s", default: "swiss"
   opt :transition, "Specify the transition theme from deck.js/themes/transition/", default: "horizontal-slide"
 end
 

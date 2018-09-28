@@ -7,7 +7,9 @@ module Deck
   class SlideDeck < Erector::Widgets::Page
     needs :title => "deck.rb presentation",
           :description => nil,
-          :author => nil
+          :author => nil,
+          :stylesheets => nil
+
     needs :extensions => [
         'goto',
         'menu',
@@ -47,7 +49,8 @@ module Deck
     end
 
     def public_asset path
-      "/#{path}"
+      slashes_in_a_row = /\/+/ # todo: test the substitution
+      "/#{path}".gsub(slashes_in_a_row, '/')
     end
 
     def head_content
@@ -65,7 +68,7 @@ module Deck
       end
 
       # <!-- Theme CSS files -->
-      theme_name = @style || @theme # todo: deprecate 'style' param
+      theme_name = @theme
       theme_path = if theme_name.include? "/"
                      theme_name
                    else
@@ -77,6 +80,19 @@ module Deck
       stylesheet public_asset("coderay.css")
       stylesheet public_asset("tables.css")
       stylesheet public_asset("toc.css")
+
+      # todo: test
+      if (@stylesheets)
+        @stylesheets.each do |stylesheet_path|
+          if (stylesheet_path =~ /^https?:/)
+            stylesheet stylesheet_path
+          else
+
+            stylesheet public_asset(stylesheet_path)
+          end
+        end
+      end
+
     end
 
     def scripts
@@ -84,7 +100,7 @@ module Deck
 
       # comment 'Grab CDN jQuery, with a protocol relative URL; fall back to local if offline'
       # script :src => '//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js'
-      script :src => public_asset('deck.js/jquery-1.7.2.min.js')
+      script :src => public_asset('deck.js/jquery.min.js')
 
       jquery <<-JAVASCRIPT
     $('.slide_toc .toggle').click(function(){
@@ -114,7 +130,7 @@ module Deck
       toc
       deck_status
       goto_slide
-      permalink
+      # permalink
       scripts
     end
 

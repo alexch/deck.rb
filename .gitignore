@@ -3,5 +3,5 @@ Gemfile.lock
 *.gem
 .bundle
 pkg/*
-
+.DS_Store
 .idea

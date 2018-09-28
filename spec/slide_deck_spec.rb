@@ -15,12 +15,6 @@ module Deck
       @deck_widget ||= SlideDeck.new options
     end
 
-    def assert_html_like actual, expected
-      actual = actual.strip.gsub("\n\n", "\n")
-      expected = expected.strip.gsub("\n\n", "\n")
-      assert { actual == expected }
-    end
-
     it "renders a basic deck.js HTML page" do
       assert { html.include? '<link href="/deck.js/core/deck.core.css" rel="stylesheet" />' }
     end
@@ -43,7 +37,7 @@ module Deck
 
       slide_html = noko_html(slide)
       slide_html.gsub!("\n", "") # WTF Nokogiri inconsistently outputs newlines between Ruby 1.9 and 2.0
-      assert { slide_html == "<section class=\"slide\" id=\"hello\">" + "<h1>hello</h1>" + "</section>" }
+      assert { slide_html == "<section class=\"slide markdown-body\" id=\"hello\">" + "<h1>hello</h1>" + "</section>" }
     end
 
     it "includes a table of contents" do
@@ -85,7 +79,7 @@ module Deck
       end
 
       it "accepts theme names params" do
-        deck_widget :slides => Slide.split("# Foo\n"), :style => "foo", :transition => "bar"
+        deck_widget :slides => Slide.split("# Foo\n"), :theme => "foo", :transition => "bar"
 
         assert { style_theme_node['href'] == "/deck.js/themes/style/foo.css" }
         assert { transition_theme_node['href'] == "/deck.js/themes/transition/bar.css" }

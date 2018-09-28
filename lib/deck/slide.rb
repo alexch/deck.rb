@@ -2,21 +2,22 @@
 require 'redcarpet'
 require 'deck/noko'
 
+
 module Deck
- class Slide < Erector::Widget
+  class Slide < Erector::Widget
 
   include Deck::Noko
 
   # todo: test this method on its own
   def self.from_file markdown_file
-    markdown_file = markdown_file.path if markdown_file.is_a? File   # fix for Ruby 1.8.7
+    markdown_file = markdown_file.path if markdown_file.is_a? File # fix for Ruby 1.8.7
     split File.read(markdown_file)
   end
 
   # given a chunk of Markdown text, splits it into an array of Slide objects
   # todo: move into SlideDeck?
   def self.split content
-    unless content =~ /^\<?!SLIDE/m     # this only applies to files with no !SLIDEs at all, which is odd
+    unless content =~ /^\<?!SLIDE/m # this only applies to files with no !SLIDEs at all, which is odd
       content = content.
         gsub(/^# /m, "<!SLIDE>\n# ").
         gsub(/^(.*)\n(===+)/, "<!SLIDE>\n\\1\n\\2")
@@ -43,7 +44,7 @@ module Deck
       end
     end
 
-    slides.delete_if {|slide| slide.empty? }
+    slides.delete_if {|slide| slide.empty?}
 
     slides
   end
@@ -64,33 +65,33 @@ module Deck
 
   def ==(other)
     Slide === other and
-    @classes == other.classes and
-    @markdown_text == other.markdown_text
+      @classes == other.classes and
+      @markdown_text == other.markdown_text
   end
 
   def process_classes
-    ["slide"] + case @classes
-    when NilClass
-      []
-    when String
-      @classes.strip.chomp('>').split
-    when Array
-      @classes
-    else
-      raise "can't deal with :classes => #{@classes.inspect}"
-    end
+    ["slide", "markdown-body"] + case @classes
+                                 when NilClass
+                                   []
+                                 when String
+                                   @classes.strip.chomp('>').split
+                                 when Array
+                                   @classes
+                                 else
+                                   raise "can't deal with :classes => #{@classes.inspect}"
+                                 end
   end
 
   def markdown
     @@markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      :tables => true,
-      :fenced_code_blocks => true,
-      :no_intra_emphasis => true,
-      :autolink => true,
-      :strikethrough => true,
-      :lax_html_blocks => false,
-      :space_after_headers => true,
-      :superscript => false
+                                           :tables => true,
+                                           :fenced_code_blocks => true,
+                                           :no_intra_emphasis => true,
+                                           :autolink => true,
+                                           :strikethrough => true,
+                                           :lax_html_blocks => false,
+                                           :space_after_headers => true,
+                                           :superscript => false
     )
   end
 
@@ -124,8 +125,9 @@ module Deck
     a class: 'slide-anchor', name: "anchor/#{slide_id}"
     section :class => @classes, :id => slide_id do
       text "\n" # markdown HTML should be left-aligned, in case of PRE blocks and other quirks
-      html = markdown.render(markdown_text)
-      html = munge(html)
+      md = munge_md(markdown_text)
+      html = markdown.render(md)
+      html = munge_html(html)
       rawtext html
     end
   end
@@ -148,15 +150,27 @@ module Deck
       end
     end
 
-    def munge html
-      doc = noko_doc(html)
-      if mutate_h1? doc
-        doc.css('h1').each {|node| node.node_name = "h2"}
-        doc.css('body').inner_html + "\n"
-      else
-        html
-      end
+    # here we convert <!--BOX--> (and friends) into a placeholder string
+    # that *won't* get HTML-escaped
+    def munge_md text
+      text.gsub(/<!(--)?(\/?BOX)(--)?>/, "===\\2===\n")
     end
 
- end
+    def munge_html html
+
+      html = html.gsub(/(<p>)?===BOX===(<\/p>)?/, "<section class='box'>")
+               .gsub('===/BOX===', "</section>")
+
+      doc = noko_doc(html)
+      if mutate_h1? doc
+        doc.css('h1').each do |node|
+          node.node_name = "h2"
+          node['class'] = 'slide-title'
+        end
+        html = doc.css('body').inner_html + "\n"
+      end
+      html
+    end
+
+  end
 end

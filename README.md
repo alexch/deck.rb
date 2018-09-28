@@ -67,6 +67,11 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * there's a simple table of contents (click the [contents] link on lower left to toggle)
   * this is currently very primitive and should be redone and/or integrated into deck.js
 * lines beginning with `.notes ` are skipped
+* each slide is preceded by an `<a class=\"slide-anchor\" name=\"anchor/slidename\">` so you can render slides into a top-to-bottom list and have a table of contents link to inner anchors (and format them with a height and/or a negative top, to allow spacing past a fixed page header)
+* slides include `markdown-body` css class, for compatibility with the [github-markdown](https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css) stylesheet
+* directives:
+    * `<!VIDEO youtubeid>`
+    * `<!--BOX-->` / `<!--/BOX-->`  open/close a `section` with class `box`
 
 ## Command-Line API
 
@@ -81,7 +86,7 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 
             --port, -p <i>:   Specify alternate port (default: 4333)
                --build, -b:   Build an HTML file instead of launching a server (WARNING: not very useful yet)
-           --style, -s <s>:   Specify the style theme from deck.js/themes/style/ (default: swiss)
+           --theme, -s <s>:   Specify the style theme from deck.js/themes/style/ (default: swiss)
       --transition, -t <s>:   Specify the transition theme from deck.js/themes/transition/ (default: horizontal-slide)
              --version, -v:   Print version and exit
                 --help, -h:   Show this message
@@ -163,10 +168,12 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
 
 ## TODO
 
+* find any lines that start with a <p>.(something) and turn them into <p class="something">
+  * see showoff.rb:189
 * fix title tag (base it off of presentation name or something)
 * scale images to fit on the page
 * if no files are specified, use either './showoff.json' or all `.md` files under current directory
-* deck.json config file
+* `deck.json` config file
 * config options:
   * show/hide theme selector
   * show/hide page number/nav
@@ -192,8 +199,6 @@ Report bugs on <http://github.com/alexch/deck.rb/issues>
   * hell, maybe it should inline everything *including* images (using those base64 urls or whatever) into a single HTML file
 * build and push into a gh-pages branch
 * build and push into a heroku app
-* find any lines that start with a <p>.(something) and turn them into <p class="something">
-  * see showoff.rb:189
 * some way to build/rebuild a project that is deployable to heroku
 * PDF
 * rewrite internal links to files and serve them relative to current dir, not slide dir

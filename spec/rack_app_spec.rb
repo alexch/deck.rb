@@ -97,12 +97,12 @@ module Deck
       assert { last_response.body.include? "contents of foo.css" }
     end
 
-    it "passes options" do
+    it "passes the 'theme' option" do
       slide_files = []
-      options = {:style => "foo"}
+      options = {:theme => "foo"}
       app = Deck::RackApp.new slide_files, options
       slide_deck = app.deck
-      assert {slide_deck.instance_variable_get(:@style) == "foo"}
+      assert {slide_deck.instance_variable_get(:@theme) == "foo"}
     end
 
     describe "serving multiple slide files from multiple subdirs" do

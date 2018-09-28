@@ -6,24 +6,19 @@ require "deck/slide"
 module Deck
  describe Slide do
 
-   def assert_html_like actual, expected
-     actual = actual.strip.gsub("\n\n", "\n")
-     expected = expected.strip.gsub("\n\n", "\n")
-     assert { actual == expected }
-   end
-
+   standard_slide_classes = ["slide", "markdown-body"]
 
   describe "classes" do
     it "by default" do
-      assert {Slide.new.classes == ["slide"]}
+      assert {Slide.new.classes == standard_slide_classes}
     end
 
     it "when passed a string" do
-      assert {Slide.new(:classes => "foo bar").classes == ["slide", "foo", "bar"]}
+      assert {Slide.new(:classes => "foo bar").classes == standard_slide_classes + ["foo", "bar"]}
     end
 
     it "when passed an array" do
-      assert {Slide.new(:classes => ["foo", "bar"]).classes == ["slide", "foo", "bar"]}
+      assert {Slide.new(:classes => ["foo", "bar"]).classes == standard_slide_classes + ["foo", "bar"]}
     end
   end
 
@@ -39,7 +34,7 @@ module Deck
 * uno
       MARKDOWN
       assert { slides.size == 1 }
-      assert { slides.first.classes == ["slide"] }
+      assert { slides.first.classes == standard_slide_classes }
       assert { slides.first.markdown_text == "# One\n* uno\n" }
     end
 
@@ -55,10 +50,10 @@ module Deck
       MARKDOWN
       assert { slides.size == 2 }
       slide = slides.first
-      assert { slide.classes == ["slide", "cool"] }
+      assert { slide.classes == standard_slide_classes + ["cool"] }
       assert { slides.first.markdown_text == "# One\n* uno\n\n" }
       slide = slides[1]
-      assert { slide.classes == ["slide", "neat"] }
+      assert { slide.classes == standard_slide_classes + ["neat"] }
       assert { slide.markdown_text == "# Two\n* dos\n" }
     end
 
@@ -74,10 +69,10 @@ module Deck
       MARKDOWN
       assert { slides.size == 2 }
       slide = slides.first
-      assert { slide.classes == ["slide", "cool"] }
+      assert { slide.classes == standard_slide_classes + ["cool"] }
       assert { slides.first.markdown_text == "# One\n* uno\n\n" }
       slide = slides[1]
-      assert { slide.classes == ["slide", "neat"] }
+      assert { slide.classes == standard_slide_classes + ["neat"] }
       assert { slide.markdown_text == "# Two\n* dos\n" }
     end
 
@@ -113,11 +108,11 @@ module Deck
         assert { slides.size == 2 }
 
         slide = slides.first
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slide.markdown_text == "# One\n* uno\n\n" }
 
         slide = slides[1]
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slide.markdown_text == "# Two\n* dos\n" }
       end
 
@@ -134,11 +129,11 @@ Two
         assert { slides.size == 2 }
 
         slide = slides[0]
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slide.markdown_text == "One\n===\n* uno\n\n" }
 
         slide = slides[1]
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slide.markdown_text == "Two\n===\n* dos\n" }
       end
 
@@ -164,19 +159,19 @@ Two
         assert { slides.size == 4 }
 
         slide = slides[0]
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slides.first.markdown_text == "# One\n* uno\n\n" }
 
         slide = slides[1]
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slide.markdown_text == "# Two\n* dos\n\n" }
 
         slide = slides[2]
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slide.markdown_text == "# Three\n* tres\n\n" }
 
         slide = slides[3]
-        assert { slide.classes == ["slide"] }
+        assert { slide.classes == standard_slide_classes }
         assert { slide.markdown_text == "# Four\n* quatro\n" }
 
       end
@@ -230,11 +225,12 @@ Two
 # foo
       MARKDOWN
       expected_html = <<-HTML
-<section class="slide" id="foo">
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body" id="foo">
 <h1>foo</h1>
 </section>
       HTML
-      assert { html == expected_html }
+      assert_html_like(html, expected_html)
     end
 
     it "converts a non-solo H1 into an H2 for deck.js style compatibility)" do
@@ -244,8 +240,9 @@ Two
 * baz
       MARKDOWN
       expected_html = <<-HTML
-<section class="slide" id="foo">
-<h2>foo</h2>
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body" id="foo">
+<h2 class="slide-title">foo</h2>
 
 <ul>
 <li>bar</li>
@@ -262,7 +259,8 @@ foo
 ===
       MARKDOWN
       expected_html = <<-HTML
-<section class="slide" id="foo">
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body" id="foo">
 <h1>foo</h1>
 </section>
       HTML
@@ -277,8 +275,9 @@ foo
 * baz
       MARKDOWN
       expected_html = <<-HTML
-<section class="slide" id="foo">
-<h2>foo</h2>
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body" id="foo">
+<h2 class="slide-title">foo</h2>
 
 <ul>
 <li>bar</li>
@@ -292,7 +291,8 @@ foo
     it "skips notes" do
       source = "foo\n.notes bar\nbaz"
       expected = <<-HTML
-<section class="slide" id="foo">
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body" id="foo">
 <p>foo
 baz</p>
 </section>
@@ -312,8 +312,9 @@ baz</p>
 * baz
       MARKDOWN
       expected_html = <<-HTML
-<section class="slide fancy pants" id="foo">
-<h2>foo</h2>
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body fancy pants" id="foo">
+<h2 class="slide-title">foo</h2>
 
 <ul>
 <li>bar</li>
@@ -325,7 +326,46 @@ baz</p>
     end
   end
 
-  describe "!VIDEO" do
+   describe "!BOX" do
+     it "opens / closes a div of class box" do
+       html = slide_from(<<-MARKDOWN).to_pretty
+# foo
+<!--BOX>
+```
+code
+```
+
+Breakfast:
+
+* eggs
+* toast
+<!--/BOX>
+       MARKDOWN
+       expected_html = <<-HTML
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body" id="foo">
+<h2 class="slide-title">foo</h2>
+<section class="box">
+<pre><code>code
+</code>
+</pre>
+<p>Breakfast:
+</p>
+<ul>
+<li>eggs</li>
+<li>toast
+</li>
+</ul>
+</section>
+</section>
+       HTML
+       assert_html_like html, expected_html
+     end
+
+   end
+
+
+   describe "!VIDEO" do
     it "embeds a YouTube video" do
       html = slide_from(<<-MARKDOWN).to_pretty
 # foo
@@ -333,8 +373,9 @@ baz</p>
 * bar
       MARKDOWN
       expected_html = <<-HTML
-<section class="slide" id="foo">
-<h2>foo</h2>
+<a class="slide-anchor" name="anchor/foo"></a>
+<section class="slide markdown-body" id="foo">
+<h2 class="slide-title">foo</h2>
 
 <iframe class="video youtube" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/xyzzy" frameborder="0"></iframe>
 
