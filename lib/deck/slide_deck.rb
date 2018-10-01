@@ -14,9 +14,8 @@ module Deck
         'goto',
         'menu',
         'navigation',
-        'status',
-        'hash',
         'scale',
+        'status',
     ]
     needs :slides => nil
 
@@ -79,7 +78,6 @@ module Deck
 
       stylesheet public_asset("coderay.css")
       stylesheet public_asset("tables.css")
-      stylesheet public_asset("toc.css")
 
       # todo: test
       if (@stylesheets)
@@ -103,9 +101,9 @@ module Deck
       script :src => public_asset('deck.js/jquery.min.js')
 
       jquery <<-JAVASCRIPT
-    $('.slide_toc .toggle').click(function(){
-      $('.slide_toc .table').toggle();
-    });
+        $('.toggle').click(function(){
+          $.deck('toggleMenu');
+        });
       JAVASCRIPT
 
       comment 'Deck Core and extensions'
@@ -175,19 +173,7 @@ module Deck
 
     def toc
       div.slide_toc do
-        div.toggle "[contents]"
-        div.table do
-          h2 @title
-          ul do
-            if @slides
-              @slides.each do |slide|
-                li do
-                  a slide.title, :href => "##{slide.slide_id}"
-                end
-              end
-            end
-          end
-        end
+        div.toggle "[menu]"
       end
     end
 
