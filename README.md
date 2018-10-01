@@ -64,8 +64,6 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
 * code syntax highlighting using Coderay
   * specify language at the top of the block using either ::: or @@@
   * e.g. `@@@ ruby`
-* there's a simple table of contents (click the [contents] link on lower left to toggle)
-  * this is currently very primitive and should be redone and/or integrated into deck.js
 * lines beginning with `.notes ` are skipped
 * each slide is preceded by an `<a class=\"slide-anchor\" name=\"anchor/slidename\">` so you can render slides into a top-to-bottom list and have a table of contents link to inner anchors (and format them with a height and/or a negative top, to allow spacing past a fixed page header)
 * slides include `markdown-body` css class, for compatibility with the [github-markdown](https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css) stylesheet
