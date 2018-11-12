@@ -75,9 +75,7 @@ module Deck
                    end
       stylesheet public_asset(theme_path), :id => "style-theme-link"
       stylesheet public_asset("deck.js/themes/transition/#{@transition}.css"), :id => "transition-theme-link"
-
-      stylesheet public_asset("coderay.css")
-      stylesheet public_asset("tables.css")
+      stylesheet public_asset("tables.css") # style for markdown tables
 
       # todo: test
       if (@stylesheets)
@@ -113,9 +111,14 @@ module Deck
         script :type => "text/javascript", :src => public_asset("deck.js/extensions/#{extension}/deck.#{extension}.js")
       end
 
+
       # fire up deck.js
       script raw("$(function(){$.deck('.slide');});")
 
+      # client-side code highlighting from https://highlightjs.org
+      stylesheet public_asset("highlight.css")
+      script src: public_asset("highlight.min.js")
+      script "hljs.initHighlightingOnLoad();"
     end
 
     def body_attributes

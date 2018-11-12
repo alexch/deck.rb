@@ -1,3 +1,7 @@
+#
+* fix bin/deck "theme" option bug
+* replace CodeRay with Highlight - https://highlightjs.org
+
 # 0.5.2
 * fix link CSS
 

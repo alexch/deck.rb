@@ -44,7 +44,7 @@ module Deck
       end
     end
 
-    slides.delete_if {|slide| slide.empty?}
+    slides.delete_if(&:empty?)
 
     slides
   end

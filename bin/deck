@@ -45,7 +45,7 @@ else
   port = options.delete(:port)
   slide_files = ARGV
   options = {
-      style: options[:style],
+      theme: options[:theme],
       transition: options[:transition],
   }
   Rack::Handler.default.run Deck::RackApp.build(slide_files, options), :Port => port

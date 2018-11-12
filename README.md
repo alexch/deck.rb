@@ -61,9 +61,9 @@ and you'll get a web server running on `http://localhost:4333` serving up a slid
   * fenced code blocks <http://michelf.com/projects/php-markdown/extra/#fenced-code-blocks>
 * mostly backwards-compatible with Showoff, i.e. you can specify a `showoff.json` file on the command line
 * if the parameter (or 'sections' entry) starts with '# ' then it's parsed as literal markdown, not a file
-* code syntax highlighting using Coderay
-  * specify language at the top of the block using either ::: or @@@
-  * e.g. `@@@ ruby`
+* code syntax highlighting using [highlight.js](https://highlightjs.org)
+  * specify language in a fenced code block
+  * e.g. <code>\`\`\` ruby</code>
 * lines beginning with `.notes ` are skipped
 * each slide is preceded by an `<a class=\"slide-anchor\" name=\"anchor/slidename\">` so you can render slides into a top-to-bottom list and have a table of contents link to inner anchors (and format them with a height and/or a negative top, to allow spacing past a fixed page header)
 * slides include `markdown-body` css class, for compatibility with the [github-markdown](https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css) stylesheet

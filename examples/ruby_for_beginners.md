@@ -57,11 +57,17 @@
 ## Variables
 ### words that hold information
 
-    ::: ruby
-    > my_variable = 5
-    => 5
-    > my_other_variable = "hi"
-    => "hi"
+``` ruby
+> my_variable = 5
+=> 5
+> my_other_variable = "hi"
+=> "hi"
+```
+
+``` javascript
+let my_variable = 5
+console.log(x);
+```
 
 !SLIDE
 ## Types of information

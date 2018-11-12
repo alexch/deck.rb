@@ -55,8 +55,13 @@ module Deck
       assert { last_response.body == expected_body }
     end
 
-    it "finds coderay.css" do
-      get "/coderay.css"
+    it "finds highlight.css" do
+      get "/highlight.css"
+      assert_ok
+    end
+
+    it "finds highlight.js" do
+      get "/highlight.min.js"
       assert_ok
     end
 
@@ -160,7 +165,7 @@ module Deck
         @app = Deck::RackApp.build ["#{files.root}/foo.md"]
       end
 
-      def assert_code_is_highlighted
+      def assert_code_is_highlighted(lang)
         get "/"
         assert_ok
         doc = noko_doc(last_response.body)
@@ -168,30 +173,21 @@ module Deck
         slides = doc.css('section.slide')
         assert { slides.size == 1 }
         slide = slides.first
-        code_block = slide.css('pre').first
-        assert { code_block.inner_html == "sum = <span class=\"integer\">2</span> + <span class=\"integer\">2</span>\n"     }
+        pre_block = slide.css('pre').first
+        code_block = pre_block.css('code').first
+        assert { code_block.attr('class') == lang }
       end
 
-      it "with :::" do
+      it "with ```" do
         build_app <<-MARKDOWN
 # some code
 
-    :::ruby
-    sum = 2 + 2
+```ruby
+sum = 2 + 2
+```
         MARKDOWN
 
-        assert_code_is_highlighted
-      end
-
-      it "with @@@" do
-        build_app <<-MARKDOWN
-# some code
-
-    @@@ruby
-    sum = 2 + 2
-        MARKDOWN
-
-        assert_code_is_highlighted
+        assert_code_is_highlighted('ruby')
       end
     end
 
