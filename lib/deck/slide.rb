@@ -99,7 +99,7 @@ module Deck
     if s.strip =~ /^\s*<?!VIDEO +([^\s>]*)>?$/
       youtube_id = $1
       # see https://developers.google.com/youtube/player_parameters
-      s = %Q(<iframe class="video youtube" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/#{youtube_id}" frameborder="0"></iframe>\n)
+      s = %Q(<div class="video-container"><iframe class="video youtube" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/#{youtube_id}" frameborder="0" allowfullscreen></iframe></div>\n)
     end
     @markdown_text << s
     @markdown_text << "\n"

@@ -376,7 +376,9 @@ Breakfast:
 <section class="slide markdown-body" id="foo">
 <h2 class="slide-title">foo</h2>
 
-<iframe class="video youtube" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/xyzzy" frameborder="0"></iframe>
+<div class="video-container">
+<iframe class="video youtube" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/xyzzy" frameborder="0" allowfullscreen></iframe>
+</div>
 
 <ul>
 <li>bar</li>
