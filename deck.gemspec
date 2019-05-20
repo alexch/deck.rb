@@ -23,7 +23,7 @@ deck.js (http://imakewebthings.github.com/deck.js) is a JavaScript library for b
   s.add_dependency "redcarpet", "~> 2"
   s.add_dependency "rack", ">= 1.4.1"
   s.add_dependency "thin"  # forget webrick
-  s.add_dependency "trollop"
+  s.add_dependency "optimist", "~> 3.0"
   s.add_dependency "nokogiri"
   s.add_dependency "json"
 end

@@ -3,15 +3,14 @@
 here = File.expand_path(File.dirname(__FILE__))
 $: << File.join(here, '..', 'lib')
 
-require "trollop"
+require "optimist"
 require "rack"
 require "deck"
 require "deck/rack_app"
 require "deck/version"
 require "thin" # i hate webrick
 
-# todo: use the newer version of Trollop with the less offensive name
-options = Trollop.options do
+options = Optimist.options do
   version "deck v#{Deck::VERSION}"
   banner version
   banner "Usage: deck [options] [slides]"
